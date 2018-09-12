@@ -14,13 +14,15 @@ exports.deepCopyObj = function (obj) {
  * @param value 值
  */
 exports.chainObject = function (chainList, value) {
-    var result = value;
+    var result;
+    var value_ = exports.deepCopyObj(value);
     for (var i = chainList.length - 1; i >= 0; i--) {
         var key = chainList[i];
         var item = {};
-        item[key] = result;
-        result = item;
+        item[key] = value_;
+        value_ = item;
     }
+    result = value_;
     return result;
 };
 //# sourceMappingURL=ObjcectPro.js.map
