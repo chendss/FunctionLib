@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/extends.ts",
+            "program": "${workspaceFolder}/typescript/extends.ts",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
