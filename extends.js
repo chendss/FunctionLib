@@ -1,28 +1,31 @@
-const log = function() {
-    console.log(...arguments)
-}
-
-const copyObj_ = function(obj) {
-    let result = JSON.parse(JSON.stringify(obj))
-    return result
-}
-
-const chainObject = function(chainList, value) {
-    let result = value
-    for (let i = chainList.length - 1; i >= 0; i--) {
-        let key = chainList[i]
-        let item = {}
-        item[key] = result
-        result = item
+"use strict";
+var log = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
     }
-    return result
-}
-
-const deepMergeObj = function(...objectList){
-    class result {}
-
-}
-
-log(new Object())
-
-
+    console.log.apply(console, args);
+};
+var copyObj_ = function (obj) {
+    var result = JSON.parse(JSON.stringify(obj));
+    return result;
+};
+var chainObject = function (chainList, value) {
+    var result = value;
+    for (var i = chainList.length - 1; i >= 0; i--) {
+        var key = chainList[i];
+        var item = {};
+        item[key] = result;
+        result = item;
+    }
+    return result;
+};
+var deepMergeObj = function () {
+    var objectList = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        objectList[_i] = arguments[_i];
+    }
+};
+var rest = chainObject(["fuck", "fuck3"], "111");
+log(rest);
+//# sourceMappingURL=extends.js.map
