@@ -2,7 +2,7 @@
  * 深度复制对象
  * @param obj 对象
  */
-export const deepCopyObj = function(obj: any) {
+export const deepCopyObj = function(obj: any): any {
     let result = JSON.parse(JSON.stringify(obj))
     return result
 }
@@ -12,15 +12,13 @@ export const deepCopyObj = function(obj: any) {
  * @param chainList 数组键
  * @param value 值
  */
-export const chainObject = function(chainList: string[], value: any) {
-    let result: Object
-    let value_ = deepCopyObj(value)
+export const chainObject = function(chainList: string[], value: any): object {
+    let result: any = deepCopyObj(value)
     for (let i = chainList.length - 1; i >= 0; i--) {
         let key = chainList[i]
         let item: any = {}
-        item[key] = value_
-        value_ = item
+        item[key] = result
+        result = item
     }
-    result = value_
     return result
 }
