@@ -15,8 +15,9 @@ exports.deepCopyObj = function (obj) {
  */
 exports.chainObject = function (chainList, value) {
     var result = exports.deepCopyObj(value);
-    for (var i = chainList.length - 1; i >= 0; i--) {
-        var key = chainList[i];
+    var chainListCopy = chainList.reverse();
+    for (var _i = 0, chainListCopy_1 = chainListCopy; _i < chainListCopy_1.length; _i++) {
+        var key = chainListCopy_1[_i];
         var item = {};
         item[key] = result;
         result = item;
