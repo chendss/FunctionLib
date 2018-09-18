@@ -1,7 +1,13 @@
 // eg
-let target: Array<any> = [[null], [undefined], [""], [{}], [1, 2, 3]]
+let target: Array<any> = [
+    [null],
+    [undefined],
+    [""],
+    [{ b: 2, a: 1 }],
+    [1, 2, 3]
+]
 
-let input: Array<any> = [null, undefined, "", {}, [1, 2, 3]]
+let input: Array<any> = [null, undefined, "", { a: 1, b: 2 }, [1, 2, 3]]
 
 const test = function(value1, value2): boolean {
     return false
