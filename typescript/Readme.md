@@ -13,3 +13,4 @@
 ### Array - ArrayPro
 
 - `splitArray ` 等分一个数组
+- `unshiftPro` 加强版从数组第一位插入元素。不影响性能
