@@ -22,18 +22,18 @@ def close(pid):
 
 
 # 累加器
-def accumulatord(q, num):
+def accumulatord(self, num):
     '''每调用一次 +1'''
 
     # q = Queue()
-    re = q.get()
-    if not re:
+    to = self.get()
+    if to is None:
         log('close')
         return
 
     new_num = num + 1
-    re.put(new_num)
-    return accumulatord(q, new_num)
+    to.put(new_num)
+    return accumulatord(self, new_num)
 
 
 # def loop(acc, self, n=10):
