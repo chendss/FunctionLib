@@ -14,4 +14,15 @@ exports.splitArray = function (array, n) {
     }
     return result;
 };
+/**
+* 加强版数组unshift
+*
+* @param {any[]} array
+* @param {*} item
+*/
+exports.unshiftPro = function (array, item) {
+    array.reverse();
+    array.push(item);
+    array.reverse();
+};
 //# sourceMappingURL=ArrayPro.js.map
