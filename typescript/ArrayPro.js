@@ -15,14 +15,13 @@ exports.splitArray = function (array, n) {
     return result;
 };
 /**
-* 加强版数组unshift
-*
-* @param {any[]} array
-* @param {*} item
-*/
-exports.unshiftPro = function (array, item) {
-    array.reverse();
-    array.push(item);
-    array.reverse();
+ * 将数组合并目标数组前
+ *
+ * @param {Array<any>} source
+ * @param {Array<any>} target
+ */
+exports.concatFront = function (source, target) {
+    var result = target.concat(source);
+    return result;
 };
 //# sourceMappingURL=ArrayPro.js.map

@@ -1,3 +1,4 @@
+import { log } from "./DebugPro"
 /**
  * 等分数组
  *
@@ -5,7 +6,7 @@
  * @param {*} n
  * @returns
  */
-export const splitArray = function (array: any[], n: number): any[] {
+export const splitArray = function(array: any[], n: number): any[] {
     let result = []
     for (let i = 0, len = array.length; i < len; i += n) {
         result.push(array.slice(i, i + n))
@@ -14,13 +15,15 @@ export const splitArray = function (array: any[], n: number): any[] {
 }
 
 /**
-* 加强版数组unshift
-*
-* @param {any[]} array
-* @param {*} item
-*/
-export const unshiftPro = function (array: any[], item: any): void {
-    array.reverse()
-    array.push(item)
-    array.reverse()
+ * 将数组合并目标数组前
+ *
+ * @param {Array<any>} source
+ * @param {Array<any>} target
+ */
+export const concatFront = function(
+    source: Array<any>,
+    target: Array<any>
+): Array<any> {
+    let result: Array<any> = target.concat(source)
+    return result
 }

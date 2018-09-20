@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * 打印函数-console.log
  * @param args
@@ -11,4 +11,3 @@ exports.log = function () {
     }
     console.log.apply(console, args);
 };
-//# sourceMappingURL=DebugPro.js.map
