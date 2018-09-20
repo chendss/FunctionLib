@@ -42,7 +42,8 @@ export const type = function(obj: any): string {
         Undefined: "未定义",
         Object: "对象",
         Array: "数组",
-        String: "字符串"
+        String: "字符串",
+        Null: "空值",
     }
     let type: string = Object.prototype.toString.call(obj)
     type = type.substring(8, type.length - 1)
