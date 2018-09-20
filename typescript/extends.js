@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ObjcectPro_1 = require("./ObjcectPro");
-var DebugPro_1 = require("./DebugPro");
+const objectTools_1 = require("./objectTools");
+const debug_1 = require("./debug");
 // let test_list = (function(): Array<number> {
 //     let length: number = 10000
 //     let result: Array<number> = []
@@ -10,10 +10,14 @@ var DebugPro_1 = require("./DebugPro");
 //     }
 //     return result
 // })()
-var test = [1, undefined, NaN, {}, [], [], "11"];
-test.forEach(function (ele) {
-    DebugPro_1.log(ObjcectPro_1.type(ele));
-});
+const testType = function () {
+    let testArr = [1, undefined, NaN, {}, [], [], "11"];
+    for (let i of testArr) {
+        debug_1.log(objectTools_1.type(i));
+        debug_1.log(objectTools_1.typeZh(i));
+    }
+};
+testType();
 // let dt1: number = runTime(function() {
 //     let list: Array<number> = [1, 2, 3]
 // })

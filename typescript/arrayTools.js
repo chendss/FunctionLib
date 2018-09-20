@@ -8,8 +8,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @returns
  */
 exports.splitArray = function (array, n) {
-    var result = [];
-    for (var i = 0, len = array.length; i < len; i += n) {
+    let result = [];
+    for (let i = 0, len = array.length; i < len; i += n) {
         result.push(array.slice(i, i + n));
     }
     return result;
@@ -21,7 +21,7 @@ exports.splitArray = function (array, n) {
  * @param {Array<any>} target
  */
 exports.concatFront = function (source, target) {
-    var result = target.concat(source);
+    let result = target.concat(source);
     return result;
 };
-//# sourceMappingURL=ArrayPro.js.map
+//# sourceMappingURL=arrayTools.js.map

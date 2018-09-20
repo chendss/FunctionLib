@@ -2,7 +2,7 @@
  * 深度复制对象
  * @param obj 对象
  */
-export const deepCopyObj = function(obj: any): any {
+export const deepCopy = function <T>(obj: T): T {
     let result = JSON.parse(JSON.stringify(obj))
     return result
 }
@@ -13,7 +13,7 @@ export const deepCopyObj = function(obj: any): any {
  * @param value 值
  */
 export const chainObject = function(chainList: string[], value: any): object {
-    let result: any = deepCopyObj(value)
+    let result: any = deepCopy(value)
     let chainListCopy = chainList.reverse()
     for (let key of chainListCopy) {
         let item: any = {}
@@ -37,20 +37,26 @@ export const isNaN = function(obj: any): boolean {
  * @param obj 
  */
 export const type = function(obj: any): string {
-    let outDict: any = {
+    let typeStr = Object.prototype.toString.call(obj)
+    typeStr = typeStr.substring(8, typeStr.length - 1)
+    if (isNaN(obj)) {
+        return "NaN"
+    } else {
+        return typeStr
+    }
+}
+
+export const typeZh = function (obj: any): string {
+    const outDict: {[name: string]: string} = {
         Number: "数字",
         Undefined: "未定义",
         Object: "对象",
         Array: "数组",
         String: "字符串",
         Null: "空值",
+        NaN: "NaN",
     }
-    let type: string = Object.prototype.toString.call(obj)
-    type = type.substring(8, type.length - 1)
-    if (isNaN(obj)) {
-        return "NaN"
-    } else {
-        let result = outDict[type] as string
-        return result
-    }
+    const typeStr = outDict[type(obj)]
+    return typeStr
 }
+
