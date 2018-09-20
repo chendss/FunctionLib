@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.runTime = function (callback) {
     var start = new Date();
     var startTime = start.getTime();
@@ -8,3 +8,4 @@ exports.runTime = function (callback) {
     var endTime = end.getTime();
     return endTime - startTime;
 };
+//# sourceMappingURL=timePro.js.map
