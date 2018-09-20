@@ -1,4 +1,4 @@
-import { log } from "./DebugPro"
+import { log } from "./debug"
 /**
  * 等分数组
  *
@@ -6,7 +6,7 @@ import { log } from "./DebugPro"
  * @param {*} n
  * @returns
  */
-export const splitArray = function(array: any[], n: number): any[] {
+export const splitArray = function <T>(array: T[], n: number): T[][] {
     let result = []
     for (let i = 0, len = array.length; i < len; i += n) {
         result.push(array.slice(i, i + n))
@@ -20,10 +20,7 @@ export const splitArray = function(array: any[], n: number): any[] {
  * @param {Array<any>} source
  * @param {Array<any>} target
  */
-export const concatFront = function(
-    source: Array<any>,
-    target: Array<any>
-): Array<any> {
-    let result: Array<any> = target.concat(source)
+export const concatFront = function <T>(source: T[], target: T[]): T[] {
+    let result = target.concat(source)
     return result
 }
