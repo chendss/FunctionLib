@@ -24,10 +24,18 @@ exports.chainObject = function (chainList, value) {
     }
     return result;
 };
+/**
+ * 判断是否为NaN
+ * @param obj
+ */
 exports.isNaN = function (obj) {
     var result = obj === obj;
     return !result;
 };
+/**
+ * 判断元素的正确类型
+ * @param obj
+ */
 exports.type = function (obj) {
     var outDict = {
         Number: "数字",

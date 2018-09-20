@@ -23,11 +23,19 @@ export const chainObject = function(chainList: string[], value: any): object {
     return result
 }
 
+/**
+ * 判断是否为NaN
+ * @param obj 
+ */
 export const isNaN = function(obj: any): boolean {
     let result = obj === obj
     return !result
 }
 
+/**
+ * 判断元素的正确类型
+ * @param obj 
+ */
 export const type = function(obj: any): string {
     let outDict: any = {
         Number: "数字",
