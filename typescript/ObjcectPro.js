@@ -24,4 +24,26 @@ exports.chainObject = function (chainList, value) {
     }
     return result;
 };
+exports.isNaN = function (obj) {
+    var result = obj === obj;
+    return !result;
+};
+exports.type = function (obj) {
+    var outDict = {
+        Number: "数字",
+        Undefined: "未定义",
+        Object: "对象",
+        Array: "数组",
+        String: "字符串"
+    };
+    var type = Object.prototype.toString.call(obj);
+    type = type.substring(8, type.length - 1);
+    if (exports.isNaN(obj)) {
+        return "NaN";
+    }
+    else {
+        var result = outDict[type];
+        return result;
+    }
+};
 //# sourceMappingURL=ObjcectPro.js.map
