@@ -9,7 +9,7 @@ import { log } from "./debug"
 //     let result: Array<number> = []
 //     for (let i: number = 0; i < length; i++) {
 //         result.push(i)
-//     }
+//    s }
 //     return result
 // })()
 
