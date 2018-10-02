@@ -36,13 +36,13 @@ exports.isNaN = function (obj) {
  * @param obj
  */
 exports.type = function (obj) {
-    let typeStr = Object.prototype.toString.call(obj);
-    typeStr = typeStr.substring(8, typeStr.length - 1);
+    let result = Object.prototype.toString.call(obj);
+    result = result.substring(8, result.length - 1);
     if (exports.isNaN(obj)) {
         return "NaN";
     }
     else {
-        return typeStr;
+        return result;
     }
 };
 exports.typeZh = function (obj) {
@@ -55,7 +55,6 @@ exports.typeZh = function (obj) {
         Null: "空值",
         NaN: "NaN",
     };
-    const typeStr = outDict[exports.type(obj)];
+    let typeStr = outDict[exports.type(obj)];
     return typeStr;
 };
-//# sourceMappingURL=objectTools.js.map

@@ -1,16 +1,40 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.q = function (queryName) {
-    return document.querySelector(queryName);
+/**
+ * 根据选择器获得一个匹配的dom对象
+ *
+ * @param {string} selector css选择器
+ * @returns {HTMLElement} DOM对象
+ */
+exports.q = function (selector) {
+    return document.querySelector(selector);
 };
-exports.qs = function (queryName) {
-    return document.querySelectorAll(queryName);
+/**
+ * 根据选择器获得所有匹配的dom对象
+ *
+ * @param {string} selector
+ * @returns {NodeListOf<Element>}
+ */
+exports.qs = function (selector) {
+    return document.querySelectorAll(selector);
 };
-exports.bindClick = function (queryName, handle) {
-    const querys = exports.qs(queryName);
-    querys.forEach(q => q.addEventListener('click', handle, false));
+/**
+ * 绑定该选择器匹配的所有 DOM对象的click事件
+ *
+ * @param {string} selector css选择器
+ * @param {(e: Event) => void} handle click回调函数
+ */
+exports.bindClick = function (selector, handle) {
+    const queries = exports.qs(selector);
+    queries.forEach(q => q.addEventListener("click", handle, false));
 };
-exports.bindInput = function (queryName, handle) {
-    const querys = exports.qs(queryName);
-    querys.forEach(q => q.addEventListener('input', handle, false));
+/**
+ * 绑定该选择器匹配的所有 DOM对象的input事件
+ *
+ * @param {string} selector css选择器
+ * @param {(e: Event) => void} handle click回调函数
+ */
+exports.bindInput = function (selector, handle) {
+    const queries = exports.qs(selector);
+    queries.forEach(q => q.addEventListener("input", handle, false));
 };

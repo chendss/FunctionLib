@@ -7,4 +7,3 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.log = function (...args) {
     console.log(...args);
 };
-//# sourceMappingURL=debug.js.map

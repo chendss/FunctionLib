@@ -13,10 +13,10 @@ export const deepCopy = function <T>(obj: T): T {
  * @param value 值
  */
 export const chainObject = function(chainList: string[], value: any): object {
-    let result: any = deepCopy(value)
+    let result = deepCopy(value)
     let chainListCopy = chainList.reverse()
     for (let key of chainListCopy) {
-        let item: any = {}
+        let item: {[name: string]: any} = {}
         item[key] = result
         result = item
     }
@@ -37,12 +37,12 @@ export const isNaN = function(obj: any): boolean {
  * @param obj 
  */
 export const type = function(obj: any): string {
-    let typeStr = Object.prototype.toString.call(obj)
-    typeStr = typeStr.substring(8, typeStr.length - 1)
+    let result = Object.prototype.toString.call(obj)
+    result = result.substring(8, result.length - 1)
     if (isNaN(obj)) {
         return "NaN"
     } else {
-        return typeStr
+        return result
     }
 }
 
@@ -56,7 +56,7 @@ export const typeZh = function (obj: any): string {
         Null: "空值",
         NaN: "NaN",
     }
-    const typeStr = outDict[type(obj)]
+    let typeStr = outDict[type(obj)]
     return typeStr
 }
 
