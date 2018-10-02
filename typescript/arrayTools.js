@@ -37,3 +37,34 @@ exports.anyToArray = function (val) {
         return [val];
     }
 };
+/**
+ * 返回两个数组的交集
+ * @param list1 数组1
+ * @param list2 数组2
+ */
+exports.intersection = function (list1, list2) {
+    let list1_ = list1.slice();
+    let list2_ = list2.slice();
+    let result = [];
+    for (let item of list1_) {
+        if (list2_.includes(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};
+/**
+ * 判断两个数组是否有交集
+ * @param list1 数组1
+ * @param list2 数组2
+ */
+exports.isIntersection = function (list1, list2) {
+    let list1_ = list1.slice();
+    let list2_ = list2.slice();
+    for (let item of list1_) {
+        if (list2_.includes(item)) {
+            return true;
+        }
+    }
+    return false;
+};

@@ -17,6 +17,8 @@
 - `anyToArray` 将任意参数变成数组
 - `chunk ` 分割数组
 - `concatFront `  将数组合并目标数组前 
+- `intersection`  返回两个数组的交集
+- `isIntersection` 判断两个数组是否有交集
 
 
 ### Time - time
@@ -28,3 +30,6 @@
 - `qs` 根据选择器获得所有匹配的dom对象
 - `bindClick` 绑定该选择器匹配的所有 DOM对象的click事件
 - `bindInput` 绑定该选择器匹配的所有 DOM对象的input事件
+
+### http相关工具 - httpTools
+- `param` 将对象转化成url查询字符串

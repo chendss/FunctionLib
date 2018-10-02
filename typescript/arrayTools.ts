@@ -37,3 +37,42 @@ export const anyToArray = function(val: any): Array<any> {
         return [val]
     }
 }
+
+/**
+ * 返回两个数组的交集
+ * @param list1 数组1
+ * @param list2 数组2
+ */
+export const intersection = function(
+    list1: Array<string | number>,
+    list2: Array<string | number>
+): Array<string | number> {
+    let list1_ = list1.slice()
+    let list2_ = list2.slice()
+    let result: Array<string | number> = []
+    for (let item of list1_) {
+        if (list2_.includes(item)) {
+            result.push(item)
+        }
+    }
+    return result
+}
+
+/**
+ * 判断两个数组是否有交集
+ * @param list1 数组1
+ * @param list2 数组2
+ */
+export const isIntersection = function(
+    list1: Array<string | number>,
+    list2: Array<string | number>
+): boolean {
+    let list1_ = list1.slice()
+    let list2_ = list2.slice()
+    for (let item of list1_) {
+        if (list2_.includes(item)) {
+            return true
+        }
+    }
+    return false
+}
