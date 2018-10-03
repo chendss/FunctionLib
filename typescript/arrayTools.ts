@@ -3,8 +3,8 @@ import { log } from "./debug"
 /**
  * 分割数组
  *
- * @param {*} array
- * @param {*} n
+ * @param {Array} array
+ * @param {number} n
  * @returns
  */
 export const chunk = function<T>(array: T[], n: number): T[][] {

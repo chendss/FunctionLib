@@ -4,8 +4,8 @@ const objectTools_1 = require("./objectTools");
 /**
  * 分割数组
  *
- * @param {*} array
- * @param {*} n
+ * @param {Array} array
+ * @param {number} n
  * @returns
  */
 exports.chunk = function (array, n) {
