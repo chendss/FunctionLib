@@ -18,8 +18,10 @@ export const chunk = function<T>(array: T[], n: number): T[][] {
 /**
  * 将数组合并目标数组前
  *
- * @param {Array<any>} source
- * @param {Array<any>} target
+ * @template T
+ * @param {T[]} source
+ * @param {T[]} target
+ * @returns {T[]}
  */
 export const concatFront = function<T>(source: T[], target: T[]): T[] {
     let result = target.concat(source)
@@ -28,7 +30,9 @@ export const concatFront = function<T>(source: T[], target: T[]): T[] {
 
 /**
  * 将任意参数变成数组
- * @param val 传入参数
+ *
+ * @param {*} val
+ * @returns {Array<any>}
  */
 export const anyToArray = function(val: any): Array<any> {
     if (typeZh(val) === "数组") {
@@ -40,28 +44,26 @@ export const anyToArray = function(val: any): Array<any> {
 
 /**
  * 返回两个数组的交集
- * @param list1 数组1
- * @param list2 数组2
+ *
+ * @param {(Array<string | number>)} list1
+ * @param {(Array<string | number>)} list2
+ * @returns {(Array<string | number>)}
  */
 export const intersection = function(
     list1: Array<string | number>,
     list2: Array<string | number>
 ): Array<string | number> {
-    let list1_ = list1.slice()
-    let list2_ = list2.slice()
     let result: Array<string | number> = []
-    for (let item of list1_) {
-        if (list2_.includes(item)) {
-            result.push(item)
-        }
-    }
+    result = list1.filter(item => list2.includes(item))
     return result
 }
 
 /**
  * 判断两个数组是否有交集
- * @param list1 数组1
- * @param list2 数组2
+ *
+ * @param {(Array<string | number>)} list1
+ * @param {(Array<string | number>)} list2
+ * @returns {boolean}
  */
 export const isIntersection = function(
     list1: Array<string | number>,
@@ -75,4 +77,12 @@ export const isIntersection = function(
         }
     }
     return false
+}
+
+const isSetEquality = function(S1: Array<string|number>, S2: Array<string|number>): boolean {
+    if (S1.length !== S2.length) {
+        return false
+    } else {
+        
+    }
 }

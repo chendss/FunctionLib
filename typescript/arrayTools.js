@@ -18,8 +18,8 @@ exports.chunk = function (array, n) {
 /**
  * 将数组合并目标数组前
  *
- * @param {Array<any>} source
- * @param {Array<any>} target
+ * @param {T[]} source
+ * @param {T[]} target
  */
 exports.concatFront = function (source, target) {
     let result = target.concat(source);

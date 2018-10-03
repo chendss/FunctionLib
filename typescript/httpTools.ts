@@ -1,9 +1,14 @@
 import { log } from "./debug"
 import { isIntersection } from "./arrayTools"
 import { typeZh } from "./objectTools"
+
 /**
  * 将对象转化成url查询字符串
- * @param obj 对象
+ *
+ * @param {({
+ *     [name: string]: string | number
+ * })} obj
+ * @returns {string}
  */
 export const param = function(obj: {
     [name: string]: string | number

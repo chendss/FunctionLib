@@ -1,6 +1,7 @@
 /**
  * 打印函数-console.log
- * @param args
+ *
+ * @param {...Array<any>} args
  */
 export const log = function(...args: Array<any>): void {
     console.log(...args)
