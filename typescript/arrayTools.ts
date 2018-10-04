@@ -79,10 +79,27 @@ export const isIntersection = function(
     return false
 }
 
-const isSetEquality = function(S1: Array<string|number>, S2: Array<string|number>): boolean {
-    if (S1.length !== S2.length) {
+/**
+ * 判断两个集合是否相等
+ *
+ * @param {(Array<string | number>)} S1
+ * @param {(Array<string | number>)} S2
+ * @returns {boolean}
+ */
+export const isSetEquality = function(
+    S1: Array<string | number>,
+    S2: Array<string | number>
+): boolean {
+    let len1 = S1.length
+    let len2 = S2.length
+    if (len1 !== len2) {
         return false
     } else {
-        
+        let intersection_ = intersection(S1, S2)
+        if (len1 === intersection_.length) {
+            return true
+        } else {
+            return false
+        }
     }
 }
