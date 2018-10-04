@@ -72,3 +72,39 @@ export const typeZh = function(obj: any): string {
     let typeStr = outDict[type(obj)]
     return typeStr
 }
+
+export const isEqual = function(a: any, b: any): boolean {
+    if (a instanceof Object) {
+        if (b instanceof Object) {
+            if (Object.keys(a).length !== Object.keys(b).length) {
+                return false
+            } else {
+                for (let key of Object.keys(a)) {
+                    if (!isEqual(a[key], b[key])) {
+                        return false
+                    }
+                }
+                return true
+            }
+        } else {
+            return false
+        }
+    } else if (a instanceof Array) {
+        if (b instanceof Array) {
+            if (a.length !== b.length) {
+                return false
+            } else {
+                for (let index in a) {
+                    if (!isEqual(a[index], b[index])) {
+                        return false
+                    }
+                }
+                return true
+            }
+        } else {
+            return false
+        }
+    } else {
+        return a === b
+    }
+}

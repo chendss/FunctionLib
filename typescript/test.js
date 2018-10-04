@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const httpTools_1 = require("./httpTools");
+const arrayTools_1 = require("./arrayTools");
 const debug_1 = require("./debug");
-debug_1.log(httpTools_1.param({ 'name': 1, 'fuck': '11' }));
+let test_data = [[[1]], [1, [1, 2], [1, 2, [[[1], [2]]]]]];
+debug_1.log(arrayTools_1.flattenDeep(test_data));

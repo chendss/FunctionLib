@@ -4,7 +4,11 @@ const arrayTools_1 = require("./arrayTools");
 const objectTools_1 = require("./objectTools");
 /**
  * 将对象转化成url查询字符串
- * @param obj 对象
+ *
+ * @param {({
+ *     [name: string]: string | number
+ * })} obj
+ * @returns {string}
  */
 exports.param = function (obj) {
     let result = [];

@@ -16,10 +16,54 @@ exports.chunk = function (array, n) {
     return result;
 };
 /**
+ * 判断数组是否值类型数组
+ *
+ * @template T
+ * @param {T[]} array
+ * @returns {boolean}
+ */
+exports.isValueList = function (array) {
+    for (let item of array) {
+        let itemType = objectTools_1.typeZh(item);
+        if (itemType !== "字符串" || objectTools_1.typeZh(item) !== "数字") {
+            return false;
+        }
+    }
+    return true;
+};
+/**
+ * 去除数组重复项，兼容类型：值类型 和 值是值类型的对象
+ *
+ * @template T
+ * @param {T[]} array
+ * @param {string} [key=""]
+ * @returns {T[]}
+ */
+exports.removalRepeat = function (array, key = "") {
+    if (exports.isValueList(array)) {
+        let result = Array.from(new Set(array));
+        return result;
+    }
+    else {
+        let result = [];
+        let array_ = array;
+        for (let source of array_) {
+            let len = result.filter(target => target[key] === source[key])
+                .length;
+            if (len === 0) {
+                result.push(source);
+            }
+        }
+        return result;
+    }
+};
+/**
  * 将数组合并目标数组前
  *
+ * @template T
  * @param {T[]} source
  * @param {T[]} target
+ * @returns {T[]}
  */
 exports.concatFront = function (source, target) {
     let result = target.concat(source);
@@ -27,7 +71,9 @@ exports.concatFront = function (source, target) {
 };
 /**
  * 将任意参数变成数组
- * @param val 传入参数
+ *
+ * @param {*} val
+ * @returns {Array<any>}
  */
 exports.anyToArray = function (val) {
     if (objectTools_1.typeZh(val) === "数组") {
@@ -39,24 +85,23 @@ exports.anyToArray = function (val) {
 };
 /**
  * 返回两个数组的交集
- * @param list1 数组1
- * @param list2 数组2
+ *
+ * @param {(Array<string | number>)} list1
+ * @param {(Array<string | number>)} list2
+ * @returns {(Array<string | number>)}
  */
 exports.intersection = function (list1, list2) {
-    let list1_ = list1.slice();
-    let list2_ = list2.slice();
-    let result = [];
-    for (let item of list1_) {
-        if (list2_.includes(item)) {
-            result.push(item);
-        }
-    }
+    let intersectionList = [];
+    intersectionList = list1.filter(item => list2.includes(item));
+    let result = exports.removalRepeat(intersectionList);
     return result;
 };
 /**
  * 判断两个数组是否有交集
- * @param list1 数组1
- * @param list2 数组2
+ *
+ * @param {(Array<string | number>)} list1
+ * @param {(Array<string | number>)} list2
+ * @returns {boolean}
  */
 exports.isIntersection = function (list1, list2) {
     let list1_ = list1.slice();
@@ -67,4 +112,55 @@ exports.isIntersection = function (list1, list2) {
         }
     }
     return false;
+};
+/**
+ * 判断两个集合是否相等
+ *
+ * @param {(Array<string | number>)} S1
+ * @param {(Array<string | number>)} S2
+ * @returns {boolean}
+ */
+exports.isSetEquality = function (S1, S2) {
+    let len1 = S1.length;
+    let len2 = S2.length;
+    if (len1 !== len2) {
+        return false;
+    }
+    else {
+        let intersection_ = exports.intersection(S1, S2);
+        let len = intersection_.length;
+        return len === len1;
+    }
+};
+/**
+ * 展开数组
+ *
+ * @param {Array<any>} array
+ * @returns {(Array<string | number>)}
+ */
+exports.flattenDeep = function (array) {
+    let result = [];
+    let arrayCopy = array.slice();
+    let newArray = [];
+    while (true) {
+        let hasArray = false;
+        for (let item of arrayCopy) {
+            if (item instanceof Array) {
+                hasArray = true;
+                newArray = newArray.concat(item);
+            }
+            else {
+                newArray.push(item);
+            }
+        }
+        if (hasArray) {
+            arrayCopy = newArray.slice();
+            newArray = [];
+        }
+        else {
+            result = newArray;
+            break;
+        }
+    }
+    return result;
 };

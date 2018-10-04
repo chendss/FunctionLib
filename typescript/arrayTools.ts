@@ -16,6 +16,49 @@ export const chunk = function<T>(array: T[], n: number): T[][] {
 }
 
 /**
+ * 判断数组是否值类型数组
+ *
+ * @template T
+ * @param {T[]} array
+ * @returns {boolean}
+ */
+export const isValueList = function<T>(array: T[]): boolean {
+    for (let item of array) {
+        let itemType = typeZh(item)
+        if (itemType !== "字符串" || typeZh(item) !== "数字") {
+            return false
+        }
+    }
+    return true
+}
+
+/**
+ * 去除数组重复项，兼容类型：值类型 和 值是值类型的对象
+ *
+ * @template T
+ * @param {T[]} array
+ * @param {string} [key=""]
+ * @returns {T[]}
+ */
+export const removalRepeat = function<T>(array: T[], key: string = ""): T[] {
+    if (isValueList(array)) {
+        let result = Array.from(new Set(array))
+        return result
+    } else {
+        let result: Array<{ [name: string]: any }> = []
+        let array_ = array as Array<{ [name: string]: any }>
+        for (let source of array_) {
+            let len = result.filter(target => target[key] === source[key])
+                .length
+            if (len === 0) {
+                result.push(source)
+            }
+        }
+        return result as T[]
+    }
+}
+
+/**
  * 将数组合并目标数组前
  *
  * @template T
@@ -53,8 +96,9 @@ export const intersection = function(
     list1: Array<string | number>,
     list2: Array<string | number>
 ): Array<string | number> {
-    let result: Array<string | number> = []
-    result = list1.filter(item => list2.includes(item))
+    let intersectionList: Array<string | number> = []
+    intersectionList = list1.filter(item => list2.includes(item))
+    let result = removalRepeat(intersectionList)
     return result
 }
 
@@ -96,10 +140,38 @@ export const isSetEquality = function(
         return false
     } else {
         let intersection_ = intersection(S1, S2)
-        if (len1 === intersection_.length) {
-            return true
+        let len = intersection_.length
+        return len === len1
+    }
+}
+
+/**
+ * 展开数组
+ *
+ * @param {Array<any>} array
+ * @returns {(Array<string | number>)}
+ */
+export const flattenDeep = function(array: Array<any>): Array<string | number> {
+    let result: Array<string | number> = []
+    let arrayCopy = array.slice()
+    let newArray: Array<string | number> = []
+    while (true) {
+        let hasArray = false
+        for (let item of arrayCopy) {
+            if (item instanceof Array) {
+                hasArray = true
+                newArray = newArray.concat(item)
+            } else {
+                newArray.push(item)
+            }
+        }
+        if (hasArray) {
+            arrayCopy = newArray.slice()
+            newArray = []
         } else {
-            return false
+            result = newArray
+            break
         }
     }
+    return result
 }
