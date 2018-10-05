@@ -25,7 +25,7 @@ exports.chunk = function (array, n) {
 exports.isValueList = function (array) {
     for (let item of array) {
         let itemType = objectTools_1.typeZh(item);
-        if (itemType !== "字符串" || objectTools_1.typeZh(item) !== "数字") {
+        if (!exports.isIntersection([itemType], ['字符串', '数字'])) {
             return false;
         }
     }

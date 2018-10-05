@@ -25,7 +25,7 @@ export const chunk = function<T>(array: T[], n: number): T[][] {
 export const isValueList = function<T>(array: T[]): boolean {
     for (let item of array) {
         let itemType = typeZh(item)
-        if (itemType !== "字符串" || typeZh(item) !== "数字") {
+        if (!isIntersection([itemType],['字符串','数字'])) {
             return false
         }
     }
@@ -45,8 +45,8 @@ export const removalRepeat = function<T>(array: T[], key: string = ""): T[] {
         let result = Array.from(new Set(array))
         return result
     } else {
-        let result: Array<{ [name: string]: any }> = []
-        let array_ = array as Array<{ [name: string]: any }>
+        let result: Array<IObject> = []
+        let array_ = array as Array<IObject>
         for (let source of array_) {
             let len = result.filter(target => target[key] === source[key])
                 .length

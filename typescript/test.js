@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const arrayTools_1 = require("./arrayTools");
+const time_1 = require("./time");
 const debug_1 = require("./debug");
-let test_data = [[[1]], [1, [1, 2], [1, 2, [[[1], [2]]]]]];
-debug_1.log(arrayTools_1.flattenDeep(test_data));
+let t = "2018-10-03";
+debug_1.log(t, time_1.toRelativeTime(t));

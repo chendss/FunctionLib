@@ -71,44 +71,20 @@ exports.typeZh = function (obj) {
     let typeStr = outDict[exports.type(obj)];
     return typeStr;
 };
-exports.isEqual = function (a, b) {
-    if (a instanceof Object) {
-        if (b instanceof Object) {
-            if (Object.keys(a).length !== Object.keys(b).length) {
-                return false;
-            }
-            else {
-                for (let key of Object.keys(a)) {
-                    if (!exports.isEqual(a[key], b[key])) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        else {
+exports.isEqual = function (source, target) {
+    return false;
+};
+/**
+ * 检查传入的参数是否有空值
+ *
+ * @param {...Array<any>} params
+ * @returns {boolean}
+ */
+exports.checkParameter = function (...params) {
+    for (let item of params) {
+        if (item == null || exports.isNaN(item)) {
             return false;
         }
     }
-    else if (a instanceof Array) {
-        if (b instanceof Array) {
-            if (a.length !== b.length) {
-                return false;
-            }
-            else {
-                for (let index in a) {
-                    if (!exports.isEqual(a[index], b[index])) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
-    }
-    else {
-        return a === b;
-    }
+    return true;
 };

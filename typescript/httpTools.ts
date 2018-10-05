@@ -10,9 +10,7 @@ import { typeZh } from "./objectTools"
  * })} obj
  * @returns {string}
  */
-export const param = function(obj: {
-    [name: string]: string | number
-}): string {
+export const param = function(obj: IObjectValue): string {
     let result: Array<string> = []
     for (let key in obj) {
         let val = obj[key]

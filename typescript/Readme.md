@@ -28,6 +28,7 @@
 ### Time - time
 
 -   `runTime` 计算同步函数执行时间
+-   `toRelativeTime` 返回友好时间 （xx 之前、刚）
 
 ### Dom 操作 - dom
 
@@ -39,3 +40,7 @@
 ### http 相关工具 - httpTools
 
 -   `param` 将对象转化成 url 查询字符串
+
+### 业务需求（难以分类） - business
+
+-   `rangSymbol` 范围转文字（[0,5] 5x 以下）
