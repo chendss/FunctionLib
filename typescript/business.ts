@@ -2,13 +2,10 @@
  * 范围转文字（[0,5] 5x以下）
  *
  * @param {string} symbol
- * @param {(Array<string | number>)} list
+ * @param {(IArrayValue)} list
  * @returns {string}
  */
-export const rangSymbol = function(
-    symbol: string,
-    list: Array<string | number>
-): string {
+export const rangSymbol = function(symbol: string, list: IArrayValue): string {
     let result = ""
     let [min, max] = [list[0], list[1]]
     if (min === 0) {

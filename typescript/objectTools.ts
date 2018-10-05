@@ -1,3 +1,5 @@
+import { log } from "./debug"
+import { isIntersection, isValueList } from "./arrayTools"
 /**
  * 深度复制对象
  *
@@ -12,8 +14,10 @@ export const deepCopy = function<T>(obj: T): T {
 
 /**
  * 链式对象生成函数
- * @param chainList 数组键
- * @param value 值
+ *
+ * @param {string[]} chainList
+ * @param {*} value
+ * @returns {object}
  */
 export const chainObject = function(chainList: string[], value: any): object {
     let result = deepCopy(value)
@@ -22,6 +26,22 @@ export const chainObject = function(chainList: string[], value: any): object {
         let item: IObject = {}
         item[key] = result
         result = item
+    }
+    return result
+}
+
+/**
+ * 浅度复制
+ *
+ * @param {*} src
+ * @returns
+ */
+export const shallowCopy = function(src: IObject) {
+    let result: IObject = {}
+    for (var prop in src) {
+        if (src.hasOwnProperty(prop)) {
+            result[prop] = src[prop]
+        }
     }
     return result
 }
@@ -73,8 +93,67 @@ export const typeZh = function(obj: any): string {
     return typeStr
 }
 
+/**
+ * 判断两个对象是否相等
+ *
+ * @param {IObject} source
+ * @param {IObject} target
+ * @returns {boolean}
+ */
+export const isEqualObject = function(
+    source: IObject,
+    target: IObject
+): boolean {
+    let sourceKeys = Object.keys(source)
+    let targetLen = Object.keys(target).length
+    if (sourceKeys.length !== targetLen) return false
+    for (let key of sourceKeys) {
+        if (!isEqual(source[key], target[key])) {
+            return false
+        }
+    }
+    return true
+}
+
+/**
+ * 判断两个数组是否相等
+ *
+ * @param {Array<any>} source
+ * @param {Array<any>} target
+ * @returns {boolean}
+ */
+export const isEqualArray = function(
+    source: Array<any>,
+    target: Array<any>
+): boolean {
+    if (source.length !== target.length) return false
+    for (let index in source) {
+        if (!isEqual(source[index], target[index])) {
+            return false
+        }
+    }
+    return true
+}
+
+/**
+ * 判断两个元素是否相等
+ *
+ * @param {*} source
+ * @param {*} target
+ * @returns {boolean}
+ */
 export const isEqual = function(source: any, target: any): boolean {
-    return false
+    let [sourceType, targetType] = [typeZh(source), typeZh(target)]
+    if (sourceType !== targetType) return false
+    if (isValueList([source, target])) {
+        return source === target
+    } else if (sourceType === "对象") {
+        return isEqualObject(source as IObject, target as IObject)
+    } else if (sourceType === "数组") {
+        return isEqualArray(source as Array<any>, target as Array<any>)
+    } else {
+        return false
+    }
 }
 
 /**

@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * 范围转文字（[0,5] 5x以下）
  *
  * @param {string} symbol
- * @param {(Array<string | number>)} list
+ * @param {(IArrayValue)} list
  * @returns {string}
  */
 exports.rangSymbol = function (symbol, list) {

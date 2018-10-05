@@ -5,9 +5,7 @@ import { typeZh } from "./objectTools"
 /**
  * 将对象转化成url查询字符串
  *
- * @param {({
- *     [name: string]: string | number
- * })} obj
+ * @param {IObjectValue} obj
  * @returns {string}
  */
 export const param = function(obj: IObjectValue): string {

@@ -25,7 +25,7 @@ exports.chunk = function (array, n) {
 exports.isValueList = function (array) {
     for (let item of array) {
         let itemType = objectTools_1.typeZh(item);
-        if (!exports.isIntersection([itemType], ['字符串', '数字'])) {
+        if (!exports.isIntersection([itemType], ["字符串", "数字"])) {
             return false;
         }
     }
@@ -140,27 +140,27 @@ exports.isSetEquality = function (S1, S2) {
  */
 exports.flattenDeep = function (array) {
     let result = [];
-    let arrayCopy = array.slice();
-    let newArray = [];
-    while (true) {
-        let hasArray = false;
-        for (let item of arrayCopy) {
-            if (item instanceof Array) {
-                hasArray = true;
-                newArray = newArray.concat(item);
-            }
-            else {
-                newArray.push(item);
-            }
-        }
-        if (hasArray) {
-            arrayCopy = newArray.slice();
-            newArray = [];
+    for (let item of array) {
+        if (item instanceof Array) {
+            let array_ = exports.flattenDeep(item);
+            result = result.concat(array_);
         }
         else {
-            result = newArray;
-            break;
+            result.push(item);
         }
+    }
+    return result;
+};
+/**
+ * 生成一个数字数组
+ *
+ * @param {number} n 数组长度
+ * @returns {Array<number>}
+ */
+exports.range = function (n) {
+    let result = [];
+    for (let i = 0; i < n; i++) {
+        result.push(i);
     }
     return result;
 };

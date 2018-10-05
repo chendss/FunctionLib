@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const arrayTools_1 = require("./arrayTools");
 /**
  * 深度复制对象
  *
@@ -13,8 +14,10 @@ exports.deepCopy = function (obj) {
 };
 /**
  * 链式对象生成函数
- * @param chainList 数组键
- * @param value 值
+ *
+ * @param {string[]} chainList
+ * @param {*} value
+ * @returns {object}
  */
 exports.chainObject = function (chainList, value) {
     let result = exports.deepCopy(value);
@@ -23,6 +26,21 @@ exports.chainObject = function (chainList, value) {
         let item = {};
         item[key] = result;
         result = item;
+    }
+    return result;
+};
+/**
+ * 浅度复制
+ *
+ * @param {*} src
+ * @returns
+ */
+exports.shallowCopy = function (src) {
+    let result = {};
+    for (var prop in src) {
+        if (src.hasOwnProperty(prop)) {
+            result[prop] = src[prop];
+        }
     }
     return result;
 };
@@ -71,8 +89,65 @@ exports.typeZh = function (obj) {
     let typeStr = outDict[exports.type(obj)];
     return typeStr;
 };
+/**
+ * 判断两个对象是否相等
+ *
+ * @param {IObject} source
+ * @param {IObject} target
+ * @returns {boolean}
+ */
+exports.isEqualObject = function (source, target) {
+    let sourceKeys = Object.keys(source);
+    let targetLen = Object.keys(target).length;
+    if (sourceKeys.length !== targetLen)
+        return false;
+    for (let key of sourceKeys) {
+        if (!exports.isEqual(source[key], target[key])) {
+            return false;
+        }
+    }
+    return true;
+};
+/**
+ * 判断两个数组是否相等
+ *
+ * @param {Array<any>} source
+ * @param {Array<any>} target
+ * @returns {boolean}
+ */
+exports.isEqualArray = function (source, target) {
+    if (source.length !== target.length)
+        return false;
+    for (let index in source) {
+        if (!exports.isEqual(source[index], target[index])) {
+            return false;
+        }
+    }
+    return true;
+};
+/**
+ * 判断两个元素是否相等
+ *
+ * @param {*} source
+ * @param {*} target
+ * @returns {boolean}
+ */
 exports.isEqual = function (source, target) {
-    return false;
+    let [sourceType, targetType] = [exports.typeZh(source), exports.typeZh(target)];
+    if (sourceType !== targetType)
+        return false;
+    if (arrayTools_1.isValueList([source, target])) {
+        return source === target;
+    }
+    else if (sourceType === "对象") {
+        return exports.isEqualObject(source, target);
+    }
+    else if (sourceType === "数组") {
+        return exports.isEqualArray(source, target);
+    }
+    else {
+        return false;
+    }
 };
 /**
  * 检查传入的参数是否有空值

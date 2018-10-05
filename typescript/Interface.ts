@@ -15,6 +15,11 @@ interface IObjectString {
 /**
  * @interface IObjectValue [name: string]: string|number
  */
-interface IObjectValue{
-    [name: string]: string|number
+interface IObjectValue {
+    [name: string]: string | number
 }
+
+/**
+ * @interface IArrayValue Array<string | number>
+ */
+interface IArrayValue extends Array<string | number> {}
