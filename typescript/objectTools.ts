@@ -87,7 +87,8 @@ export const typeZh = function(obj: any): string {
         Array: "数组",
         String: "字符串",
         Null: "空值",
-        NaN: "NaN"
+        NaN: "NaN",
+        Function: "函数"
     }
     let typeStr = outDict[type(obj)]
     return typeStr
@@ -100,10 +101,7 @@ export const typeZh = function(obj: any): string {
  * @param {IObject} target
  * @returns {boolean}
  */
-export const isEqualObject = function(
-    source: IObject,
-    target: IObject
-): boolean {
+const isEqualObject = function(source: IObject, target: IObject): boolean {
     let sourceKeys = Object.keys(source)
     let targetLen = Object.keys(target).length
     if (sourceKeys.length !== targetLen) return false
@@ -122,10 +120,7 @@ export const isEqualObject = function(
  * @param {Array<any>} target
  * @returns {boolean}
  */
-export const isEqualArray = function(
-    source: Array<any>,
-    target: Array<any>
-): boolean {
+const isEqualArray = function(source: Array<any>, target: Array<any>): boolean {
     if (source.length !== target.length) return false
     for (let index in source) {
         if (!isEqual(source[index], target[index])) {
@@ -157,16 +152,59 @@ export const isEqual = function(source: any, target: any): boolean {
 }
 
 /**
- * 检查传入的参数是否有空值
+ * 合并对象
  *
- * @param {...Array<any>} params
- * @returns {boolean}
+ * @param {IObject} source
+ * @param {IObject} acc
+ * @returns {IObject}
  */
-export const checkParameter = function(...params: Array<any>): boolean {
-    for (let item of params) {
-        if (item == null || isNaN(item)) {
-            return false
+const deepMergeObject = function(source: IObject, acc: IObject): IObject {
+    for (let [key, value] of Object.entries(source)) {
+        if (value instanceof Object && key in acc) {
+            value = deepMerge(acc[key], value)
+        }
+        acc = { ...acc, [key]: value }
+    }
+    let result = acc
+    return result
+}
+
+/**
+ * 合并多个元素，兼容数组与对象
+ *
+ * @param {(...Array<Object | Array<any>>)} sources
+ * @returns {(Object | Array<any>)}
+ */
+export const deepMerge = function(
+    ...sources: Array<Object | Array<any>>
+): Object | Array<any> {
+    let acc: IObject | Array<any> = {}
+    for (let source of sources) {
+        if (source instanceof Array) {
+            acc = [...(source as Array<any>)]
+        } else if (typeZh(source) === "对象") {
+            acc = deepMergeObject(source, acc as IObject)
         }
     }
-    return true
+    return acc
+}
+
+export const valueObject = function(
+    chainKey: Array<string> | string,
+    value: Array<any> | any
+) {
+    let result = {}
+    if (chainKey instanceof Array) {
+        let length = chainKey.length
+        let value_ = value || new Array(length).fill(null)
+        for (let i = 0; i < length; i++) {
+            let itemChainKey = chainKey[i].split("-")
+            let item = chainObject(itemChainKey, value_[i])
+            result = deepMerge(result, item)
+        }
+    } else {
+        let chainList = chainKey.split("-")
+        result = chainObject(chainList, value)
+    }
+    return result
 }

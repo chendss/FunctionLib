@@ -1,3 +1,6 @@
+import { shift } from "./stringTools"
+import { isSection } from "./mathTools"
+import { format } from "./stringTools"
 /**
  * 计算同步函数执行时间
  *
@@ -35,5 +38,43 @@ export const toRelativeTime = function(timeStr: string): string {
             break
         }
     }
+    return result
+}
+
+/**
+ * 返回当前时间 eg: '2018-10-06'
+ *
+ * @returns {string}
+ */
+export const nowTime = function(): string {
+    let [date, seperator] = [new Date(), "-"]
+    let timeDict: IObject = {
+        year: date.getFullYear(),
+        numberMonth: String(date.getMonth() + 1),
+        numberDate: String(date.getDate())
+    }
+    let zeroKeys = ["numberMonth", "numberDate"]
+    for (let key of zeroKeys) {
+        let item: number = parseInt(timeDict[key])
+        if (isSection(item, [1, 9])) {
+            timeDict[key] = shift(timeDict[key], "0")
+        }
+    }
+    let result = Object.values(timeDict).join(seperator)
+    return result
+}
+
+/**
+ * utc时间转本地时间
+ *
+ * @param {*} utc
+ * @returns
+ */
+export const localeTime = function(utc: string) {
+    let base = "{} {}"
+    let dateObject = new Date(utc)
+    let date = dateObject.toLocaleDateString()
+    let time = dateObject.toLocaleTimeString()
+    let result = format(base, date, time)
     return result
 }

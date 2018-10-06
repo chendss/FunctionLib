@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const paramsTools_1 = require("./paramsTools");
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -7,22 +8,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {(IArrayValue)} list
  * @returns {string}
  */
-exports.rangSymbol = function (symbol, list) {
+exports.rangSymbol = function (symbol, value) {
     let result = "";
-    let [min, max] = [list[0], list[1]];
-    if (min === 0) {
-        if (max === 0) {
-            result = "不限";
-        }
-        else {
-            result = max + symbol + "以下";
-        }
+    let low = value[0];
+    let hight = value[1];
+    if (paramsTools_1.paramsIncludesAll([0, "0"], low, hight)) {
+        result = "不限";
     }
-    else if (max === 0) {
-        result = min + symbol + "以上";
+    else if (paramsTools_1.paramsIncludes([0, "0"], low)) {
+        result = `${hight}${symbol}以下`;
+    }
+    else if (paramsTools_1.paramsIncludes([0, "0"], hight)) {
+        result = `${low}${symbol}以上`;
     }
     else {
-        result = `${min}-${max}${symbol}`;
+        result = `${low}-${hight}${symbol}`;
     }
     return result;
 };

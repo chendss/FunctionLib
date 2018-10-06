@@ -84,7 +84,8 @@ exports.typeZh = function (obj) {
         Array: "数组",
         String: "字符串",
         Null: "空值",
-        NaN: "NaN"
+        NaN: "NaN",
+        Function: "函数"
     };
     let typeStr = outDict[exports.type(obj)];
     return typeStr;
@@ -96,7 +97,7 @@ exports.typeZh = function (obj) {
  * @param {IObject} target
  * @returns {boolean}
  */
-exports.isEqualObject = function (source, target) {
+const isEqualObject = function (source, target) {
     let sourceKeys = Object.keys(source);
     let targetLen = Object.keys(target).length;
     if (sourceKeys.length !== targetLen)
@@ -115,7 +116,7 @@ exports.isEqualObject = function (source, target) {
  * @param {Array<any>} target
  * @returns {boolean}
  */
-exports.isEqualArray = function (source, target) {
+const isEqualArray = function (source, target) {
     if (source.length !== target.length)
         return false;
     for (let index in source) {
@@ -140,26 +141,64 @@ exports.isEqual = function (source, target) {
         return source === target;
     }
     else if (sourceType === "对象") {
-        return exports.isEqualObject(source, target);
+        return isEqualObject(source, target);
     }
     else if (sourceType === "数组") {
-        return exports.isEqualArray(source, target);
+        return isEqualArray(source, target);
     }
     else {
         return false;
     }
 };
 /**
- * 检查传入的参数是否有空值
+ * 合并对象
  *
- * @param {...Array<any>} params
- * @returns {boolean}
+ * @param {IObject} source
+ * @param {IObject} acc
+ * @returns {IObject}
  */
-exports.checkParameter = function (...params) {
-    for (let item of params) {
-        if (item == null || exports.isNaN(item)) {
-            return false;
+const deepMergeObject = function (source, acc) {
+    for (let [key, value] of Object.entries(source)) {
+        if (value instanceof Object && key in acc) {
+            value = exports.deepMerge(acc[key], value);
+        }
+        acc = { ...acc, [key]: value };
+    }
+    let result = acc;
+    return result;
+};
+/**
+ * 合并多个元素，兼容数组与对象
+ *
+ * @param {(...Array<Object | Array<any>>)} sources
+ * @returns {(Object | Array<any>)}
+ */
+exports.deepMerge = function (...sources) {
+    let acc = {};
+    for (let source of sources) {
+        if (source instanceof Array) {
+            acc = [...source];
+        }
+        else if (exports.typeZh(source) === "对象") {
+            acc = deepMergeObject(source, acc);
         }
     }
-    return true;
+    return acc;
+};
+exports.valueObject = function (chainKey, value) {
+    let result = {};
+    if (chainKey instanceof Array) {
+        let length = chainKey.length;
+        let value_ = value || new Array(length).fill(null);
+        for (let i = 0; i < length; i++) {
+            let itemChainKey = chainKey[i].split("-");
+            let item = exports.chainObject(itemChainKey, value_[i]);
+            result = exports.deepMerge(result, item);
+        }
+    }
+    else {
+        let chainList = chainKey.split("-");
+        result = exports.chainObject(chainList, value);
+    }
+    return result;
 };

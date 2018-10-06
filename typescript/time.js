@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const stringTools_1 = require("./stringTools");
+const mathTools_1 = require("./mathTools");
+const stringTools_2 = require("./stringTools");
 /**
  * 计算同步函数执行时间
  *
@@ -34,5 +37,41 @@ exports.toRelativeTime = function (timeStr) {
             break;
         }
     }
+    return result;
+};
+/**
+ * 返回当前时间 eg: '2018-10-06'
+ *
+ * @returns {string}
+ */
+exports.nowTime = function () {
+    let [date, seperator] = [new Date(), "-"];
+    let timeDict = {
+        year: date.getFullYear(),
+        numberMonth: String(date.getMonth() + 1),
+        numberDate: String(date.getDate())
+    };
+    let zeroKeys = ["numberMonth", "numberDate"];
+    for (let key of zeroKeys) {
+        let item = parseInt(timeDict[key]);
+        if (mathTools_1.isSection(item, [1, 9])) {
+            timeDict[key] = stringTools_1.shift(timeDict[key], "0");
+        }
+    }
+    let result = Object.values(timeDict).join(seperator);
+    return result;
+};
+/**
+ * utc时间转本地时间
+ *
+ * @param {*} utc
+ * @returns
+ */
+exports.localeTime = function (utc) {
+    let base = "{} {}";
+    let dateObject = new Date(utc);
+    let date = dateObject.toLocaleDateString();
+    let time = dateObject.toLocaleTimeString();
+    let result = stringTools_2.format(base, date, time);
     return result;
 };

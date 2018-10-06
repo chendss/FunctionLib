@@ -177,3 +177,37 @@ export const range = function(n: number): Array<number> {
     }
     return result
 }
+
+/**
+ * 生成一个带默认值的数组
+ *
+ * @param {number} n 数组长度
+ * @param {*} item 默认值
+ * @returns {Array<any>}
+ */
+export const arrayDefault = function(n: number, item: any): Array<any> {
+    let result = []
+    for (let i = 0; i < n; i++) {
+        if (typeZh(item) === "函数") {
+            result.push(item(i))
+        } else {
+            result.push(item)
+        }
+    }
+    return result
+}
+
+/**
+ * 返回数组长度，如果不是数组则返回 0
+ *
+ * @param {(Array<any> | any)} list_
+ * @returns {number}
+ */
+export const len = function(list_: Array<any> | any): number {
+    if (typeZh(list_) === "数组") {
+        let l = list_ as Array<any>
+        return l.length
+    } else {
+        return 0
+    }
+}

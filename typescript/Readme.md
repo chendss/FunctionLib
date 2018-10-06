@@ -6,6 +6,13 @@
 
 -   `log` 打印函数
 
+### 参数相关处理 - paramsTools
+
+-   `isEqualAll` 批量判断第一个值是否与其他参数相等
+-   `checkParameter` 检查传入的参数是否有空值
+-   `paramsIncludesAll` 判断其他参数是否[都]在第一个参数（数组）里
+-   `paramsIncludes` 判断其他参数是否在第一个参数（数组）里,只要满足一个即可
+
 ### Object - objectTools
 
 -   `deepCopy` 深度复制 js 的对象
@@ -15,9 +22,8 @@
 -   `typeZh` 判断元素的正确类型 返回值是中文
 -   `checkParameter` 检查传入的参数是否有空值
 -   `shallowCopy` 浅度复制对象
--   `isEqualArray` 判断两个数组是否相等
--   `isEqualObject` 判断两个对象是否相等
 -   `isEqual` 判断两个元素是否相等
+-   `deepMerge` 合并多个元素，兼容数组与对象
 
 ### Array - arrayTools
 
@@ -28,15 +34,21 @@
 -   `isIntersection` 判断两个数组是否有交集
 -   `isSetEquality` 判断两个集合是否相等
 -   `flattenDeep` 扁平化数组
+-   `arrayDefault` 生成一个带默认值的数组
+-   `len` 返回数组长度，如果不是数组则返回 0
 
 ### String - stringTools
 
 -   `findCount` 获得字符串里关键字的数量
+-   `format` 类似 py 的 format 函数
+-   `shift` 将关键字插入字符串前面
 
 ### Time - time
 
 -   `runTime` 计算同步函数执行时间
 -   `toRelativeTime` 返回友好时间 （xx 之前、刚）
+-   `nowTime` 返回当前时间 eg: '2018-10-06'
+-   `localeTime` utc 时间转本地时间
 
 ### Dom 操作 - dom
 
@@ -44,6 +56,7 @@
 -   `qs` 根据选择器获得所有匹配的 dom 对象
 -   `bindClick` 绑定该选择器匹配的所有 DOM 对象的 click 事件
 -   `bindInput` 绑定该选择器匹配的所有 DOM 对象的 input 事件
+-   `windowScrollTop` 获得滚动条位置
 
 ### http 相关工具 - httpTools
 
@@ -56,3 +69,7 @@
 ### 校验 - check
 
 -   `checkCard` 校验身份证是否合法
+
+### 数学业务库 - mathTools
+
+-   `isSection` 判断是否在这个区间内

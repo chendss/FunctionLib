@@ -38,3 +38,18 @@ exports.bindInput = function (selector, handle) {
     const queries = exports.qs(selector);
     queries.forEach(q => q.addEventListener("input", handle, false));
 };
+/**
+ * 获得滚动条位置
+ *
+ * @returns
+ */
+exports.windowScrollTop = function () {
+    let Y1 = document.documentElement.scrollTop;
+    let Y2 = document.body.scrollTop;
+    if (Y1 === 0) {
+        return Y2;
+    }
+    else {
+        return Y1;
+    }
+};

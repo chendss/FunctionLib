@@ -164,3 +164,37 @@ exports.range = function (n) {
     }
     return result;
 };
+/**
+ * 生成一个带默认值的数组
+ *
+ * @param {number} n 数组长度
+ * @param {*} item 默认值
+ * @returns {Array<any>}
+ */
+exports.arrayDefault = function (n, item) {
+    let result = [];
+    for (let i = 0; i < n; i++) {
+        if (objectTools_1.typeZh(item) === "函数") {
+            result.push(item(i));
+        }
+        else {
+            result.push(item);
+        }
+    }
+    return result;
+};
+/**
+ * 返回数组长度，如果不是数组则返回 0
+ *
+ * @param {(Array<any> | any)} list_
+ * @returns {number}
+ */
+exports.len = function (list_) {
+    if (objectTools_1.typeZh(list_) === "数组") {
+        let l = list_;
+        return l.length;
+    }
+    else {
+        return 0;
+    }
+};
