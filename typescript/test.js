@@ -1,8 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const business_1 = require("./business");
+const objectTools_1 = require("./objectTools");
 const debug_1 = require("./debug");
-let test = [[0, 50], [10, 0], [0, 0]];
-for (let item of test) {
-    debug_1.log(business_1.rangSymbol("万", item));
-}
+let key = ["fuck-test", 'fuck-ttt'];
+let json = {
+    fuck: {
+        test: 111,
+        ttt: 'ss'
+    }
+};
+debug_1.log(objectTools_1.chainObjects(key, [111, 'sss']));

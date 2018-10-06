@@ -30,9 +30,75 @@ exports.chainObject = function (chainList, value) {
     return result;
 };
 /**
+ * 链式对象 多值赋值
+ *
+ * @param {(Array<string> | string)} chainKey
+ * @param {(Array<any> | any)} value
+ * @returns
+ */
+exports.chainObjectMultiple = function (chainKey, value) {
+    let result = {};
+    if (chainKey instanceof Array) {
+        let length = chainKey.length;
+        let value_ = value || arrayTools_1.arrayDefault(length);
+        for (let i = 0; i < length; i++) {
+            let itemChainKey = chainKey[i].split("-");
+            let item = exports.chainObject(itemChainKey, value_[i]);
+            result = exports.deepMerge(result, item);
+        }
+    }
+    else {
+        let chainList = chainKey.split("-");
+        result = exports.chainObject(chainList, value);
+    }
+    return result;
+};
+/**
+ * 链式取得对象的值
+ *
+ * @param {Array<string>} chainList
+ * @param {IObject} target
+ * @returns {(IObject | null)}
+ */
+exports.chainValue = function (chainList, target) {
+    let result = null;
+    let source = target;
+    for (let key of chainList) {
+        if (!source.hasOwnProperty(key)) {
+            return null;
+        }
+        ;
+        [result, source] = arrayTools_1.arrayDefault(2, source[key]);
+    }
+    return result;
+};
+/**
+ * 取得链式对象的值 存在数组里或者单个值
+ *
+ * @param {(Array<string> | string)} chainKey
+ * @param {IObject} target
+ * @returns
+ */
+exports.chainValueList = function (chainKey, target) {
+    let errorMsg = chainKey + "chainValueList方法必须传入 target ";
+    if (!target)
+        throw new Error(errorMsg);
+    let chainKey_ = arrayTools_1.anyToArray(chainKey);
+    let result = [];
+    for (let i = 0; i < chainKey_.length; i++) {
+        let chainList = chainKey_[i].split("-");
+        let value = exports.chainValue(chainList, target);
+        result.push(value);
+    }
+    if (result.length === 1) {
+        result = result[0];
+    }
+    return result;
+};
+/**
  * 浅度复制
  *
- * @param {*} src
+ * @param {IObject} src
  * @returns
  */
 exports.shallowCopy = function (src) {
@@ -184,21 +250,4 @@ exports.deepMerge = function (...sources) {
         }
     }
     return acc;
-};
-exports.valueObject = function (chainKey, value) {
-    let result = {};
-    if (chainKey instanceof Array) {
-        let length = chainKey.length;
-        let value_ = value || new Array(length).fill(null);
-        for (let i = 0; i < length; i++) {
-            let itemChainKey = chainKey[i].split("-");
-            let item = exports.chainObject(itemChainKey, value_[i]);
-            result = exports.deepMerge(result, item);
-        }
-    }
-    else {
-        let chainList = chainKey.split("-");
-        result = exports.chainObject(chainList, value);
-    }
-    return result;
 };

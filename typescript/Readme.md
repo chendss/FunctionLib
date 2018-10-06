@@ -17,6 +17,9 @@
 
 -   `deepCopy` 深度复制 js 的对象
 -   `chainObject` 链式对象生成函数
+-   `chainObjectMultiple` 链式对象生成 多个键赋值
+-   `chainValue` 链式取得对象的值
+-   `chainValueList` 取得链式对象的值 存在数组里或者单个值
 -   `isNaN` 判断是否为 NaN
 -   `type` 判断元素的正确类型
 -   `typeZh` 判断元素的正确类型 返回值是中文
@@ -73,3 +76,7 @@
 ### 数学业务库 - mathTools
 
 -   `isSection` 判断是否在这个区间内
+
+### 函数调用相关 - function
+
+-   `asyncCall` 同步调用判断函数，全部为 true 时返回 ture

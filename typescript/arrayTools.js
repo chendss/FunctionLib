@@ -171,7 +171,7 @@ exports.range = function (n) {
  * @param {*} item 默认值
  * @returns {Array<any>}
  */
-exports.arrayDefault = function (n, item) {
+exports.arrayDefault = function (n, item = null) {
     let result = [];
     for (let i = 0; i < n; i++) {
         if (objectTools_1.typeZh(item) === "函数") {

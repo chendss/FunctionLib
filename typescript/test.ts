@@ -1,9 +1,12 @@
+import { chainValue, chainObject, chainObjects } from "./objectTools"
 import { rangSymbol } from "./business"
-import { paramsIncludesAll } from "./paramsTools"
-import { deepMerge, typeZh, type } from "./objectTools"
 import { log } from "./debug"
 
-let test = [[0, 50], [10, 0], [0, 0]]
-for (let item of test) {
-    log(rangSymbol("万", item))
+let key = ["fuck-test",'fuck-ttt']
+let json = {
+    fuck: {
+        test: 111,
+        ttt:'ss'
+    }
 }
+log(chainObjects(key, [111,'sss']))

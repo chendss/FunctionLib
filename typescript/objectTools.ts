@@ -1,5 +1,10 @@
 import { log } from "./debug"
-import { isIntersection, isValueList } from "./arrayTools"
+import {
+    isIntersection,
+    isValueList,
+    anyToArray,
+    arrayDefault
+} from "./arrayTools"
 /**
  * 深度复制对象
  *
@@ -19,7 +24,10 @@ export const deepCopy = function<T>(obj: T): T {
  * @param {*} value
  * @returns {object}
  */
-export const chainObject = function(chainList: string[], value: any): object {
+export const chainObject = function(
+    chainList: Array<string>,
+    value: any
+): object {
     let result = deepCopy(value)
     let chainListCopy = chainList.reverse()
     for (let key of chainListCopy) {
@@ -31,9 +39,84 @@ export const chainObject = function(chainList: string[], value: any): object {
 }
 
 /**
+ * 链式对象 多值赋值
+ *
+ * @param {(Array<string> | string)} chainKey
+ * @param {(Array<any> | any)} value
+ * @returns
+ */
+export const chainObjectMultiple = function(
+    chainKey: Array<string> | string,
+    value: Array<any> | any
+) {
+    let result = {}
+    if (chainKey instanceof Array) {
+        let length = chainKey.length
+        let value_ = value || arrayDefault(length)
+        for (let i = 0; i < length; i++) {
+            let itemChainKey = chainKey[i].split("-")
+            let item = chainObject(itemChainKey, value_[i])
+            result = deepMerge(result, item)
+        }
+    } else {
+        let chainList = chainKey.split("-")
+        result = chainObject(chainList, value)
+    }
+    return result
+}
+
+/**
+ * 链式取得对象的值
+ *
+ * @param {Array<string>} chainList
+ * @param {IObject} target
+ * @returns {(IObject | null)}
+ */
+export const chainValue = function(
+    chainList: Array<string>,
+    target: IObject
+): any {
+    let result: any = null
+    let source: any = target
+    for (let key of chainList) {
+        if (!source.hasOwnProperty(key)) {
+            return null
+        }
+        ;[result, source] = arrayDefault(2, source[key])
+    }
+    return result
+}
+
+/**
+ * 取得链式对象的值 存在数组里或者单个值
+ *
+ * @param {(Array<string> | string)} chainKey
+ * @param {IObject} target
+ * @returns
+ */
+export const chainValueList = function(
+    chainKey: Array<string> | string,
+    target: IObject
+) {
+    let errorMsg = chainKey + "chainValueList方法必须传入 target "
+    if (!target) throw new Error(errorMsg)
+    let chainKey_ = anyToArray(chainKey)
+    let result = []
+    for (let i = 0; i < chainKey_.length; i++) {
+        let chainList = chainKey_[i].split("-")
+        let value = chainValue(chainList, target)
+        result.push(value)
+    }
+    if (result.length === 1) {
+        result = result[0]
+    }
+    return result
+}
+
+/**
  * 浅度复制
  *
- * @param {*} src
+ * @param {IObject} src
  * @returns
  */
 export const shallowCopy = function(src: IObject) {
@@ -187,24 +270,4 @@ export const deepMerge = function(
         }
     }
     return acc
-}
-
-export const valueObject = function(
-    chainKey: Array<string> | string,
-    value: Array<any> | any
-) {
-    let result = {}
-    if (chainKey instanceof Array) {
-        let length = chainKey.length
-        let value_ = value || new Array(length).fill(null)
-        for (let i = 0; i < length; i++) {
-            let itemChainKey = chainKey[i].split("-")
-            let item = chainObject(itemChainKey, value_[i])
-            result = deepMerge(result, item)
-        }
-    } else {
-        let chainList = chainKey.split("-")
-        result = chainObject(chainList, value)
-    }
-    return result
 }

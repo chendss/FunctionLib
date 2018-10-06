@@ -185,7 +185,7 @@ export const range = function(n: number): Array<number> {
  * @param {*} item 默认值
  * @returns {Array<any>}
  */
-export const arrayDefault = function(n: number, item: any): Array<any> {
+export const arrayDefault = function(n: number, item: any=null): Array<any> {
     let result = []
     for (let i = 0; i < n; i++) {
         if (typeZh(item) === "函数") {
