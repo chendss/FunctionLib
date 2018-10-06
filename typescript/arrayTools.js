@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const paramsTools_1 = require("./paramsTools");
 const objectTools_1 = require("./objectTools");
 /**
  * 分割数组
@@ -197,4 +198,15 @@ exports.len = function (list_) {
     else {
         return 0;
     }
+};
+/**
+ * 过滤数组里的假值
+ *
+ * @template T
+ * @param {T[]} array
+ * @returns {T[]}
+ */
+exports.compact = function (array) {
+    let result = array.filter(arr => paramsTools_1.isFalse(arr));
+    return result;
 };

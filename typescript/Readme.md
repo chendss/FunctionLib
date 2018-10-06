@@ -9,6 +9,7 @@
 ### 参数相关处理 - paramsTools
 
 -   `isEqualAll` 批量判断第一个值是否与其他参数相等
+-   `isFalse` 判断是否为假值
 -   `checkParameter` 检查传入的参数是否有空值
 -   `paramsIncludesAll` 判断其他参数是否[都]在第一个参数（数组）里
 -   `paramsIncludes` 判断其他参数是否在第一个参数（数组）里,只要满足一个即可
@@ -32,6 +33,7 @@
 
 -   `anyToArray` 将任意参数变成数组
 -   `chunk` 分割数组
+-   `compact` 过滤数组里的假值
 -   `concatFront` 将数组合并目标数组前
 -   `intersection` 返回两个数组的交集
 -   `isIntersection` 判断两个数组是否有交集

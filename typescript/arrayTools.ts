@@ -1,4 +1,5 @@
-import { typeZh, type } from "./objectTools"
+import { paramsIncludes, isFalse } from "./paramsTools"
+import { typeZh, type, isNaN } from "./objectTools"
 import { log } from "./debug"
 /**
  * 分割数组
@@ -185,7 +186,7 @@ export const range = function(n: number): Array<number> {
  * @param {*} item 默认值
  * @returns {Array<any>}
  */
-export const arrayDefault = function(n: number, item: any=null): Array<any> {
+export const arrayDefault = function(n: number, item: any = null): Array<any> {
     let result = []
     for (let i = 0; i < n; i++) {
         if (typeZh(item) === "函数") {
@@ -210,4 +211,16 @@ export const len = function(list_: Array<any> | any): number {
     } else {
         return 0
     }
+}
+
+/**
+ * 过滤数组里的假值
+ *
+ * @template T
+ * @param {T[]} array
+ * @returns {T[]}
+ */
+export const compact = function<T>(array: T[]): T[] {
+    let result = array.filter(arr => isFalse(arr))
+    return result
 }

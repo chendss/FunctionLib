@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const arrayTools_1 = require("./arrayTools");
+const objectTools_1 = require("./objectTools");
 /**
  * 批量判断第一个值是否与其他参数相等
  *
@@ -24,7 +25,7 @@ exports.isEqualAll = function (params, ...args) {
  */
 exports.checkParameter = function (...params) {
     for (let item of params) {
-        if (item == null || isNaN(item)) {
+        if (item == null || objectTools_1.isNaN(item)) {
             return false;
         }
     }
@@ -62,4 +63,22 @@ exports.paramsIncludesAll = function (sourceArray, ...params) {
         }
     }
     return true;
+};
+/**
+ * 判断是否为假值
+ *
+ * @param {*} item
+ * @returns {boolean}
+ */
+exports.isFalse = function (item) {
+    let valueList = [null, undefined, "", 0, false];
+    if (valueList.includes(item)) {
+        return false;
+    }
+    else if (objectTools_1.isNaN(item)) {
+        return false;
+    }
+    else {
+        return true;
+    }
 };

@@ -1,4 +1,5 @@
 import { isSetEquality, anyToArray } from "./arrayTools"
+import { isNaN } from "./objectTools"
 
 /**
  * 批量判断第一个值是否与其他参数相等
@@ -73,4 +74,21 @@ export const paramsIncludesAll = function(
         }
     }
     return true
+}
+
+/**
+ * 判断是否为假值
+ *
+ * @param {*} item
+ * @returns {boolean}
+ */
+export const isFalse = function(item: any): boolean {
+    let valueList = [null, undefined, "", 0, false]
+    if (valueList.includes(item)) {
+        return false
+    } else if (isNaN(item)) {
+        return false
+    } else {
+        return true
+    }
 }
