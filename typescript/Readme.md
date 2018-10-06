@@ -74,6 +74,9 @@
 ### 校验 - check
 
 -   `checkCard` 校验身份证是否合法
+-   `checkPhone` 检查手机号是否合法
+-   `checkEmail` 检查邮箱是否合法
+-   `regularDict` 不是一个函数，是个字典，含有库里能验证的类型
 
 ### 数学业务库 - mathTools
 
