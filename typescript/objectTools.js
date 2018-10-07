@@ -83,7 +83,7 @@ exports.chainValueList = function (chainKey, target) {
     let errorMsg = chainKey + "chainValueList方法必须传入 target ";
     if (!target)
         throw new Error(errorMsg);
-    let chainKey_ = arrayTools_1.anyToArray(chainKey);
+    let chainKey_ = arrayTools_1.castArray(chainKey);
     let result = [];
     for (let i = 0; i < chainKey_.length; i++) {
         let chainList = chainKey_[i].split("-");

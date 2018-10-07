@@ -1,4 +1,4 @@
-import { isSetEquality, anyToArray } from "./arrayTools"
+import { isSetEquality, castArray } from "./arrayTools"
 import { isNaN } from "./objectTools"
 
 /**
@@ -46,7 +46,7 @@ export const paramsIncludes = function(
     sourceArray: IArrayValue | any,
     ...params: Array<any>
 ) {
-    let sourceList = anyToArray(sourceArray)
+    let sourceList = castArray(sourceArray)
     let args = [...params]
     for (let arg of args) {
         if (sourceList.includes(arg)) {
@@ -67,7 +67,7 @@ export const paramsIncludesAll = function(
     sourceArray: IArrayValue | any,
     ...params: Array<any>
 ) {
-    let sourceList = anyToArray(sourceArray)
+    let sourceList = castArray(sourceArray)
     for (let arg of params) {
         if (!sourceList.includes(arg)) {
             return false

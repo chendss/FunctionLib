@@ -1,4 +1,4 @@
-import { paramsIncludes, isFalse } from "./paramsTools"
+import { paramsIncludes, isFalse, three } from "./paramsTools"
 import { typeZh, type, isNaN } from "./objectTools"
 import { log } from "./debug"
 /**
@@ -49,9 +49,8 @@ export const removalRepeat = function<T>(array: T[], key: string = ""): T[] {
         let result: Array<IObject> = []
         let array_ = array as Array<IObject>
         for (let source of array_) {
-            let len = result.filter(target => target[key] === source[key])
-                .length
-            if (len === 0) {
+            let list_ = result.filter(target => target[key] === source[key])
+            if (list_.length === 0) {
                 result.push(source)
             }
         }
@@ -78,7 +77,7 @@ export const concatFront = function<T>(source: T[], target: T[]): T[] {
  * @param {*} val
  * @returns {Array<any>}
  */
-export const anyToArray = function(val: any): Array<any> {
+export const castArray = function(val: any): Array<any> {
     if (typeZh(val) === "数组") {
         return val
     } else {
@@ -147,7 +146,7 @@ export const isSetEquality = function(
 }
 
 /**
- * 展开数组
+ * 将array递归为一维数组
  *
  * @param {Array<any>} array
  * @returns {(Array<string | number>)}
@@ -196,18 +195,22 @@ export const arrayDefault = function(n: number, item: any = null): Array<any> {
 }
 
 /**
- * 返回数组长度，如果不是数组则返回 0
+ * 返回元素的长度 数组，对象的键个数，字符串长度
  *
- * @param {(Array<any> | any)} list_
+ * @param { any)} list_
  * @returns {number}
  */
-export const len = function(list_: Array<any> | any): number {
-    if (typeZh(list_) === "数组") {
-        let l = list_ as Array<any>
-        return l.length
-    } else {
-        return 0
+export const len = function(source: any): number {
+    let type_ = typeZh(source)
+    let result = 0
+    if (paramsIncludes(type_, "数组", "字符串")) {
+        let source_ = source as Array<any> | String
+        result = source_.length
+    } else if (type_ === "对象") {
+        let source_ = source as IObject
+        result = Object.keys(source_).length
     }
+    return result
 }
 
 /**
@@ -220,4 +223,58 @@ export const len = function(list_: Array<any> | any): number {
 export const compact = function<T>(array: T[]): T[] {
     let result = array.filter(arr => isFalse(arr))
     return result
+}
+
+/**
+ * 获取array数组的第n个元素。如果n为负数，则返回从数组结尾开始的第n个元素。
+ *
+ * @param {Array<any>} array
+ * @param {number} [n=0]
+ */
+export const nth = function(array: Array<any>, n: number = 0) {
+    let length = array.length
+    if (n >= 0) {
+        return array[n]
+    } else {
+        let n_ = length - Math.abs(n)
+        return array[n_]
+    }
+}
+
+/**
+ * includes加强版，兼容对象数组
+ *
+ * @param {IArrayValueObject} array
+ * @param {(string | number)} value
+ * @param {string} [key=""]
+ * @returns {boolean}
+ */
+export const includesPro = function(
+    array: IArrayValueObject,
+    key: string = "",
+    value: string | number
+): boolean {
+    if (isValueList(array)) {
+        return array.includes(value)
+    } else {
+        let array_ = array as IArrayObject
+        let index = array_.findIndex(item => item[key] === value)
+        return index !== -1
+    }
+}
+
+/**
+ * 从数组 获得 n 个随机元素
+ *
+ * @param {Array<any>} array
+ * @returns
+ */
+export const sampleSize = function(array: Array<any>, n: number = 1) {
+    let length = array.length
+    let result = []
+    for (let i of range(n)) {
+        let index = Math.floor(Math.random() * length)
+        result.push(array[index])
+    }
+    return three(result.length === 1, result[0], result)
 }

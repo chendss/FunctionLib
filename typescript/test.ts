@@ -1,7 +1,6 @@
-import { toDate, countDown } from "./time"
 import { log } from "./debug"
-import { compact, arrayDefault, range } from "./arrayTools"
-import { addZero } from "./business"
 import { type } from "./objectTools"
+import { nth, includesPro } from "./arrayTools"
 
-log(range(8))
+let test = [{ fuck: 1 }, { fuck: 2 }]
+log(includesPro(test, "fuck", 3))

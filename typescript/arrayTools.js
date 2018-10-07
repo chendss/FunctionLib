@@ -49,9 +49,8 @@ exports.removalRepeat = function (array, key = "") {
         let result = [];
         let array_ = array;
         for (let source of array_) {
-            let len = result.filter(target => target[key] === source[key])
-                .length;
-            if (len === 0) {
+            let list_ = result.filter(target => target[key] === source[key]);
+            if (list_.length === 0) {
                 result.push(source);
             }
         }
@@ -76,7 +75,7 @@ exports.concatFront = function (source, target) {
  * @param {*} val
  * @returns {Array<any>}
  */
-exports.anyToArray = function (val) {
+exports.castArray = function (val) {
     if (objectTools_1.typeZh(val) === "数组") {
         return val;
     }
@@ -134,7 +133,7 @@ exports.isSetEquality = function (S1, S2) {
     }
 };
 /**
- * 展开数组
+ * 将array递归为一维数组
  *
  * @param {Array<any>} array
  * @returns {(Array<string | number>)}
@@ -182,19 +181,23 @@ exports.arrayDefault = function (n, item = null) {
     return result;
 };
 /**
- * 返回数组长度，如果不是数组则返回 0
+ * 返回元素的长度 数组，对象的键个数，字符串长度
  *
- * @param {(Array<any> | any)} list_
+ * @param { any)} list_
  * @returns {number}
  */
-exports.len = function (list_) {
-    if (objectTools_1.typeZh(list_) === "数组") {
-        let l = list_;
-        return l.length;
+exports.len = function (source) {
+    let type_ = objectTools_1.typeZh(source);
+    let result = 0;
+    if (paramsTools_1.paramsIncludes(type_, "数组", "字符串")) {
+        let source_ = source;
+        result = source_.length;
     }
-    else {
-        return 0;
+    else if (type_ === "对象") {
+        let source_ = source;
+        result = Object.keys(source_).length;
     }
+    return result;
 };
 /**
  * 过滤数组里的假值
@@ -206,4 +209,53 @@ exports.len = function (list_) {
 exports.compact = function (array) {
     let result = array.filter(arr => paramsTools_1.isFalse(arr));
     return result;
+};
+/**
+ * 获取array数组的第n个元素。如果n为负数，则返回从数组结尾开始的第n个元素。
+ *
+ * @param {Array<any>} array
+ * @param {number} [n=0]
+ */
+exports.nth = function (array, n = 0) {
+    let length = array.length;
+    if (n >= 0) {
+        return array[n];
+    }
+    else {
+        let n_ = length - Math.abs(n);
+        return array[n_];
+    }
+};
+/**
+ * includes加强版，兼容对象数组
+ *
+ * @param {IArrayValueObject} array
+ * @param {(string | number)} value
+ * @param {string} [key=""]
+ * @returns {boolean}
+ */
+exports.includesPro = function (array, key = "", value) {
+    if (exports.isValueList(array)) {
+        return array.includes(value);
+    }
+    else {
+        let array_ = array;
+        let index = array_.findIndex(item => item[key] === value);
+        return index !== -1;
+    }
+};
+/**
+ * 从数组 获得 n 个随机元素
+ *
+ * @param {Array<any>} array
+ * @returns
+ */
+exports.sampleSize = function (array, n = 1) {
+    let length = array.length;
+    let result = [];
+    for (let i of exports.range(n)) {
+        let index = Math.floor(Math.random() * length);
+        result.push(array[index]);
+    }
+    return paramsTools_1.three(result.length === 1, result[0], result);
 };

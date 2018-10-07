@@ -2,7 +2,7 @@ import { log } from "./debug"
 import {
     isIntersection,
     isValueList,
-    anyToArray,
+    castArray,
     arrayDefault
 } from "./arrayTools"
 /**
@@ -100,7 +100,7 @@ export const chainValueList = function(
 ) {
     let errorMsg = chainKey + "chainValueList方法必须传入 target "
     if (!target) throw new Error(errorMsg)
-    let chainKey_ = anyToArray(chainKey)
+    let chainKey_ = castArray(chainKey)
     let result = []
     for (let i = 0; i < chainKey_.length; i++) {
         let chainList = chainKey_[i].split("-")

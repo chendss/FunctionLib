@@ -23,3 +23,13 @@ interface IObjectValue {
  * @interface IArrayValue Array<string | number>
  */
 interface IArrayValue extends Array<string | number> {}
+
+/**
+ * @interface IArrayValueObject Array<string | number| IObject>
+ */
+interface IArrayValueObject extends Array<string | number | IObject> {}
+
+/**
+ * @interface IArrayObject Array<IObject>
+ */
+interface IArrayObject extends Array<IObject> {}

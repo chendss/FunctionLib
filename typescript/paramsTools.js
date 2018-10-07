@@ -39,7 +39,7 @@ exports.checkParameter = function (...params) {
  * @returns
  */
 exports.paramsIncludes = function (sourceArray, ...params) {
-    let sourceList = arrayTools_1.anyToArray(sourceArray);
+    let sourceList = arrayTools_1.castArray(sourceArray);
     let args = [...params];
     for (let arg of args) {
         if (sourceList.includes(arg)) {
@@ -56,7 +56,7 @@ exports.paramsIncludes = function (sourceArray, ...params) {
  * @returns
  */
 exports.paramsIncludesAll = function (sourceArray, ...params) {
-    let sourceList = arrayTools_1.anyToArray(sourceArray);
+    let sourceList = arrayTools_1.castArray(sourceArray);
     for (let arg of params) {
         if (!sourceList.includes(arg)) {
             return false;

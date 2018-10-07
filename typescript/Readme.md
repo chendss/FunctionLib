@@ -32,17 +32,20 @@
 
 ### Array - arrayTools
 
--   `anyToArray` 将任意参数变成数组
+-   `castArray` 将任意参数变成数组
 -   `chunk` 分割数组
 -   `compact` 过滤数组里的假值
 -   `concatFront` 将数组合并目标数组前
+-   `sampleSize` 从数组 获得 n 个随机元素
 -   `intersection` 返回两个数组的交集
 -   `isIntersection` 判断两个数组是否有交集
 -   `isSetEquality` 判断两个集合是否相等
--   `flattenDeep` 扁平化数组
+-   `flattenDeep` 将 array 递归为一维数组
 -   `arrayDefault` 生成一个带默认值的数组
--   `range` 生成一个数字数组(其实是arrayDefault的特别版)
--   `len` 返回数组长度，如果不是数组则返回 0
+-   `range` 生成一个数字数组(其实是 arrayDefault 的特别版)
+-   `len` 回元素的长度 数组，对象的键个数，字符串长度
+-   `includesPro` includes 加强版，兼容对象数组
+-   `nth` 获取 array 数组的第 n 个元素。如果 n 为负数，则返回从数组结尾开始的第 n 个元素。
 
 ### String - stringTools
 
