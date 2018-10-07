@@ -18,15 +18,14 @@
 ### Object - objectTools
 
 -   `deepCopy` 深度复制 js 的对象
+-   `shallowCopy` 浅度复制对象
 -   `chainObject` 链式对象生成函数
--   `chainObjectMultiple` 链式对象生成 多个键赋值
+-   `chainObjectMultiple` 链式对象生成器 多个键赋值
 -   `chainValue` 链式取得对象的值
 -   `chainValueList` 取得链式对象的值 存在数组里或者单个值
 -   `isNaN` 判断是否为 NaN
 -   `type` 判断元素的正确类型
 -   `typeZh` 判断元素的正确类型 返回值是中文
--   `checkParameter` 检查传入的参数是否有空值
--   `shallowCopy` 浅度复制对象
 -   `isEqual` 判断两个元素是否相等
 -   `deepMerge` 合并多个元素，兼容数组与对象
 -   `migration` 将第二个对象的值迁移到第一个对象（不改变第一个对象的引用）
@@ -42,6 +41,7 @@
 -   `isSetEquality` 判断两个集合是否相等
 -   `flattenDeep` 扁平化数组
 -   `arrayDefault` 生成一个带默认值的数组
+-   `range` 生成一个数字数组(其实是arrayDefault的特别版)
 -   `len` 返回数组长度，如果不是数组则返回 0
 
 ### String - stringTools

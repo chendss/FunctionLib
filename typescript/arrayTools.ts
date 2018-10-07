@@ -172,10 +172,7 @@ export const flattenDeep = function(array: Array<any>): Array<string | number> {
  * @returns {Array<number>}
  */
 export const range = function(n: number): Array<number> {
-    let result: Array<number> = []
-    for (let i = 0; i < n; i++) {
-        result.push(i)
-    }
+    let result: Array<number> = arrayDefault(n, (i: number) => i)
     return result
 }
 

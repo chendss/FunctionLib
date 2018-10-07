@@ -159,10 +159,7 @@ exports.flattenDeep = function (array) {
  * @returns {Array<number>}
  */
 exports.range = function (n) {
-    let result = [];
-    for (let i = 0; i < n; i++) {
-        result.push(i);
-    }
+    let result = exports.arrayDefault(n, (i) => i);
     return result;
 };
 /**
