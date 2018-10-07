@@ -82,3 +82,17 @@ exports.isFalse = function (item) {
         return true;
     }
 };
+/**
+ * 三元表达式的函数形式
+ *
+ * @param {boolean} condition
+ * @param {*} trueValue
+ * @param {*} falseValue
+ * @returns
+ */
+exports.three = function (condition, trueValue, falseValue) {
+    if (condition) {
+        return trueValue;
+    }
+    return falseValue;
+};

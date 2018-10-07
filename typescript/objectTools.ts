@@ -171,7 +171,8 @@ export const typeZh = function(obj: any): string {
         String: "字符串",
         Null: "空值",
         NaN: "NaN",
-        Function: "函数"
+        Function: "函数",
+        Date: "时间"
     }
     let typeStr = outDict[type(obj)]
     return typeStr
@@ -270,4 +271,18 @@ export const deepMerge = function(
         }
     }
     return acc
+}
+
+/**
+ * 将第二个对象的值迁移到第一个对象
+ *
+ * @param {IObject} source
+ * @param {IObject} target
+ */
+export const migration = function(source: IObject, target: IObject) {
+    for (let key in target) {
+        if (target.hasOwnProperty(key)) {
+            source[key] = target[key]
+        }
+    }
 }

@@ -7,16 +7,18 @@ export const regularDict = new class RegularDict {
     email: RegExp
     手机号: RegExp
     qq号码: RegExp
-    微信号正则: RegExp
+    微信号: RegExp
     正整数: RegExp
     数字: RegExp
+    中文: RegExp
     constructor() {
         this.email = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
         this.手机号 = /^1[34578]\d{9}$/
         this.qq号码 = /^[1-9][0-9]{4,10}$/
-        this.微信号正则 = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/
+        this.微信号 = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/
         this.正整数 = /^\d+$/
         this.数字 = /^\d*\.?\d+$/
+        this.中文 = /^[\\u4e00-\\u9fa5]{0,}$/
     }
 }()
 

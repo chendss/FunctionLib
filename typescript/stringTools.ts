@@ -16,6 +16,26 @@ export const findCount = function(str: string, target: string) {
 }
 
 /**
+ * 替换所有查询字符串
+ *
+ * @param {string} source 源字符串
+ * @param {string} searchValue 待替换的字符串
+ * @param {string} aceValue 替换字符串
+ * @returns {string}
+ */
+export const replaceAll = function(
+    source: string,
+    searchValue: string,
+    aceValue: string
+): string {
+    let result = source
+    while (result.includes(aceValue)) {
+        result.replace(aceValue, searchValue)
+    }
+    return result
+}
+
+/**
  * 类似py的format函数
  *
  * @param {string} source
@@ -27,8 +47,11 @@ export const format = function(
     ...args: Array<string | number>
 ): string {
     let result = source
-    for (let arg of args) {
-        result.replace("{}", String(arg))
+    args.reverse()
+    while (result.includes("{}")) {
+        let arg = String(args[0])
+        result.replace("{}", arg)
+        args.pop()
     }
     return result
 }

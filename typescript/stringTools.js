@@ -17,6 +17,21 @@ exports.findCount = function (str, target) {
     return result;
 };
 /**
+ * 替换所有查询字符串
+ *
+ * @param {string} source 源字符串
+ * @param {string} searchValue 待替换的字符串
+ * @param {string} aceValue 替换字符串
+ * @returns {string}
+ */
+exports.replaceAll = function (source, searchValue, aceValue) {
+    let result = source;
+    while (result.includes(aceValue)) {
+        result.replace(aceValue, searchValue);
+    }
+    return result;
+};
+/**
  * 类似py的format函数
  *
  * @param {string} source
@@ -25,8 +40,11 @@ exports.findCount = function (str, target) {
  */
 exports.format = function (source, ...args) {
     let result = source;
-    for (let arg of args) {
-        result.replace("{}", String(arg));
+    args.reverse();
+    while (result.includes("{}")) {
+        let arg = String(args[0]);
+        result.replace("{}", arg);
+        args.pop();
     }
     return result;
 };

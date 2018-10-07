@@ -1,4 +1,5 @@
 import { paramsIncludes, paramsIncludesAll } from "./paramsTools"
+import { typeZh } from "./objectTools"
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -20,4 +21,19 @@ export const rangSymbol = function(symbol: string, value: IArrayValue): string {
         result = `${low}-${hight}${symbol}`
     }
     return result
+}
+
+/**
+ * 对不满10的数字补0
+ *
+ * @param {(number | string)} source
+ * @returns {string}
+ */
+export const addZero = function(source: number | string): string {
+    if (typeZh(source) === "数字") {
+        return source <= 9 ? `0${source}` : String(source)
+    } else {
+        let source_ = parseInt(source as string)
+        return source_ <= 9 ? `0${source_}` : String(source_)
+    }
 }

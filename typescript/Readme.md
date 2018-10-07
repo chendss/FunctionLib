@@ -13,6 +13,7 @@
 -   `checkParameter` 检查传入的参数是否有空值
 -   `paramsIncludesAll` 判断其他参数是否[都]在第一个参数（数组）里
 -   `paramsIncludes` 判断其他参数是否在第一个参数（数组）里,只要满足一个即可
+-   `three` 三元表达式的函数形式
 
 ### Object - objectTools
 
@@ -28,6 +29,7 @@
 -   `shallowCopy` 浅度复制对象
 -   `isEqual` 判断两个元素是否相等
 -   `deepMerge` 合并多个元素，兼容数组与对象
+-   `migration` 将第二个对象的值迁移到第一个对象（不改变第一个对象的引用）
 
 ### Array - arrayTools
 
@@ -47,6 +49,7 @@
 -   `findCount` 获得字符串里关键字的数量
 -   `format` 类似 py 的 format 函数
 -   `shift` 将关键字插入字符串前面
+-   `replaceAll` 替换所有查询字符串
 
 ### Time - time
 
@@ -54,6 +57,9 @@
 -   `toRelativeTime` 返回友好时间 （xx 之前、刚）
 -   `nowTime` 返回当前时间 eg: '2018-10-06'
 -   `localeTime` utc 时间转本地时间
+-   `toDate` 转化成 Date 类型
+-   `intervalTime` 计算时间间隔
+-   `countDown` 倒计时函数
 
 ### Dom 操作 - dom
 
@@ -70,13 +76,14 @@
 ### 业务需求（难以分类） - business
 
 -   `rangSymbol` 范围转文字（[0,5] 5x 以下）
+-   `addZero` 对不满 10 的数字补 0
 
 ### 校验 - check
 
 -   `checkCard` 校验身份证是否合法
 -   `checkPhone` 检查手机号是否合法
 -   `checkEmail` 检查邮箱是否合法
--   `regularDict` 不是一个函数，是个字典，含有库里能验证的类型
+-   `regularDict` 不是一个函数，是个字典，含有预定义的正则
 
 ### 数学业务库 - mathTools
 

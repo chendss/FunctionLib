@@ -92,3 +92,22 @@ export const isFalse = function(item: any): boolean {
         return true
     }
 }
+
+/**
+ * 三元表达式的函数形式
+ *
+ * @param {boolean} condition
+ * @param {*} trueValue
+ * @param {*} falseValue
+ * @returns
+ */
+export const three = function(
+    condition: boolean,
+    trueValue: any,
+    falseValue: any
+) {
+    if (condition) {
+        return trueValue
+    }
+    return falseValue
+}

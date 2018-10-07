@@ -151,7 +151,8 @@ exports.typeZh = function (obj) {
         String: "字符串",
         Null: "空值",
         NaN: "NaN",
-        Function: "函数"
+        Function: "函数",
+        Date: "时间"
     };
     let typeStr = outDict[exports.type(obj)];
     return typeStr;
@@ -250,4 +251,17 @@ exports.deepMerge = function (...sources) {
         }
     }
     return acc;
+};
+/**
+ * 将第二个对象的值迁移到第一个对象
+ *
+ * @param {IObject} source
+ * @param {IObject} target
+ */
+exports.migration = function (source, target) {
+    for (let key in target) {
+        if (target.hasOwnProperty(key)) {
+            source[key] = target[key];
+        }
+    }
 };

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const paramsTools_1 = require("./paramsTools");
+const objectTools_1 = require("./objectTools");
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -25,4 +26,19 @@ exports.rangSymbol = function (symbol, value) {
         result = `${low}-${hight}${symbol}`;
     }
     return result;
+};
+/**
+ * 对不满10的数字补0
+ *
+ * @param {(number | string)} source
+ * @returns {string}
+ */
+exports.addZero = function (source) {
+    if (objectTools_1.typeZh(source) === "数字") {
+        return source <= 9 ? `0${source}` : String(source);
+    }
+    else {
+        let source_ = parseInt(source);
+        return source_ <= 9 ? `0${source_}` : String(source_);
+    }
 };
