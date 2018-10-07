@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 exports.asyncCall = function (queue) {
     for (let fun of queue) {
-        if (!fun()) {
+        if (fun() === false) {
             return false;
         }
     }

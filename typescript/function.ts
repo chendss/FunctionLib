@@ -6,7 +6,7 @@
  */
 export const asyncCall = function(queue: Array<Function>): boolean {
     for (let fun of queue) {
-        if (!fun()) {
+        if (fun() === false) {
             return false
         }
     }
