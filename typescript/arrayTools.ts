@@ -1,4 +1,4 @@
-import { paramsIncludes, isFalse, three } from "./paramsTools"
+import { paramsSome, isFalse, three } from "./paramsTools"
 import { typeZh, type, isNaN } from "./objectTools"
 import { log } from "./debug"
 /**
@@ -203,7 +203,7 @@ export const arrayDefault = function(n: number, item: any = null): Array<any> {
 export const len = function(source: any): number {
     let type_ = typeZh(source)
     let result = 0
-    if (paramsIncludes(type_, "数组", "字符串")) {
+    if (paramsSome(type_, "数组", "字符串")) {
         let source_ = source as Array<any> | String
         result = source_.length
     } else if (type_ === "对象") {

@@ -13,13 +13,13 @@ exports.rangSymbol = function (symbol, value) {
     let result = "";
     let low = value[0];
     let hight = value[1];
-    if (paramsTools_1.paramsIncludesAll([0, "0"], low, hight)) {
+    if (paramsTools_1.paramsEvery([0, "0"], low, hight)) {
         result = "不限";
     }
-    else if (paramsTools_1.paramsIncludes([0, "0"], low)) {
+    else if (paramsTools_1.paramsSome([0, "0"], low)) {
         result = `${hight}${symbol}以下`;
     }
-    else if (paramsTools_1.paramsIncludes([0, "0"], hight)) {
+    else if (paramsTools_1.paramsSome([0, "0"], hight)) {
         result = `${low}${symbol}以上`;
     }
     else {

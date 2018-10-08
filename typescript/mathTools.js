@@ -17,3 +17,16 @@ exports.isSection = function (source, section) {
         return false;
     }
 };
+/**
+ * 计算数字数组的和
+ *
+ * @param {Array<number>} array
+ * @returns {number}
+ */
+exports.sum = function (array) {
+    let result = 0;
+    for (let n of array) {
+        result += n;
+    }
+    return result;
+};

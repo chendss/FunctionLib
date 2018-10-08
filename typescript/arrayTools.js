@@ -189,7 +189,7 @@ exports.arrayDefault = function (n, item = null) {
 exports.len = function (source) {
     let type_ = objectTools_1.typeZh(source);
     let result = 0;
-    if (paramsTools_1.paramsIncludes(type_, "数组", "字符串")) {
+    if (paramsTools_1.paramsSome(type_, "数组", "字符串")) {
         let source_ = source;
         result = source_.length;
     }

@@ -38,7 +38,7 @@ exports.checkParameter = function (...params) {
  * @param {...Array<any>} params
  * @returns
  */
-exports.paramsIncludes = function (sourceArray, ...params) {
+exports.paramsSome = function (sourceArray, ...params) {
     let sourceList = arrayTools_1.castArray(sourceArray);
     let args = [...params];
     for (let arg of args) {
@@ -55,7 +55,7 @@ exports.paramsIncludes = function (sourceArray, ...params) {
  * @param {...Array<any>} params
  * @returns
  */
-exports.paramsIncludesAll = function (sourceArray, ...params) {
+exports.paramsEvery = function (sourceArray, ...params) {
     let sourceList = arrayTools_1.castArray(sourceArray);
     for (let arg of params) {
         if (!sourceList.includes(arg)) {

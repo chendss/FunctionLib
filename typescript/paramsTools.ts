@@ -42,7 +42,7 @@ export const checkParameter = function(...params: Array<any>): boolean {
  * @param {...Array<any>} params
  * @returns
  */
-export const paramsIncludes = function(
+export const paramsSome = function(
     sourceArray: IArrayValue | any,
     ...params: Array<any>
 ) {
@@ -63,7 +63,7 @@ export const paramsIncludes = function(
  * @param {...Array<any>} params
  * @returns
  */
-export const paramsIncludesAll = function(
+export const paramsEvery = function(
     sourceArray: IArrayValue | any,
     ...params: Array<any>
 ) {

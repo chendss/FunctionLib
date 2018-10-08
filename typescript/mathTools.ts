@@ -17,3 +17,17 @@ export const isSection = function(
         return false
     }
 }
+
+/**
+ * 计算数字数组的和
+ *
+ * @param {Array<number>} array
+ * @returns {number}
+ */
+export const sum = function(array: Array<number>): number {
+    let result = 0
+    for (let n of array) {
+        result += n
+    }
+    return result
+}

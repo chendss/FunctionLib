@@ -48,7 +48,7 @@ export const format = function(
 ): string {
     let result = source
     args.reverse()
-    while (result.includes("{}")) {
+    while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0])
         result.replace("{}", arg)
         args.pop()

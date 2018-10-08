@@ -11,8 +11,8 @@
 -   `isEqualAll` 批量判断第一个值是否与其他参数相等
 -   `isFalse` 判断是否为假值
 -   `checkParameter` 检查传入的参数是否有空值
--   `paramsIncludesAll` 判断其他参数是否[都]在第一个参数（数组）里
--   `paramsIncludes` 判断其他参数是否在第一个参数（数组）里,只要满足一个即可
+-   `paramsEvery` 判断其他参数是否[都]在第一个参数（数组）里
+-   `paramsSome` 判断其他参数是否在第一个参数（数组）里,只要满足一个即可
 -   `three` 三元表达式的函数形式
 
 ### Object - objectTools

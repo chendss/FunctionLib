@@ -41,7 +41,7 @@ exports.replaceAll = function (source, searchValue, aceValue) {
 exports.format = function (source, ...args) {
     let result = source;
     args.reverse();
-    while (result.includes("{}")) {
+    while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0]);
         result.replace("{}", arg);
         args.pop();
