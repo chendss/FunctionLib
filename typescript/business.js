@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const paramsTools_1 = require("./paramsTools");
-const objectTools_1 = require("./objectTools");
+import { paramsSome, paramsEvery } from "./paramsTools";
+import { typeZh } from "./objectTools";
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -9,17 +7,17 @@ const objectTools_1 = require("./objectTools");
  * @param {(IArrayValue)} list
  * @returns {string}
  */
-exports.rangSymbol = function (symbol, value) {
+export const rangSymbol = function (symbol, value) {
     let result = "";
     let low = value[0];
     let hight = value[1];
-    if (paramsTools_1.paramsEvery([0, "0"], low, hight)) {
+    if (paramsEvery([0, "0"], low, hight)) {
         result = "不限";
     }
-    else if (paramsTools_1.paramsSome([0, "0"], low)) {
+    else if (paramsSome([0, "0"], low)) {
         result = `${hight}${symbol}以下`;
     }
-    else if (paramsTools_1.paramsSome([0, "0"], hight)) {
+    else if (paramsSome([0, "0"], hight)) {
         result = `${low}${symbol}以上`;
     }
     else {
@@ -33,8 +31,8 @@ exports.rangSymbol = function (symbol, value) {
  * @param {(number | string)} source
  * @returns {string}
  */
-exports.addZero = function (source) {
-    if (objectTools_1.typeZh(source) === "数字") {
+export const addZero = function (source) {
+    if (typeZh(source) === "数字") {
         return source <= 9 ? `0${source}` : String(source);
     }
     else {

@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 获得字符串里关键字的数量
  *
@@ -7,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {string} target 关键字
  * @returns
  */
-exports.findCount = function (str, target) {
+export const findCount = function (str, target) {
     let reg = new RegExp(target, "g");
     let value = str.match(reg);
     let result = 0;
@@ -24,7 +22,7 @@ exports.findCount = function (str, target) {
  * @param {string} aceValue 替换字符串
  * @returns {string}
  */
-exports.replaceAll = function (source, searchValue, aceValue) {
+export const replaceAll = function (source, searchValue, aceValue) {
     let result = source;
     while (result.includes(aceValue)) {
         result.replace(aceValue, searchValue);
@@ -38,7 +36,7 @@ exports.replaceAll = function (source, searchValue, aceValue) {
  * @param {(...Array<string | number>)} args
  * @returns {string}
  */
-exports.format = function (source, ...args) {
+export const format = function (source, ...args) {
     let result = source;
     args.reverse();
     while (result.includes("{}") && args.length !== 0) {
@@ -55,7 +53,7 @@ exports.format = function (source, ...args) {
  * @param {string} str 关键字
  * @returns {string}
  */
-exports.shift = function (source, str) {
+export const shift = function (source, str) {
     let result = str + source;
     return result;
 };
