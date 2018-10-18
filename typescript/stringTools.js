@@ -57,3 +57,46 @@ export const shift = function (source, str) {
     let result = str + source;
     return result;
 };
+/**
+ * 去除字符串空格
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+export const trimSpace = function (str) {
+    let result = str.replace(/[ ]/g, "");
+    return result;
+};
+/**
+ * 去除中文
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+export const removeZh = function (str) {
+    let re = /[\u4E00-\u9FA5]/g;
+    let result = str.replace(re, "");
+    return result;
+};
+/**
+ * 去除特殊符号
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+export const removeSpecial = function (str) {
+    let re = /[&\|\\\*^%$#@:：\-]/g;
+    let result = str.replace(re, "");
+    return result;
+};
+/**
+ * 去除英文
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+export const removeEn = function (str) {
+    let re = /[&\\|\\\\*^%$#@:：\\-]/g;
+    let result = str.replace(re, "");
+    return result;
+};
