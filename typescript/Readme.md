@@ -53,6 +53,10 @@
 -   `format` 类似 py 的 format 函数
 -   `shift` 将关键字插入字符串前面
 -   `replaceAll` 替换所有查询字符串
+-   `trimSpace` 去除字符串空格
+-   `removeZh` 去除中文
+-   `removeSpecial` 去除特殊符号
+-   `removeEn` 去除英文
 
 ### Time - time
 

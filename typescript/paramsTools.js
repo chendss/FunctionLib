@@ -1,5 +1,7 @@
-import { castArray } from "./arrayTools";
-import { isNaN } from "./objectTools";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const arrayTools_1 = require("./arrayTools");
+const objectTools_1 = require("./objectTools");
 /**
  * 批量判断第一个值是否与其他参数相等
  *
@@ -7,7 +9,7 @@ import { isNaN } from "./objectTools";
  * @param {(...Array<string | number>)} args
  * @returns {boolean}
  */
-export const isEqualAll = function (params, ...args) {
+exports.isEqualAll = function (params, ...args) {
     for (let arg of args) {
         if (params !== arg) {
             return false;
@@ -21,9 +23,9 @@ export const isEqualAll = function (params, ...args) {
  * @param {...Array<any>} params
  * @returns {boolean}
  */
-export const checkParameter = function (...params) {
+exports.checkParameter = function (...params) {
     for (let item of params) {
-        if (item == null || isNaN(item)) {
+        if (item == null || objectTools_1.isNaN(item)) {
             return false;
         }
     }
@@ -36,8 +38,8 @@ export const checkParameter = function (...params) {
  * @param {...Array<any>} params
  * @returns
  */
-export const paramsSome = function (sourceArray, ...params) {
-    let sourceList = castArray(sourceArray);
+exports.paramsSome = function (sourceArray, ...params) {
+    let sourceList = arrayTools_1.castArray(sourceArray);
     let args = [...params];
     for (let arg of args) {
         if (sourceList.includes(arg)) {
@@ -53,8 +55,8 @@ export const paramsSome = function (sourceArray, ...params) {
  * @param {...Array<any>} params
  * @returns
  */
-export const paramsEvery = function (sourceArray, ...params) {
-    let sourceList = castArray(sourceArray);
+exports.paramsEvery = function (sourceArray, ...params) {
+    let sourceList = arrayTools_1.castArray(sourceArray);
     for (let arg of params) {
         if (!sourceList.includes(arg)) {
             return false;
@@ -68,12 +70,12 @@ export const paramsEvery = function (sourceArray, ...params) {
  * @param {*} item
  * @returns {boolean}
  */
-export const isFalse = function (item) {
+exports.isFalse = function (item) {
     let valueList = [null, undefined, "", 0, false];
     if (valueList.includes(item)) {
         return false;
     }
-    else if (isNaN(item)) {
+    else if (objectTools_1.isNaN(item)) {
         return false;
     }
     else {
@@ -88,7 +90,7 @@ export const isFalse = function (item) {
  * @param {*} falseValue
  * @returns
  */
-export const three = function (condition, trueValue, falseValue) {
+exports.three = function (condition, trueValue, falseValue) {
     if (condition) {
         return trueValue;
     }

@@ -1,5 +1,7 @@
-import { paramsSome, isFalse, three } from "./paramsTools";
-import { typeZh } from "./objectTools";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const paramsTools_1 = require("./paramsTools");
+const objectTools_1 = require("./objectTools");
 /**
  * 分割数组
  *
@@ -7,7 +9,7 @@ import { typeZh } from "./objectTools";
  * @param {number} n
  * @returns
  */
-export const chunk = function (array, n) {
+exports.chunk = function (array, n) {
     let result = [];
     for (let i = 0, len = array.length; i < len; i += n) {
         result.push(array.slice(i, i + n));
@@ -21,10 +23,10 @@ export const chunk = function (array, n) {
  * @param {T[]} array
  * @returns {boolean}
  */
-export const isValueList = function (array) {
+exports.isValueList = function (array) {
     for (let item of array) {
-        let itemType = typeZh(item);
-        if (!isIntersection([itemType], ["字符串", "数字"])) {
+        let itemType = objectTools_1.typeZh(item);
+        if (!exports.isIntersection([itemType], ["字符串", "数字"])) {
             return false;
         }
     }
@@ -38,8 +40,8 @@ export const isValueList = function (array) {
  * @param {string} [key=""]
  * @returns {T[]}
  */
-export const removalRepeat = function (array, key = "") {
-    if (isValueList(array)) {
+exports.removalRepeat = function (array, key = "") {
+    if (exports.isValueList(array)) {
         let result = Array.from(new Set(array));
         return result;
     }
@@ -63,7 +65,7 @@ export const removalRepeat = function (array, key = "") {
  * @param {T[]} target
  * @returns {T[]}
  */
-export const concatFront = function (source, target) {
+exports.concatFront = function (source, target) {
     let result = target.concat(source);
     return result;
 };
@@ -73,8 +75,8 @@ export const concatFront = function (source, target) {
  * @param {*} val
  * @returns {Array<any>}
  */
-export const castArray = function (val) {
-    if (typeZh(val) === "数组") {
+exports.castArray = function (val) {
+    if (objectTools_1.typeZh(val) === "数组") {
         return val;
     }
     else {
@@ -88,10 +90,10 @@ export const castArray = function (val) {
  * @param {(Array<string | number>)} list2
  * @returns {(Array<string | number>)}
  */
-export const intersection = function (list1, list2) {
+exports.intersection = function (list1, list2) {
     let intersectionList = [];
     intersectionList = list1.filter(item => list2.includes(item));
-    let result = removalRepeat(intersectionList);
+    let result = exports.removalRepeat(intersectionList);
     return result;
 };
 /**
@@ -101,7 +103,7 @@ export const intersection = function (list1, list2) {
  * @param {(Array<string | number>)} list2
  * @returns {boolean}
  */
-export const isIntersection = function (list1, list2) {
+exports.isIntersection = function (list1, list2) {
     let list1_ = list1.slice();
     let list2_ = list2.slice();
     for (let item of list1_) {
@@ -118,14 +120,14 @@ export const isIntersection = function (list1, list2) {
  * @param {(Array<string | number>)} S2
  * @returns {boolean}
  */
-export const isSetEquality = function (S1, S2) {
+exports.isSetEquality = function (S1, S2) {
     let len1 = S1.length;
     let len2 = S2.length;
     if (len1 !== len2) {
         return false;
     }
     else {
-        let intersection_ = intersection(S1, S2);
+        let intersection_ = exports.intersection(S1, S2);
         let len = intersection_.length;
         return len === len1;
     }
@@ -136,11 +138,11 @@ export const isSetEquality = function (S1, S2) {
  * @param {Array<any>} array
  * @returns {(Array<string | number>)}
  */
-export const flattenDeep = function (array) {
+exports.flattenDeep = function (array) {
     let result = [];
     for (let item of array) {
         if (item instanceof Array) {
-            let array_ = flattenDeep(item);
+            let array_ = exports.flattenDeep(item);
             result = result.concat(array_);
         }
         else {
@@ -155,8 +157,8 @@ export const flattenDeep = function (array) {
  * @param {number} n 数组长度
  * @returns {Array<number>}
  */
-export const range = function (n) {
-    let result = arrayDefault(n, (i) => i);
+exports.range = function (n) {
+    let result = exports.arrayDefault(n, (i) => i);
     return result;
 };
 /**
@@ -166,10 +168,10 @@ export const range = function (n) {
  * @param {*} item 默认值
  * @returns {Array<any>}
  */
-export const arrayDefault = function (n, item = null) {
+exports.arrayDefault = function (n, item = null) {
     let result = [];
     for (let i = 0; i < n; i++) {
-        if (typeZh(item) === "函数") {
+        if (objectTools_1.typeZh(item) === "函数") {
             result.push(item(i));
         }
         else {
@@ -184,10 +186,10 @@ export const arrayDefault = function (n, item = null) {
  * @param { any)} list_
  * @returns {number}
  */
-export const len = function (source) {
-    let type_ = typeZh(source);
+exports.len = function (source) {
+    let type_ = objectTools_1.typeZh(source);
     let result = 0;
-    if (paramsSome(type_, "数组", "字符串")) {
+    if (paramsTools_1.paramsSome(type_, "数组", "字符串")) {
         let source_ = source;
         result = source_.length;
     }
@@ -204,8 +206,8 @@ export const len = function (source) {
  * @param {T[]} array
  * @returns {T[]}
  */
-export const compact = function (array) {
-    let result = array.filter(arr => isFalse(arr));
+exports.compact = function (array) {
+    let result = array.filter(arr => paramsTools_1.isFalse(arr));
     return result;
 };
 /**
@@ -214,7 +216,7 @@ export const compact = function (array) {
  * @param {Array<any>} array
  * @param {number} [n=0]
  */
-export const nth = function (array, n = 0) {
+exports.nth = function (array, n = 0) {
     let length = array.length;
     if (n >= 0) {
         return array[n];
@@ -232,8 +234,8 @@ export const nth = function (array, n = 0) {
  * @param {string} [key=""]
  * @returns {boolean}
  */
-export const includesPro = function (array, key = "", value) {
-    if (isValueList(array)) {
+exports.includesPro = function (array, key = "", value) {
+    if (exports.isValueList(array)) {
         return array.includes(value);
     }
     else {
@@ -248,12 +250,12 @@ export const includesPro = function (array, key = "", value) {
  * @param {Array<any>} array
  * @returns
  */
-export const sampleSize = function (array, n = 1) {
+exports.sampleSize = function (array, n = 1) {
     let length = array.length;
     let result = [];
-    for (let i of range(n)) {
+    for (let i of exports.range(n)) {
         let index = Math.floor(Math.random() * length);
         result.push(array[index]);
     }
-    return three(result.length === 1, result[0], result);
+    return paramsTools_1.three(result.length === 1, result[0], result);
 };

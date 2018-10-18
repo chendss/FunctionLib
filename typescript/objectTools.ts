@@ -5,6 +5,21 @@ import {
     castArray,
     arrayDefault
 } from "./arrayTools"
+
+/**
+ * 解析json，兼容undefind
+ *
+ * @param {*} obj
+ * @returns {*}
+ */
+export const jsonParse = function(obj: any): any {
+    if (typeZh(obj) === "未定义") {
+        return null
+    } else {
+        return JSON.parse(obj)
+    }
+}
+
 /**
  * 深度复制对象
  *
@@ -13,7 +28,7 @@ import {
  * @returns {T}
  */
 export const deepCopy = function<T>(obj: T): T {
-    let result = JSON.parse(JSON.stringify(obj))
+    let result = jsonParse(JSON.stringify(obj))
     return result
 }
 

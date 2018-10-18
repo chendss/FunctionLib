@@ -1,10 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 根据选择器获得一个匹配的dom对象
  *
  * @param {string} selector css选择器
  * @returns {HTMLElement} DOM对象
  */
-export const q = function (selector) {
+exports.q = function (selector) {
     return document.querySelector(selector);
 };
 /**
@@ -13,7 +15,7 @@ export const q = function (selector) {
  * @param {string} selector
  * @returns {NodeListOf<Element>}
  */
-export const qs = function (selector) {
+exports.qs = function (selector) {
     return document.querySelectorAll(selector);
 };
 /**
@@ -22,8 +24,8 @@ export const qs = function (selector) {
  * @param {string} selector css选择器
  * @param {(e: Event) => void} handle click回调函数
  */
-export const bindClick = function (selector, handle) {
-    const queries = qs(selector);
+exports.bindClick = function (selector, handle) {
+    const queries = exports.qs(selector);
     queries.forEach(q => q.addEventListener("click", handle, false));
 };
 /**
@@ -32,8 +34,8 @@ export const bindClick = function (selector, handle) {
  * @param {string} selector css选择器
  * @param {(e: Event) => void} handle click回调函数
  */
-export const bindInput = function (selector, handle) {
-    const queries = qs(selector);
+exports.bindInput = function (selector, handle) {
+    const queries = exports.qs(selector);
     queries.forEach(q => q.addEventListener("input", handle, false));
 };
 /**
@@ -41,7 +43,7 @@ export const bindInput = function (selector, handle) {
  *
  * @returns
  */
-export const windowScrollTop = function () {
+exports.windowScrollTop = function () {
     let Y1 = document.documentElement.scrollTop;
     let Y2 = document.body.scrollTop;
     if (Y1 === 0) {
