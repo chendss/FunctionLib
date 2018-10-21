@@ -80,6 +80,7 @@
 
 -   `rangSymbol` 范围转文字（[0,5] 5x 以下）
 -   `addZero` 对不满 10 的数字补 0
+-   `toObjArray` 字符串数组转对象数组 text-value
 
 ### 校验 - check
 

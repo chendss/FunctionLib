@@ -1,5 +1,6 @@
 import { paramsSome, paramsEvery } from "./paramsTools"
 import { typeZh } from "./objectTools"
+import { castArray } from "./arrayTools"
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -36,4 +37,42 @@ export const addZero = function(source: number | string): string {
         let source_ = parseInt(source as string)
         return source_ <= 9 ? `0${source_}` : String(source_)
     }
+}
+
+/**
+ * 字符串数组转对象数组 text-value
+ *
+ * @param {Array<string>} strList
+ * @returns
+ */
+export const toObjArray = function(strList: Array<string>) {
+    let strList_ = castArray(strList) as Array<IObject>
+    let result = strList_.map(item => {
+        return { text: item, value: item, checked: false }
+    })
+    return result
+}
+
+/**
+ * 生成一个表单数据，含有两个值，一个是表单键-值，一个是表单键-展示文本
+ *
+ * @param {Array<[string, string, any]>} dataList
+ * @returns
+ */
+export const formDataStructure = function(
+    dataList: Array<[string, string, any]>
+): IObject {
+    let form: IObject = {}
+    let config: Array<IObject> = []
+    for (let item of dataList) {
+        let name = item[1]
+        let value = item[2]
+        let keyConfig = item[0]
+        let [key, itemType] = keyConfig.includes("-")
+            ? [...keyConfig.split("-")]
+            : [keyConfig, "input"]
+        form[key] = value
+        config.push({ key, text: name, itemType })
+    }
+    return { form, config }
 }
