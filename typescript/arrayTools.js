@@ -257,3 +257,20 @@ export const sampleSize = function (array, n = 1) {
     }
     return three(result.length === 1, result[0], result);
 };
+/**
+ * 寻找所有符合条件的元素
+ *
+ * @template T
+ * @param {T[]} array
+ * @param {Function} callback
+ * @returns {T[]}
+ */
+export const findAll = function (array, callback) {
+    let result = [];
+    for (let item of array) {
+        if (callback(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};

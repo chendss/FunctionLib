@@ -1,42 +1,47 @@
-import { toObjArray, formDataStructure } from "./business";
-let companyNatureJson = [
-    "私营",
-    "国有",
-    "股份制",
-    "外商独资/办事处",
-    "中外合资/合作",
-    "上市公司",
-    "事业单位",
-    "政府机关",
-    "非营利机构",
-    "个人企业"
-];
+import { log } from "./debug";
+import { menuCreate } from "./business";
 let test = [
-    ["name", "公司名称", ""],
-    ["nickname", "公司别称", ""],
-    ["registrationNumber", "注册号", ""],
-    ["logo-img", "公司logo", ""],
-    ["companyNature-select", "公司名称", toObjArray(companyNatureJson)],
-    ["number", "公司人数", 0],
-    ["legal", "法人", ""],
-    ["legalCard", "法人身份证", ""],
-    ["legalPhone", "法人手机号", ""],
-    ["websites", "公司网址", ""],
-    ["introduction", "公司简介", ""],
-    ["pictures", "公司图片", []],
-    ["contacts", "联系人", ""],
-    ["telephone", "联系电话", ""],
-    ["email", "邮箱", ""],
-    ["addresses-multipleSelect", "公司地址", {}],
-    ["addressesDetail", "公司详细地址", ""],
-    [
-        "map-map",
-        "公司地图",
-        {
-            lng: "",
-            lat: ""
-        }
-    ]
+    {
+        id: "eb89efbd-94f4-4ab5-81af-e93c93e53826",
+        pid: null,
+        name: "企业信息管理",
+        url: "/BusinessHandle/ModuleChooicer?fid=7670aa37-49be-4d15-9235-7d35c0385ad7"
+    },
+    {
+        id: "0ddca924-d46b-41f0-8676-7d32627ba835",
+        pid: "eb89efbd-94f4-4ab5-81af-e93c93e53826",
+        name: "企业信息变更申请",
+        url: "/BusinessHandle/ModuleChooicer?fid=02038bab-4a89-483e-afd1-6cf79523e60a"
+    },
+    {
+        id: "98c7d4e0-299b-4c4f-a8c7-ba75c23033cf",
+        pid: "eb89efbd-94f4-4ab5-81af-e93c93e53826",
+        name: "从业人员权限管理",
+        url: "/BusinessHandle/ModuleChooicer?fid=5162e90b-63bd-4985-bd79-4590e6d5628a"
+    },
+    {
+        id: "d87bd9e7-ef06-4ef5-818c-0345a2fe3ea2",
+        pid: "eb89efbd-94f4-4ab5-81af-e93c93e53826",
+        name: "从业人员管理",
+        url: "/BusinessHandle/ModuleChooicer?fid=6b3aa1a3-af17-49b7-899c-2518fe498f0b"
+    },
+    {
+        id: "7416f150-2978-460a-9847-4270c5d42322",
+        pid: "7416f150-2978-460a-9847-4270c5d42323",
+        name: "企业信息变更业务查询",
+        url: "/BusinessHandle/ModuleChooicer?fid=7670aa37-49be-4d15-9235-7d35c0385ad7"
+    },
+    {
+        id: "7416f150-2978-460a-9847-4270c5d42323",
+        pid: null,
+        name: "企业信息变更业务查询粑粑",
+        url: "/BusinessHandle/ModuleChooicer?fid=7670aa37-49be-4d15-9235-7d35c0385ad7"
+    },
+    {
+        id: "46f8de44-b799-4aba-9c51-037855e6daee",
+        pid: "eb89efbd-94f4-4ab5-81af-e93c93e53826",
+        name: "企业基本信息",
+        url: "/BusinessHandle/ModuleChooicer?fid=9d3609ca-6ff4-4973-b65c-b3737a1f16c4"
+    }
 ];
-let value = formDataStructure(test);
-console.dir(value);
+log((menuCreate(test)));
