@@ -286,3 +286,31 @@ export const migration = function(source: IObject, target: IObject) {
         }
     }
 }
+
+/**
+ * 链式获得对象的值，倘若取得过程有异常则返回null
+ *
+ * @param {IObject} obj
+ * @param {...Array<string>} keyList
+ * @returns {(any | null)}
+ */
+export const objectGet = function(
+    obj: IObject,
+    ...keyList: Array<string>
+): any | null {
+    let result = null
+    try {
+        let keyList_ = [...keyList]
+        let obj_: IObject = JSON.parse(JSON.stringify(obj))
+        while (keyList_.length > 0) {
+            let key = keyList_[0]
+            result = obj_[key]
+            keyList_.shift()
+            obj_ = result
+        }
+        return result
+    } catch (error) {
+        result = null
+        return result
+    }
+}

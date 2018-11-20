@@ -18,6 +18,7 @@
 ### Object - objectTools
 
 -   `deepCopy` 深度复制 js 的对象
+-   `objectGet` 链式获得对象的值，倘若取得过程有异常则返回null
 -   `shallowCopy` 浅度复制对象
 -   `chainObject` 链式对象生成函数
 -   `chainObjectMultiple` 链式对象生成器 多个键赋值
