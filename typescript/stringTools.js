@@ -27,7 +27,7 @@ exports.findCount = function (str, target) {
 exports.replaceAll = function (source, searchValue, aceValue) {
     let result = source;
     while (result.includes(aceValue)) {
-        result.replace(aceValue, searchValue);
+        result = result.replace(aceValue, searchValue);
     }
     return result;
 };
@@ -40,10 +40,9 @@ exports.replaceAll = function (source, searchValue, aceValue) {
  */
 exports.format = function (source, ...args) {
     let result = source;
-    args.reverse();
     while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0]);
-        result.replace("{}", arg);
+        result = result.replace("{}", arg);
         args.pop();
     }
     return result;

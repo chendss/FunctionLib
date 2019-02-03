@@ -30,7 +30,7 @@ export const replaceAll = function(
 ): string {
     let result = source
     while (result.includes(aceValue)) {
-        result.replace(aceValue, searchValue)
+        result = result.replace(aceValue, searchValue)
     }
     return result
 }
@@ -47,10 +47,9 @@ export const format = function(
     ...args: Array<string | number>
 ): string {
     let result = source
-    args.reverse()
     while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0])
-        result.replace("{}", arg)
+        result = result.replace("{}", arg)
         args.pop()
     }
     return result
