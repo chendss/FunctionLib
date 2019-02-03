@@ -278,3 +278,21 @@ export const sampleSize = function(array: Array<any>, n: number = 1) {
     }
     return three(result.length === 1, result[0], result)
 }
+
+/**
+ * 寻找所有符合条件的元素
+ *
+ * @template T
+ * @param {T[]} array
+ * @param {Function} callback
+ * @returns {T[]}
+ */
+export const findAll = function<T>(array: T[], callback: Function): T[] {
+    let result: T[] = []
+    for (let item of array) {
+        if (callback(item)) {
+            result.push(item)
+        }
+    }
+    return result
+}

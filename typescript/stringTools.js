@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 获得字符串里关键字的数量
  *
@@ -7,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {string} target 关键字
  * @returns
  */
-exports.findCount = function (str, target) {
+export const findCount = function (str, target) {
     let reg = new RegExp(target, "g");
     let value = str.match(reg);
     let result = 0;
@@ -24,7 +22,7 @@ exports.findCount = function (str, target) {
  * @param {string} aceValue 替换字符串
  * @returns {string}
  */
-exports.replaceAll = function (source, searchValue, aceValue) {
+export const replaceAll = function (source, searchValue, aceValue) {
     let result = source;
     while (result.includes(aceValue)) {
         result = result.replace(aceValue, searchValue);
@@ -38,7 +36,7 @@ exports.replaceAll = function (source, searchValue, aceValue) {
  * @param {(...Array<string | number>)} args
  * @returns {string}
  */
-exports.format = function (source, ...args) {
+export const format = function (source, ...args) {
     let result = source;
     while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0]);
@@ -54,7 +52,7 @@ exports.format = function (source, ...args) {
  * @param {string} str 关键字
  * @returns {string}
  */
-exports.shift = function (source, str) {
+export const shift = function (source, str) {
     let result = str + source;
     return result;
 };
@@ -64,7 +62,7 @@ exports.shift = function (source, str) {
  * @param {string} str
  * @returns {string}
  */
-exports.trimSpace = function (str) {
+export const trimSpace = function (str) {
     let result = str.replace(/[ ]/g, "");
     return result;
 };
@@ -74,7 +72,7 @@ exports.trimSpace = function (str) {
  * @param {string} str
  * @returns {string}
  */
-exports.removeZh = function (str) {
+export const removeZh = function (str) {
     let re = /[\u4E00-\u9FA5]/g;
     let result = str.replace(re, "");
     return result;
@@ -85,7 +83,7 @@ exports.removeZh = function (str) {
  * @param {string} str
  * @returns {string}
  */
-exports.removeSpecial = function (str) {
+export const removeSpecial = function (str) {
     let re = /[&\|\\\*^%$#@:：\-]/g;
     let result = str.replace(re, "");
     return result;
@@ -96,7 +94,7 @@ exports.removeSpecial = function (str) {
  * @param {string} str
  * @returns {string}
  */
-exports.removeEn = function (str) {
+export const removeEn = function (str) {
     let re = /[&\\|\\\\*^%$#@:：\\-]/g;
     let result = str.replace(re, "");
     return result;

@@ -5,21 +5,6 @@ import {
     castArray,
     arrayDefault
 } from "./arrayTools"
-
-/**
- * 解析json，兼容undefind
- *
- * @param {*} obj
- * @returns {*}
- */
-export const jsonParse = function(obj: any): any {
-    if (typeZh(obj) === "未定义") {
-        return null
-    } else {
-        return JSON.parse(obj)
-    }
-}
-
 /**
  * 深度复制对象
  *
@@ -28,7 +13,7 @@ export const jsonParse = function(obj: any): any {
  * @returns {T}
  */
 export const deepCopy = function<T>(obj: T): T {
-    let result = jsonParse(JSON.stringify(obj))
+    let result = JSON.parse(JSON.stringify(obj))
     return result
 }
 
@@ -299,5 +284,33 @@ export const migration = function(source: IObject, target: IObject) {
         if (target.hasOwnProperty(key)) {
             source[key] = target[key]
         }
+    }
+}
+
+/**
+ * 链式获得对象的值，倘若取得过程有异常则返回null
+ *
+ * @param {IObject} obj
+ * @param {...Array<string>} keyList
+ * @returns {(any | null)}
+ */
+export const objectGet = function(
+    obj: IObject,
+    ...keyList: Array<string>
+): any | null {
+    let result = null
+    try {
+        let keyList_ = [...keyList]
+        let obj_: IObject = JSON.parse(JSON.stringify(obj))
+        while (keyList_.length > 0) {
+            let key = keyList_[0]
+            result = obj_[key]
+            keyList_.shift()
+            obj_ = result
+        }
+        return result
+    } catch (error) {
+        result = null
+        return result
     }
 }

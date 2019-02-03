@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const arrayTools_1 = require("./arrayTools");
+import { range } from "./arrayTools";
 /**
  * 校验类型
  */
-exports.regularDict = new class RegularDict {
+export const regularDict = new class RegularDict {
     constructor() {
         this.email = /^([A-Za-z0-9_\-\\.])+\\@([A-Za-z0-9_\-\\.])+\.([A-Za-z]{2,4})$/;
         this.手机号 = /^1[34578]\d{9}$/;
@@ -23,11 +21,11 @@ exports.regularDict = new class RegularDict {
  * @param {string} card
  * @returns {boolean}
  */
-exports.checkCard = function (card) {
+export const checkCard = function (card) {
     let parmas = "7|9|10|5|8|4|2|1|6|3|7|9|10|5|8|4|2".split("|");
     let checkParams = "1|0|X|9|8|7|6|5|4|3|2".split("|");
     let temp = 0;
-    for (let i in arrayTools_1.range(17)) {
+    for (let i in range(17)) {
         temp += Number(card[i]) * parseInt(parmas[i]);
     }
     let remainder = temp % 11;
@@ -43,9 +41,9 @@ const checkRegular = function (str, regExp) {
  * @param {(string | number)} phone
  * @returns {boolean}
  */
-exports.checkPhone = function (phone) {
+export const checkPhone = function (phone) {
     let phone_ = String(phone);
-    let re = exports.regularDict.手机号;
+    let re = regularDict.手机号;
     return checkRegular(phone_, re);
 };
 /**
@@ -54,7 +52,7 @@ exports.checkPhone = function (phone) {
  * @param {string} email
  * @returns {boolean}
  */
-exports.checkEmail = function (email) {
+export const checkEmail = function (email) {
     let email_ = String(email);
-    return checkRegular(email_, exports.regularDict.email);
+    return checkRegular(email_, regularDict.email);
 };

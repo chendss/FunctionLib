@@ -1,20 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const arrayTools_1 = require("./arrayTools");
-/**
- * 解析json，兼容undefind
- *
- * @param {*} obj
- * @returns {*}
- */
-exports.jsonParse = function (obj) {
-    if (exports.typeZh(obj) === "未定义") {
-        return null;
-    }
-    else {
-        return JSON.parse(obj);
-    }
-};
+import { isValueList, castArray, arrayDefault } from "./arrayTools";
 /**
  * 深度复制对象
  *
@@ -22,8 +6,8 @@ exports.jsonParse = function (obj) {
  * @param {T} obj
  * @returns {T}
  */
-exports.deepCopy = function (obj) {
-    let result = exports.jsonParse(JSON.stringify(obj));
+export const deepCopy = function (obj) {
+    let result = JSON.parse(JSON.stringify(obj));
     return result;
 };
 /**
@@ -33,8 +17,8 @@ exports.deepCopy = function (obj) {
  * @param {*} value
  * @returns {object}
  */
-exports.chainObject = function (chainList, value) {
-    let result = exports.deepCopy(value);
+export const chainObject = function (chainList, value) {
+    let result = deepCopy(value);
     let chainListCopy = chainList.reverse();
     for (let key of chainListCopy) {
         let item = {};
@@ -50,20 +34,20 @@ exports.chainObject = function (chainList, value) {
  * @param {(Array<any> | any)} value
  * @returns
  */
-exports.chainObjectMultiple = function (chainKey, value) {
+export const chainObjectMultiple = function (chainKey, value) {
     let result = {};
     if (chainKey instanceof Array) {
         let length = chainKey.length;
-        let value_ = value || arrayTools_1.arrayDefault(length);
+        let value_ = value || arrayDefault(length);
         for (let i = 0; i < length; i++) {
             let itemChainKey = chainKey[i].split("-");
-            let item = exports.chainObject(itemChainKey, value_[i]);
-            result = exports.deepMerge(result, item);
+            let item = chainObject(itemChainKey, value_[i]);
+            result = deepMerge(result, item);
         }
     }
     else {
         let chainList = chainKey.split("-");
-        result = exports.chainObject(chainList, value);
+        result = chainObject(chainList, value);
     }
     return result;
 };
@@ -74,7 +58,7 @@ exports.chainObjectMultiple = function (chainKey, value) {
  * @param {IObject} target
  * @returns {(IObject | null)}
  */
-exports.chainValue = function (chainList, target) {
+export const chainValue = function (chainList, target) {
     let result = null;
     let source = target;
     for (let key of chainList) {
@@ -82,7 +66,7 @@ exports.chainValue = function (chainList, target) {
             return null;
         }
         ;
-        [result, source] = arrayTools_1.arrayDefault(2, source[key]);
+        [result, source] = arrayDefault(2, source[key]);
     }
     return result;
 };
@@ -93,15 +77,15 @@ exports.chainValue = function (chainList, target) {
  * @param {IObject} target
  * @returns
  */
-exports.chainValueList = function (chainKey, target) {
+export const chainValueList = function (chainKey, target) {
     let errorMsg = chainKey + "chainValueList方法必须传入 target ";
     if (!target)
         throw new Error(errorMsg);
-    let chainKey_ = arrayTools_1.castArray(chainKey);
+    let chainKey_ = castArray(chainKey);
     let result = [];
     for (let i = 0; i < chainKey_.length; i++) {
         let chainList = chainKey_[i].split("-");
-        let value = exports.chainValue(chainList, target);
+        let value = chainValue(chainList, target);
         result.push(value);
     }
     if (result.length === 1) {
@@ -115,7 +99,7 @@ exports.chainValueList = function (chainKey, target) {
  * @param {IObject} src
  * @returns
  */
-exports.shallowCopy = function (src) {
+export const shallowCopy = function (src) {
     let result = {};
     for (var prop in src) {
         if (src.hasOwnProperty(prop)) {
@@ -130,7 +114,7 @@ exports.shallowCopy = function (src) {
  * @param {*} obj
  * @returns {boolean}
  */
-exports.isNaN = function (obj) {
+export const isNaN = function (obj) {
     let result = obj === obj;
     return !result;
 };
@@ -140,10 +124,10 @@ exports.isNaN = function (obj) {
  * @param {*} obj
  * @returns {string}
  */
-exports.type = function (obj) {
+export const type = function (obj) {
     let result = Object.prototype.toString.call(obj);
     result = result.substring(8, result.length - 1);
-    if (exports.isNaN(obj)) {
+    if (isNaN(obj)) {
         return "NaN";
     }
     else {
@@ -156,7 +140,7 @@ exports.type = function (obj) {
  * @param {*} obj
  * @returns {string}
  */
-exports.typeZh = function (obj) {
+export const typeZh = function (obj) {
     const outDict = {
         Number: "数字",
         Undefined: "未定义",
@@ -168,7 +152,7 @@ exports.typeZh = function (obj) {
         Function: "函数",
         Date: "时间"
     };
-    let typeStr = outDict[exports.type(obj)];
+    let typeStr = outDict[type(obj)];
     return typeStr;
 };
 /**
@@ -184,7 +168,7 @@ const isEqualObject = function (source, target) {
     if (sourceKeys.length !== targetLen)
         return false;
     for (let key of sourceKeys) {
-        if (!exports.isEqual(source[key], target[key])) {
+        if (!isEqual(source[key], target[key])) {
             return false;
         }
     }
@@ -201,7 +185,7 @@ const isEqualArray = function (source, target) {
     if (source.length !== target.length)
         return false;
     for (let index in source) {
-        if (!exports.isEqual(source[index], target[index])) {
+        if (!isEqual(source[index], target[index])) {
             return false;
         }
     }
@@ -214,11 +198,11 @@ const isEqualArray = function (source, target) {
  * @param {*} target
  * @returns {boolean}
  */
-exports.isEqual = function (source, target) {
-    let [sourceType, targetType] = [exports.typeZh(source), exports.typeZh(target)];
+export const isEqual = function (source, target) {
+    let [sourceType, targetType] = [typeZh(source), typeZh(target)];
     if (sourceType !== targetType)
         return false;
-    if (arrayTools_1.isValueList([source, target])) {
+    if (isValueList([source, target])) {
         return source === target;
     }
     else if (sourceType === "对象") {
@@ -241,7 +225,7 @@ exports.isEqual = function (source, target) {
 const deepMergeObject = function (source, acc) {
     for (let [key, value] of Object.entries(source)) {
         if (value instanceof Object && key in acc) {
-            value = exports.deepMerge(acc[key], value);
+            value = deepMerge(acc[key], value);
         }
         acc = { ...acc, [key]: value };
     }
@@ -254,13 +238,13 @@ const deepMergeObject = function (source, acc) {
  * @param {(...Array<Object | Array<any>>)} sources
  * @returns {(Object | Array<any>)}
  */
-exports.deepMerge = function (...sources) {
+export const deepMerge = function (...sources) {
     let acc = {};
     for (let source of sources) {
         if (source instanceof Array) {
             acc = [...source];
         }
-        else if (exports.typeZh(source) === "对象") {
+        else if (typeZh(source) === "对象") {
             acc = deepMergeObject(source, acc);
         }
     }
@@ -272,7 +256,7 @@ exports.deepMerge = function (...sources) {
  * @param {IObject} source
  * @param {IObject} target
  */
-exports.migration = function (source, target) {
+export const migration = function (source, target) {
     for (let key in target) {
         if (target.hasOwnProperty(key)) {
             source[key] = target[key];

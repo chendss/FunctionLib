@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 判断是否在这个区间内
  *
@@ -7,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {Array<number>} section 区间
  * @returns {boolean}
  */
-exports.isSection = function (source, section) {
+export const isSection = function (source, section) {
     let min = section[0];
     let max = section[1];
     if (source >= min && source <= max) {
@@ -23,7 +21,7 @@ exports.isSection = function (source, section) {
  * @param {Array<number>} array
  * @returns {number}
  */
-exports.sum = function (array) {
+export const sum = function (array) {
     let result = 0;
     for (let n of array) {
         result += n;
