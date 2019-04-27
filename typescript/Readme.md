@@ -18,7 +18,7 @@
 ### Object - objectTools
 
 -   `deepCopy` 深度复制 js 的对象
--   `objectGet` 链式获得对象的值，倘若取得过程有异常则返回null
+-   `objectGet` 链式获得对象的值，倘若取得过程有异常则返回 null
 -   `shallowCopy` 浅度复制对象
 -   `chainObject` 链式对象生成函数
 -   `chainObjectMultiple` 链式对象生成器 多个键赋值
@@ -47,6 +47,7 @@
 -   `len` 回元素的长度 数组，对象的键个数，字符串长度
 -   `includesPro` includes 加强版，兼容对象数组
 -   `findAll` 寻找数组中所有符合条件的元素
+-   `removeCopy` 去除数组的重复元素，包括对象数组
 -   `nth` 获取 array 数组的第 n 个元素。如果 n 为负数，则返回从数组结尾开始的第 n 个元素。
 
 ### String - stringTools
@@ -84,8 +85,8 @@
 -   `addZero` 对不满 10 的数字补 0
 -   `toObjArray` 字符串数组转对象数组 text-value
 -   `formDataStructure` 成一个表单数据，含有两个值，一个是表单键-值，一个是表单键-展示文本
--   `rulesCreate` 表单验证规则生成器 适用ele
--   `rulesMerge` 表单验证合并 适用ele
+-   `rulesCreate` 表单验证规则生成器 适用 ele
+-   `rulesMerge` 表单验证合并 适用 ele
 
 ### 校验 - check
 

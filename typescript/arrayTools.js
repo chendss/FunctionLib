@@ -274,3 +274,24 @@ export const findAll = function (array, callback) {
     }
     return result;
 };
+/**
+* 去除数组的重复元素，包括对象数组
+*  callback(array[], result[])
+* @template T
+* @param {T[]} array
+* @param {(Function | null)} [callback=null]
+* @returns {T[]}
+*/
+export const removeCopy = function (array, callback = null) {
+    let result = [];
+    if (callback == null) {
+        result = Array.from(new Set(array));
+    }
+    else {
+        array.forEach(ele => {
+            ;
+            result.find(item => callback(ele, item)) ? '' : result.push(ele);
+        });
+    }
+    return result;
+};

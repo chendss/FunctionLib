@@ -41,7 +41,7 @@ export const format = function (source, ...args) {
     while (result.includes("{}") && args.length !== 0) {
         let arg = String(args[0]);
         result = result.replace("{}", arg);
-        args.pop();
+        args.shift();
     }
     return result;
 };
