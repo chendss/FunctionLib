@@ -1,4 +1,4 @@
-import { isValueList, castArray, arrayDefault } from "./arrayTools";
+import { isValueList, castArray, arrayDefault } from './arrayTools';
 /**
  * 深度复制对象
  *
@@ -40,13 +40,13 @@ export const chainObjectMultiple = function (chainKey, value) {
         let length = chainKey.length;
         let value_ = value || arrayDefault(length);
         for (let i = 0; i < length; i++) {
-            let itemChainKey = chainKey[i].split("-");
+            let itemChainKey = chainKey[i].split('-');
             let item = chainObject(itemChainKey, value_[i]);
             result = deepMerge(result, item);
         }
     }
     else {
-        let chainList = chainKey.split("-");
+        let chainList = chainKey.split('-');
         result = chainObject(chainList, value);
     }
     return result;
@@ -78,13 +78,13 @@ export const chainValue = function (chainList, target) {
  * @returns
  */
 export const chainValueList = function (chainKey, target) {
-    let errorMsg = chainKey + "chainValueList方法必须传入 target ";
+    let errorMsg = chainKey + 'chainValueList方法必须传入 target ';
     if (!target)
         throw new Error(errorMsg);
     let chainKey_ = castArray(chainKey);
     let result = [];
     for (let i = 0; i < chainKey_.length; i++) {
-        let chainList = chainKey_[i].split("-");
+        let chainList = chainKey_[i].split('-');
         let value = chainValue(chainList, target);
         result.push(value);
     }
@@ -128,7 +128,7 @@ export const type = function (obj) {
     let result = Object.prototype.toString.call(obj);
     result = result.substring(8, result.length - 1);
     if (isNaN(obj)) {
-        return "NaN";
+        return 'NaN';
     }
     else {
         return result;
@@ -142,15 +142,15 @@ export const type = function (obj) {
  */
 export const typeZh = function (obj) {
     const outDict = {
-        Number: "数字",
-        Undefined: "未定义",
-        Object: "对象",
-        Array: "数组",
-        String: "字符串",
-        Null: "空值",
-        NaN: "NaN",
-        Function: "函数",
-        Date: "时间"
+        Number: '数字',
+        Undefined: '未定义',
+        Object: '对象',
+        Array: '数组',
+        String: '字符串',
+        Null: '空值',
+        NaN: 'NaN',
+        Function: '函数',
+        Date: '时间'
     };
     let typeStr = outDict[type(obj)];
     return typeStr;
@@ -205,10 +205,10 @@ export const isEqual = function (source, target) {
     if (isValueList([source, target])) {
         return source === target;
     }
-    else if (sourceType === "对象") {
+    else if (sourceType === '对象') {
         return isEqualObject(source, target);
     }
-    else if (sourceType === "数组") {
+    else if (sourceType === '数组') {
         return isEqualArray(source, target);
     }
     else {
@@ -244,7 +244,7 @@ export const deepMerge = function (...sources) {
         if (source instanceof Array) {
             acc = [...source];
         }
-        else if (typeZh(source) === "对象") {
+        else if (typeZh(source) === '对象') {
             acc = deepMergeObject(source, acc);
         }
     }
@@ -261,5 +261,30 @@ export const migration = function (source, target) {
         if (target.hasOwnProperty(key)) {
             source[key] = target[key];
         }
+    }
+};
+/**
+ * 链式获得对象的值，倘若取得过程有异常则返回null
+ *
+ * @param {IObject} obj
+ * @param {...Array<string>} keyList
+ * @returns {(any | null)}
+ */
+export const objectGet = function (obj, ...keyList) {
+    let result = null;
+    try {
+        let keyList_ = [...keyList];
+        let obj_ = JSON.parse(JSON.stringify(obj));
+        while (keyList_.length > 0) {
+            let key = keyList_[0];
+            result = obj_[key];
+            keyList_.shift();
+            obj_ = result;
+        }
+        return result;
+    }
+    catch (error) {
+        result = null;
+        return result;
     }
 };

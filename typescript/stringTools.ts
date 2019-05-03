@@ -6,13 +6,13 @@
  * @returns
  */
 export const findCount = function(str: string, target: string) {
-    let reg = new RegExp(target, "g")
-    let value = str.match(reg)
-    let result = 0
-    if (value instanceof Array) {
-        result = value.length
-    }
-    return result
+  let reg = new RegExp(target, 'g')
+  let value = str.match(reg)
+  let result = 0
+  if (value instanceof Array) {
+    result = value.length
+  }
+  return result
 }
 
 /**
@@ -24,15 +24,15 @@ export const findCount = function(str: string, target: string) {
  * @returns {string}
  */
 export const replaceAll = function(
-    source: string,
-    searchValue: string,
-    aceValue: string
+  source: string,
+  searchValue: string,
+  aceValue: string
 ): string {
-    let result = source
-    while (result.includes(aceValue)) {
-        result = result.replace(aceValue, searchValue)
-    }
-    return result
+  let result = source
+  while (result.includes(aceValue)) {
+    result = result.replace(aceValue, searchValue)
+  }
+  return result
 }
 
 /**
@@ -43,16 +43,16 @@ export const replaceAll = function(
  * @returns {string}
  */
 export const format = function(
-    source: string,
-    ...args: Array<string | number>
+  source: string,
+  ...args: Array<string | number>
 ): string {
-    let result = source
-    while (result.includes("{}") && args.length !== 0) {
-        let arg = String(args[0])
-        result = result.replace("{}", arg)
-        args.shift()
-    }
-    return result
+  let result = source
+  while (result.includes('{}') && args.length !== 0) {
+    let arg = String(args[0])
+    result = result.replace('{}', arg)
+    args.shift()
+  }
+  return result
 }
 
 /**
@@ -63,8 +63,8 @@ export const format = function(
  * @returns {string}
  */
 export const shift = function(source: string, str: string): string {
-    let result = str + source
-    return result
+  let result = str + source
+  return result
 }
 
 /**
@@ -74,8 +74,8 @@ export const shift = function(source: string, str: string): string {
  * @returns {string}
  */
 export const trimSpace = function(str: string): string {
-    let result = str.replace(/[ ]/g, "")
-    return result
+  let result = str.replace(/[ ]/g, '')
+  return result
 }
 
 /**
@@ -85,9 +85,9 @@ export const trimSpace = function(str: string): string {
  * @returns {string}
  */
 export const removeZh = function(str: string): string {
-    let re = /[\u4E00-\u9FA5]/g
-    let result = str.replace(re, "")
-    return result
+  let re = /[\u4E00-\u9FA5]/g
+  let result = str.replace(re, '')
+  return result
 }
 
 /**
@@ -97,9 +97,9 @@ export const removeZh = function(str: string): string {
  * @returns {string}
  */
 export const removeSpecial = function(str: string): string {
-    let re = /[&\|\\\*^%$#@:：\-]/g
-    let result = str.replace(re, "")
-    return result
+  let re = /[&\|\\\*^%$#@:：\-]/g
+  let result = str.replace(re, '')
+  return result
 }
 
 /**
@@ -109,7 +109,7 @@ export const removeSpecial = function(str: string): string {
  * @returns {string}
  */
 export const removeEn = function(str: string): string {
-    let re = /[&\\|\\\\*^%$#@:：\\-]/g
-    let result = str.replace(re, "")
-    return result
+  let re = /[&\\|\\\\*^%$#@:：\\-]/g
+  let result = str.replace(re, '')
+  return result
 }

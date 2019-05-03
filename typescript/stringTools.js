@@ -6,7 +6,7 @@
  * @returns
  */
 export const findCount = function (str, target) {
-    let reg = new RegExp(target, "g");
+    let reg = new RegExp(target, 'g');
     let value = str.match(reg);
     let result = 0;
     if (value instanceof Array) {
@@ -38,10 +38,10 @@ export const replaceAll = function (source, searchValue, aceValue) {
  */
 export const format = function (source, ...args) {
     let result = source;
-    while (result.includes("{}") && args.length !== 0) {
+    while (result.includes('{}') && args.length !== 0) {
         let arg = String(args[0]);
-        result = result.replace("{}", arg);
-        args.pop();
+        result = result.replace('{}', arg);
+        args.shift();
     }
     return result;
 };
@@ -63,7 +63,7 @@ export const shift = function (source, str) {
  * @returns {string}
  */
 export const trimSpace = function (str) {
-    let result = str.replace(/[ ]/g, "");
+    let result = str.replace(/[ ]/g, '');
     return result;
 };
 /**
@@ -74,7 +74,7 @@ export const trimSpace = function (str) {
  */
 export const removeZh = function (str) {
     let re = /[\u4E00-\u9FA5]/g;
-    let result = str.replace(re, "");
+    let result = str.replace(re, '');
     return result;
 };
 /**
@@ -85,7 +85,7 @@ export const removeZh = function (str) {
  */
 export const removeSpecial = function (str) {
     let re = /[&\|\\\*^%$#@:：\-]/g;
-    let result = str.replace(re, "");
+    let result = str.replace(re, '');
     return result;
 };
 /**
@@ -96,6 +96,6 @@ export const removeSpecial = function (str) {
  */
 export const removeEn = function (str) {
     let re = /[&\\|\\\\*^%$#@:：\\-]/g;
-    let result = str.replace(re, "");
+    let result = str.replace(re, '');
     return result;
 };

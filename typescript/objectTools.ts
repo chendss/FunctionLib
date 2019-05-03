@@ -1,10 +1,10 @@
-import { log } from "./debug"
+import { log } from './debug'
 import {
-    isIntersection,
-    isValueList,
-    castArray,
-    arrayDefault
-} from "./arrayTools"
+  isIntersection,
+  isValueList,
+  castArray,
+  arrayDefault
+} from './arrayTools'
 /**
  * 深度复制对象
  *
@@ -13,8 +13,8 @@ import {
  * @returns {T}
  */
 export const deepCopy = function<T>(obj: T): T {
-    let result = JSON.parse(JSON.stringify(obj))
-    return result
+  let result = JSON.parse(JSON.stringify(obj))
+  return result
 }
 
 /**
@@ -25,17 +25,17 @@ export const deepCopy = function<T>(obj: T): T {
  * @returns {object}
  */
 export const chainObject = function(
-    chainList: Array<string>,
-    value: any
+  chainList: Array<string>,
+  value: any
 ): object {
-    let result = deepCopy(value)
-    let chainListCopy = chainList.reverse()
-    for (let key of chainListCopy) {
-        let item: IObject = {}
-        item[key] = result
-        result = item
-    }
-    return result
+  let result = deepCopy(value)
+  let chainListCopy = chainList.reverse()
+  for (let key of chainListCopy) {
+    let item: IObject = {}
+    item[key] = result
+    result = item
+  }
+  return result
 }
 
 /**
@@ -46,23 +46,23 @@ export const chainObject = function(
  * @returns
  */
 export const chainObjectMultiple = function(
-    chainKey: Array<string> | string,
-    value: Array<any> | any
+  chainKey: Array<string> | string,
+  value: Array<any> | any
 ) {
-    let result = {}
-    if (chainKey instanceof Array) {
-        let length = chainKey.length
-        let value_ = value || arrayDefault(length)
-        for (let i = 0; i < length; i++) {
-            let itemChainKey = chainKey[i].split("-")
-            let item = chainObject(itemChainKey, value_[i])
-            result = deepMerge(result, item)
-        }
-    } else {
-        let chainList = chainKey.split("-")
-        result = chainObject(chainList, value)
+  let result = {}
+  if (chainKey instanceof Array) {
+    let length = chainKey.length
+    let value_ = value || arrayDefault(length)
+    for (let i = 0; i < length; i++) {
+      let itemChainKey = chainKey[i].split('-')
+      let item = chainObject(itemChainKey, value_[i])
+      result = deepMerge(result, item)
     }
-    return result
+  } else {
+    let chainList = chainKey.split('-')
+    result = chainObject(chainList, value)
+  }
+  return result
 }
 
 /**
@@ -73,18 +73,18 @@ export const chainObjectMultiple = function(
  * @returns {(IObject | null)}
  */
 export const chainValue = function(
-    chainList: Array<string>,
-    target: IObject
+  chainList: Array<string>,
+  target: IObject
 ): any {
-    let result: any = null
-    let source: any = target
-    for (let key of chainList) {
-        if (!source.hasOwnProperty(key)) {
-            return null
-        }
-        ;[result, source] = arrayDefault(2, source[key])
+  let result: any = null
+  let source: any = target
+  for (let key of chainList) {
+    if (!source.hasOwnProperty(key)) {
+      return null
     }
-    return result
+    ;[result, source] = arrayDefault(2, source[key])
+  }
+  return result
 }
 
 /**
@@ -95,22 +95,22 @@ export const chainValue = function(
  * @returns
  */
 export const chainValueList = function(
-    chainKey: Array<string> | string,
-    target: IObject
+  chainKey: Array<string> | string,
+  target: IObject
 ) {
-    let errorMsg = chainKey + "chainValueList方法必须传入 target "
-    if (!target) throw new Error(errorMsg)
-    let chainKey_ = castArray(chainKey)
-    let result = []
-    for (let i = 0; i < chainKey_.length; i++) {
-        let chainList = chainKey_[i].split("-")
-        let value = chainValue(chainList, target)
-        result.push(value)
-    }
-    if (result.length === 1) {
-        result = result[0]
-    }
-    return result
+  let errorMsg = chainKey + 'chainValueList方法必须传入 target '
+  if (!target) throw new Error(errorMsg)
+  let chainKey_ = castArray(chainKey)
+  let result = []
+  for (let i = 0; i < chainKey_.length; i++) {
+    let chainList = chainKey_[i].split('-')
+    let value = chainValue(chainList, target)
+    result.push(value)
+  }
+  if (result.length === 1) {
+    result = result[0]
+  }
+  return result
 }
 
 /**
@@ -120,13 +120,13 @@ export const chainValueList = function(
  * @returns
  */
 export const shallowCopy = function(src: IObject) {
-    let result: IObject = {}
-    for (var prop in src) {
-        if (src.hasOwnProperty(prop)) {
-            result[prop] = src[prop]
-        }
+  let result: IObject = {}
+  for (var prop in src) {
+    if (src.hasOwnProperty(prop)) {
+      result[prop] = src[prop]
     }
-    return result
+  }
+  return result
 }
 
 /**
@@ -136,8 +136,8 @@ export const shallowCopy = function(src: IObject) {
  * @returns {boolean}
  */
 export const isNaN = function(obj: any): boolean {
-    let result = obj === obj
-    return !result
+  let result = obj === obj
+  return !result
 }
 
 /**
@@ -147,13 +147,13 @@ export const isNaN = function(obj: any): boolean {
  * @returns {string}
  */
 export const type = function(obj: any): string {
-    let result = Object.prototype.toString.call(obj)
-    result = result.substring(8, result.length - 1)
-    if (isNaN(obj)) {
-        return "NaN"
-    } else {
-        return result
-    }
+  let result = Object.prototype.toString.call(obj)
+  result = result.substring(8, result.length - 1)
+  if (isNaN(obj)) {
+    return 'NaN'
+  } else {
+    return result
+  }
 }
 
 /**
@@ -163,19 +163,19 @@ export const type = function(obj: any): string {
  * @returns {string}
  */
 export const typeZh = function(obj: any): string {
-    const outDict: IObjectString = {
-        Number: "数字",
-        Undefined: "未定义",
-        Object: "对象",
-        Array: "数组",
-        String: "字符串",
-        Null: "空值",
-        NaN: "NaN",
-        Function: "函数",
-        Date: "时间"
-    }
-    let typeStr = outDict[type(obj)]
-    return typeStr
+  const outDict: IObjectString = {
+    Number: '数字',
+    Undefined: '未定义',
+    Object: '对象',
+    Array: '数组',
+    String: '字符串',
+    Null: '空值',
+    NaN: 'NaN',
+    Function: '函数',
+    Date: '时间'
+  }
+  let typeStr = outDict[type(obj)]
+  return typeStr
 }
 
 /**
@@ -186,15 +186,15 @@ export const typeZh = function(obj: any): string {
  * @returns {boolean}
  */
 const isEqualObject = function(source: IObject, target: IObject): boolean {
-    let sourceKeys = Object.keys(source)
-    let targetLen = Object.keys(target).length
-    if (sourceKeys.length !== targetLen) return false
-    for (let key of sourceKeys) {
-        if (!isEqual(source[key], target[key])) {
-            return false
-        }
+  let sourceKeys = Object.keys(source)
+  let targetLen = Object.keys(target).length
+  if (sourceKeys.length !== targetLen) return false
+  for (let key of sourceKeys) {
+    if (!isEqual(source[key], target[key])) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -205,13 +205,13 @@ const isEqualObject = function(source: IObject, target: IObject): boolean {
  * @returns {boolean}
  */
 const isEqualArray = function(source: Array<any>, target: Array<any>): boolean {
-    if (source.length !== target.length) return false
-    for (let index in source) {
-        if (!isEqual(source[index], target[index])) {
-            return false
-        }
+  if (source.length !== target.length) return false
+  for (let index in source) {
+    if (!isEqual(source[index], target[index])) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -222,17 +222,17 @@ const isEqualArray = function(source: Array<any>, target: Array<any>): boolean {
  * @returns {boolean}
  */
 export const isEqual = function(source: any, target: any): boolean {
-    let [sourceType, targetType] = [typeZh(source), typeZh(target)]
-    if (sourceType !== targetType) return false
-    if (isValueList([source, target])) {
-        return source === target
-    } else if (sourceType === "对象") {
-        return isEqualObject(source as IObject, target as IObject)
-    } else if (sourceType === "数组") {
-        return isEqualArray(source as Array<any>, target as Array<any>)
-    } else {
-        return false
-    }
+  let [sourceType, targetType] = [typeZh(source), typeZh(target)]
+  if (sourceType !== targetType) return false
+  if (isValueList([source, target])) {
+    return source === target
+  } else if (sourceType === '对象') {
+    return isEqualObject(source as IObject, target as IObject)
+  } else if (sourceType === '数组') {
+    return isEqualArray(source as Array<any>, target as Array<any>)
+  } else {
+    return false
+  }
 }
 
 /**
@@ -243,14 +243,14 @@ export const isEqual = function(source: any, target: any): boolean {
  * @returns {IObject}
  */
 const deepMergeObject = function(source: IObject, acc: IObject): IObject {
-    for (let [key, value] of Object.entries(source)) {
-        if (value instanceof Object && key in acc) {
-            value = deepMerge(acc[key], value)
-        }
-        acc = { ...acc, [key]: value }
+  for (let [key, value] of Object.entries(source)) {
+    if (value instanceof Object && key in acc) {
+      value = deepMerge(acc[key], value)
     }
-    let result = acc
-    return result
+    acc = { ...acc, [key]: value }
+  }
+  let result = acc
+  return result
 }
 
 /**
@@ -260,17 +260,17 @@ const deepMergeObject = function(source: IObject, acc: IObject): IObject {
  * @returns {(Object | Array<any>)}
  */
 export const deepMerge = function(
-    ...sources: Array<Object | Array<any>>
+  ...sources: Array<Object | Array<any>>
 ): Object | Array<any> {
-    let acc: IObject | Array<any> = {}
-    for (let source of sources) {
-        if (source instanceof Array) {
-            acc = [...(source as Array<any>)]
-        } else if (typeZh(source) === "对象") {
-            acc = deepMergeObject(source, acc as IObject)
-        }
+  let acc: IObject | Array<any> = {}
+  for (let source of sources) {
+    if (source instanceof Array) {
+      acc = [...(source as Array<any>)]
+    } else if (typeZh(source) === '对象') {
+      acc = deepMergeObject(source, acc as IObject)
     }
-    return acc
+  }
+  return acc
 }
 
 /**
@@ -280,11 +280,11 @@ export const deepMerge = function(
  * @param {IObject} target
  */
 export const migration = function(source: IObject, target: IObject) {
-    for (let key in target) {
-        if (target.hasOwnProperty(key)) {
-            source[key] = target[key]
-        }
+  for (let key in target) {
+    if (target.hasOwnProperty(key)) {
+      source[key] = target[key]
     }
+  }
 }
 
 /**
@@ -295,22 +295,22 @@ export const migration = function(source: IObject, target: IObject) {
  * @returns {(any | null)}
  */
 export const objectGet = function(
-    obj: IObject,
-    ...keyList: Array<string>
+  obj: IObject,
+  ...keyList: Array<string>
 ): any | null {
-    let result = null
-    try {
-        let keyList_ = [...keyList]
-        let obj_: IObject = JSON.parse(JSON.stringify(obj))
-        while (keyList_.length > 0) {
-            let key = keyList_[0]
-            result = obj_[key]
-            keyList_.shift()
-            obj_ = result
-        }
-        return result
-    } catch (error) {
-        result = null
-        return result
+  let result = null
+  try {
+    let keyList_ = [...keyList]
+    let obj_: IObject = JSON.parse(JSON.stringify(obj))
+    while (keyList_.length > 0) {
+      let key = keyList_[0]
+      result = obj_[key]
+      keyList_.shift()
+      obj_ = result
     }
+    return result
+  } catch (error) {
+    result = null
+    return result
+  }
 }
