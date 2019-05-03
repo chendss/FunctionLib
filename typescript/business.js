@@ -165,7 +165,7 @@ export const checkRouts = function (...routesList) {
     }
 };
 /**
- * 平面结构转树状结构
+ * 平面结构转树状结构(数组转树结构)
  *
  * @param {IArrayObject} temp
  * @param {string} parentId
@@ -200,4 +200,29 @@ export const menuCreate = function (serverMenu) {
         result.push(parent);
     }
     return result;
+};
+/**
+* 滚动条动画移动到元素锚点
+*
+* @param {HTMLElement} ele 移动到的元素
+* @param {number} [dy=40] 偏移量
+*/
+export const scrollDom = function (ele, dy = 40) {
+    let total = ele.offsetTop - dy;
+    let distance = document.documentElement.scrollTop || document.body.scrollTop;
+    // 计算每一小段的距离
+    let step = total / 50;
+    (function smoothDown() {
+        if (distance < total) {
+            distance += step; // 移动一小段
+            document.body.scrollTop = distance;
+            document.documentElement.scrollTop = distance; // 设定每一次跳动的时间间隔为10ms
+            setTimeout(smoothDown, 5);
+        }
+        else {
+            // 限制滚动停止时的距离
+            document.body.scrollTop = total;
+            document.documentElement.scrollTop = total;
+        }
+    })();
 };

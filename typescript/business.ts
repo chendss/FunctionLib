@@ -9,7 +9,7 @@ import { log } from "./debug"
  * @param {(IArrayValue)} list
  * @returns {string}
  */
-export const rangSymbol = function(symbol: string, value: IArrayValue): string {
+export const rangSymbol = function (symbol: string, value: IArrayValue): string {
     let result = ""
     let low = value[0]
     let hight = value[1]
@@ -31,7 +31,7 @@ export const rangSymbol = function(symbol: string, value: IArrayValue): string {
  * @param {(number | string)} source
  * @returns {string}
  */
-export const addZero = function(source: number | string): string {
+export const addZero = function (source: number | string): string {
     if (typeZh(source) === "数字") {
         return source <= 9 ? `0${source}` : String(source)
     } else {
@@ -46,7 +46,7 @@ export const addZero = function(source: number | string): string {
  * @param {Array<string>} strList
  * @returns
  */
-export const toObjArray = function(strList: Array<string>) {
+export const toObjArray = function (strList: Array<string>) {
     let strList_ = castArray(strList) as IArrayObject
     let result = strList_.map(item => {
         return { text: item, value: item, checked: false }
@@ -60,7 +60,7 @@ export const toObjArray = function(strList: Array<string>) {
  * @param {Array<[string, string, any]>} dataList
  * @returns
  */
-export const formDataStructure = function(
+export const formDataStructure = function (
     dataList: Array<[string, string, any]>
 ): IObject {
     let form: IObject = {}
@@ -84,7 +84,7 @@ export const formDataStructure = function(
  * @param {IObject} config
  * @returns {IObject}
  */
-const ruleCreate = function(config: IObject): IObject {
+const ruleCreate = function (config: IObject): IObject {
     let itemType = config["itemType"]
     let trigger = ""
     if (["input", "toggleInput", "textarea", "map"].includes(itemType)) {
@@ -107,7 +107,7 @@ const ruleCreate = function(config: IObject): IObject {
  * @param {IArrayObject} configList
  * @returns {IObject}
  */
-export const rulesCreate = function(
+export const rulesCreate = function (
     keyList: Array<string>,
     configList: IArrayObject
 ): IObject {
@@ -128,7 +128,7 @@ export const rulesCreate = function(
  * @param {IObject} newRules
  * @returns IObject
  */
-export const rulesMerge = function(rules: IObject, newRules: IObject): IObject {
+export const rulesMerge = function (rules: IObject, newRules: IObject): IObject {
     let keyList = Object.keys(newRules)
     for (let key of keyList) {
         let oldRule = rules[key][0]
@@ -147,7 +147,7 @@ export const rulesMerge = function(rules: IObject, newRules: IObject): IObject {
  * @param {...Array<IArrayObject>} routesList
  * @returns {Boolean}
  */
-export const checkRouts = function(
+export const checkRouts = function (
     ...routesList: Array<IArrayObject>
 ): Boolean {
     let pathList = routesList.map(routes => routes.map(route => route.path))
@@ -175,13 +175,13 @@ export const checkRouts = function(
 }
 
 /**
- * 平面结构转树状结构
+ * 平面结构转树状结构(数组转树结构)
  *
  * @param {IArrayObject} temp
  * @param {string} parentId
  * @returns {IArrayObject}
  */
-const toTree = function(
+const toTree = function (
     temp: IArrayObject,
     parentId: string
 ): IArrayObject {
@@ -206,7 +206,7 @@ const toTree = function(
  * @param {IArrayObject} serverMenu
  * @returns {IArrayObject}
  */
-export const menuCreate = function(serverMenu: IArrayObject): IArrayObject {
+export const menuCreate = function (serverMenu: IArrayObject): IArrayObject {
     let parentList = serverMenu.filter(menu => menu.pid == null)
     let result: IArrayObject = []
     for (let parent of parentList) {
@@ -214,4 +214,30 @@ export const menuCreate = function(serverMenu: IArrayObject): IArrayObject {
         result.push(parent)
     }
     return result
+}
+
+
+/**
+* 滚动条动画移动到元素锚点
+*
+* @param {HTMLElement} ele 移动到的元素
+* @param {number} [dy=40] 偏移量
+*/
+export const scrollDom = function (ele: HTMLElement, dy: number = 40) {
+    let total = ele.offsetTop - dy
+    let distance = document.documentElement.scrollTop || document.body.scrollTop
+    // 计算每一小段的距离
+    let step = total / 50
+        ; (function smoothDown() {
+            if (distance < total) {
+                distance += step // 移动一小段
+                document.body.scrollTop = distance
+                document.documentElement.scrollTop = distance // 设定每一次跳动的时间间隔为10ms
+                setTimeout(smoothDown, 5)
+            } else {
+                // 限制滚动停止时的距离
+                document.body.scrollTop = total
+                document.documentElement.scrollTop = total
+            }
+        })()
 }
