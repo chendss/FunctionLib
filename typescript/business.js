@@ -1,6 +1,7 @@
-import { paramsSome, paramsEvery } from "./paramsTools";
-import { typeZh, deepMerge, deepCopy } from "./objectTools";
-import { castArray, flattenDeep, removalRepeat } from "./arrayTools";
+import { paramsSome, paramsEvery } from './paramsTools';
+import { typeZh, deepMerge, deepCopy } from './objectTools';
+import { castArray, flattenDeep, removalRepeat } from './arrayTools';
+import { docTop } from './dom';
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -9,16 +10,16 @@ import { castArray, flattenDeep, removalRepeat } from "./arrayTools";
  * @returns {string}
  */
 export const rangSymbol = function (symbol, value) {
-    let result = "";
+    let result = '';
     let low = value[0];
     let hight = value[1];
-    if (paramsEvery([0, "0"], low, hight)) {
-        result = "不限";
+    if (paramsEvery([0, '0'], low, hight)) {
+        result = '不限';
     }
-    else if (paramsSome([0, "0"], low)) {
+    else if (paramsSome([0, '0'], low)) {
         result = `${hight}${symbol}以下`;
     }
-    else if (paramsSome([0, "0"], hight)) {
+    else if (paramsSome([0, '0'], hight)) {
         result = `${low}${symbol}以上`;
     }
     else {
@@ -33,7 +34,7 @@ export const rangSymbol = function (symbol, value) {
  * @returns {string}
  */
 export const addZero = function (source) {
-    if (typeZh(source) === "数字") {
+    if (typeZh(source) === '数字') {
         return source <= 9 ? `0${source}` : String(source);
     }
     else {
@@ -67,9 +68,9 @@ export const formDataStructure = function (dataList) {
         let name = item[1];
         let value = item[2];
         let keyConfig = item[0];
-        let [key, itemType] = keyConfig.includes("-")
-            ? [...keyConfig.split("-")]
-            : [keyConfig, "input"];
+        let [key, itemType] = keyConfig.includes('-')
+            ? [...keyConfig.split('-')]
+            : [keyConfig, 'input'];
         form[key] = value;
         config.push({ key, text: name, itemType });
     }
@@ -82,17 +83,17 @@ export const formDataStructure = function (dataList) {
  * @returns {IObject}
  */
 const ruleCreate = function (config) {
-    let itemType = config["itemType"];
-    let trigger = "";
-    if (["input", "toggleInput", "textarea", "map"].includes(itemType)) {
-        trigger = "blur";
+    let itemType = config['itemType'];
+    let trigger = '';
+    if (['input', 'toggleInput', 'textarea', 'map'].includes(itemType)) {
+        trigger = 'blur';
     }
-    else if (["select", "multipleSelect"].includes(itemType)) {
-        trigger = "change";
+    else if (['select', 'multipleSelect'].includes(itemType)) {
+        trigger = 'change';
     }
     let result = {
         required: true,
-        message: `请${trigger === "blur" ? "输入" : "选择"}${config.text}`,
+        message: `请${trigger === 'blur' ? '输入' : '选择'}${config.text}`,
         trigger
     };
     return result;
@@ -126,10 +127,10 @@ export const rulesMerge = function (rules, newRules) {
     let keyList = Object.keys(newRules);
     for (let key of keyList) {
         let oldRule = rules[key][0];
-        if (typeZh(newRules[key]) === "对象") {
+        if (typeZh(newRules[key]) === '对象') {
             rules[key][0] = deepMerge(oldRule, newRules[key]);
         }
-        else if (typeZh(newRules[key]) === "数组") {
+        else if (typeZh(newRules[key]) === '数组') {
             rules[key] = rules[key].concat(newRules[key]);
         }
     }
@@ -145,7 +146,7 @@ export const checkRouts = function (...routesList) {
     let pathList = routesList.map(routes => routes.map(route => route.path));
     let flattenRoutes = flattenDeep(pathList);
     let routeName = [];
-    let name = "";
+    let name = '';
     for (let route of flattenRoutes) {
         if (flattenRoutes.filter(r => r === route).length !== 1) {
             name = String(route);
@@ -158,7 +159,7 @@ export const checkRouts = function (...routesList) {
     }
     routeName = removalRepeat(routeName);
     if (routeName.length !== 0) {
-        throw new Error(`${name} 路由重复，分别在 第 ${routeName.join(",")} 号路由数组`);
+        throw new Error(`${name} 路由重复，分别在 第 ${routeName.join(',')} 号路由数组`);
     }
     else {
         return true;
@@ -202,27 +203,25 @@ export const menuCreate = function (serverMenu) {
     return result;
 };
 /**
-* 滚动条动画移动到元素锚点
-*
-* @param {HTMLElement} ele 移动到的元素
-* @param {number} [dy=40] 偏移量
-*/
-export const scrollDom = function (ele, dy = 40) {
-    let total = ele.offsetTop - dy;
+ * 滚动条动画移动到元素锚点
+ *
+ * @param {HTMLElement} ele 移动到的元素
+ * @param {number} [dy=window.outerHeight / 6] 偏移量
+ * @param {number} [time=5] 动画一帧的时间
+ */
+export const scrolMove = function (ele, dy = window.outerHeight / 6, time = 5) {
+    let total = docTop(ele) - dy;
     let distance = document.documentElement.scrollTop || document.body.scrollTop;
     // 计算每一小段的距离
     let step = total / 50;
-    (function smoothDown() {
+    let scrolMoveInterval = setInterval(() => {
         if (distance < total) {
             distance += step; // 移动一小段
             document.body.scrollTop = distance;
             document.documentElement.scrollTop = distance; // 设定每一次跳动的时间间隔为10ms
-            setTimeout(smoothDown, 5);
         }
         else {
-            // 限制滚动停止时的距离
-            document.body.scrollTop = total;
-            document.documentElement.scrollTop = total;
+            clearInterval(scrolMoveInterval);
         }
-    })();
+    }, time);
 };

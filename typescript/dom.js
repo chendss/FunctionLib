@@ -24,7 +24,7 @@ export const qs = function (selector) {
  */
 export const bindClick = function (selector, handle) {
     const queries = qs(selector);
-    queries.forEach(q => q.addEventListener("click", handle, false));
+    queries.forEach(q => q.addEventListener('click', handle, false));
 };
 /**
  * 绑定该选择器匹配的所有 DOM对象的input事件
@@ -34,7 +34,7 @@ export const bindClick = function (selector, handle) {
  */
 export const bindInput = function (selector, handle) {
     const queries = qs(selector);
-    queries.forEach(q => q.addEventListener("input", handle, false));
+    queries.forEach(q => q.addEventListener('input', handle, false));
 };
 /**
  * 获得滚动条位置
@@ -50,4 +50,17 @@ export const windowScrollTop = function () {
     else {
         return Y1;
     }
+};
+/**
+ * 获得元素距离文档顶部距离
+ *
+ * @param {HTMLElement} ele
+ * @returns
+ */
+export const docTop = function (ele) {
+    let top = ele.offsetTop;
+    while (ele.offsetParent != null && (ele = ele.offsetParent)) {
+        top += ele.offsetTop;
+    }
+    return top;
 };
