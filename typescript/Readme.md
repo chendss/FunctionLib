@@ -78,6 +78,7 @@
 ### http 相关工具 - httpTools
 
 - `param` 将对象转化成 url 查询字符串
+- `queryParse` 查询字符串转对象
 
 ### 业务需求（难以分类） - business
 
@@ -103,3 +104,10 @@
 ### 函数调用相关 - function
 
 - `asyncCall` 同步调用判断函数，全部为 true 时返回 ture
+
+## git 命令
+
+```
+git remote add origin http://d.bjong.me:9546/GGMF/FunctionLib.git
+git remote set-url --add origin https://github.com/chendss/FunctionLib.git
+```
