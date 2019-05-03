@@ -8,7 +8,7 @@ import { log } from "./debug"
  * @param {number} n
  * @returns
  */
-export const chunk = function<T>(array: T[], n: number): T[][] {
+export const chunk = function <T>(array: T[], n: number): T[][] {
     let result: T[][] = []
     for (let i = 0, len = array.length; i < len; i += n) {
         result.push(array.slice(i, i + n))
@@ -23,7 +23,7 @@ export const chunk = function<T>(array: T[], n: number): T[][] {
  * @param {T[]} array
  * @returns {boolean}
  */
-export const isValueList = function<T>(array: T[]): boolean {
+export const isValueList = function <T>(array: T[]): boolean {
     for (let item of array) {
         let itemType = typeZh(item)
         if (!isIntersection([itemType], ["字符串", "数字"])) {
@@ -41,7 +41,7 @@ export const isValueList = function<T>(array: T[]): boolean {
  * @param {string} [key=""]
  * @returns {T[]}
  */
-export const removalRepeat = function<T>(array: T[], key: string = ""): T[] {
+export const removalRepeat = function <T>(array: T[], key: string = ""): T[] {
     if (isValueList(array)) {
         let result = Array.from(new Set(array))
         return result
@@ -66,7 +66,7 @@ export const removalRepeat = function<T>(array: T[], key: string = ""): T[] {
  * @param {T[]} target
  * @returns {T[]}
  */
-export const concatFront = function<T>(source: T[], target: T[]): T[] {
+export const concatFront = function <T>(source: T[], target: T[]): T[] {
     let result = target.concat(source)
     return result
 }
@@ -77,7 +77,7 @@ export const concatFront = function<T>(source: T[], target: T[]): T[] {
  * @param {*} val
  * @returns {Array<any>}
  */
-export const castArray = function(val: any): Array<any> {
+export const castArray = function (val: any): Array<any> {
     if (typeZh(val) === "数组") {
         return val
     } else {
@@ -92,7 +92,7 @@ export const castArray = function(val: any): Array<any> {
  * @param {(Array<string | number>)} list2
  * @returns {(Array<string | number>)}
  */
-export const intersection = function(
+export const intersection = function (
     list1: Array<string | number>,
     list2: Array<string | number>
 ): Array<string | number> {
@@ -109,7 +109,7 @@ export const intersection = function(
  * @param {(Array<string | number>)} list2
  * @returns {boolean}
  */
-export const isIntersection = function(
+export const isIntersection = function (
     list1: Array<string | number>,
     list2: Array<string | number>
 ): boolean {
@@ -130,7 +130,7 @@ export const isIntersection = function(
  * @param {(Array<string | number>)} S2
  * @returns {boolean}
  */
-export const isSetEquality = function(
+export const isSetEquality = function (
     S1: Array<string | number>,
     S2: Array<string | number>
 ): boolean {
@@ -151,7 +151,7 @@ export const isSetEquality = function(
  * @param {Array<any>} array
  * @returns {(Array<string | number>)}
  */
-export const flattenDeep = function(array: Array<any>): Array<string | number> {
+export const flattenDeep = function (array: Array<any>): Array<string | number> {
     let result: Array<string | number> = []
     for (let item of array) {
         if (item instanceof Array) {
@@ -170,7 +170,7 @@ export const flattenDeep = function(array: Array<any>): Array<string | number> {
  * @param {number} n 数组长度
  * @returns {Array<number>}
  */
-export const range = function(n: number): Array<number> {
+export const range = function (n: number): Array<number> {
     let result: Array<number> = arrayDefault(n, (i: number) => i)
     return result
 }
@@ -182,7 +182,7 @@ export const range = function(n: number): Array<number> {
  * @param {*} item 默认值
  * @returns {Array<any>}
  */
-export const arrayDefault = function(n: number, item: any = null): Array<any> {
+export const arrayDefault = function (n: number, item: any = null): Array<any> {
     let result = []
     for (let i = 0; i < n; i++) {
         if (typeZh(item) === "函数") {
@@ -200,7 +200,7 @@ export const arrayDefault = function(n: number, item: any = null): Array<any> {
  * @param { any)} list_
  * @returns {number}
  */
-export const len = function(source: any): number {
+export const len = function (source: any): number {
     let type_ = typeZh(source)
     let result = 0
     if (paramsSome(type_, "数组", "字符串")) {
@@ -220,7 +220,7 @@ export const len = function(source: any): number {
  * @param {T[]} array
  * @returns {T[]}
  */
-export const compact = function<T>(array: T[]): T[] {
+export const compact = function <T>(array: T[]): T[] {
     let result = array.filter(arr => isFalse(arr))
     return result
 }
@@ -231,7 +231,7 @@ export const compact = function<T>(array: T[]): T[] {
  * @param {Array<any>} array
  * @param {number} [n=0]
  */
-export const nth = function(array: Array<any>, n: number = 0) {
+export const nth = function (array: Array<any>, n: number = 0) {
     let length = array.length
     if (n >= 0) {
         return array[n]
@@ -249,7 +249,7 @@ export const nth = function(array: Array<any>, n: number = 0) {
  * @param {string} [key=""]
  * @returns {boolean}
  */
-export const includesPro = function(
+export const includesPro = function (
     array: IArrayValueObject,
     key: string = "",
     value: string | number
@@ -269,7 +269,7 @@ export const includesPro = function(
  * @param {Array<any>} array
  * @returns
  */
-export const sampleSize = function(array: Array<any>, n: number = 1) {
+export const sampleSize = function (array: Array<any>, n: number = 1) {
     let length = array.length
     let result = []
     for (let i of range(n)) {
@@ -287,12 +287,33 @@ export const sampleSize = function(array: Array<any>, n: number = 1) {
  * @param {Function} callback
  * @returns {T[]}
  */
-export const findAll = function<T>(array: T[], callback: Function): T[] {
+export const findAll = function <T>(array: T[], callback: Function): T[] {
     let result: T[] = []
     for (let item of array) {
         if (callback(item)) {
             result.push(item)
         }
+    }
+    return result
+}
+
+
+/**
+* 去除数组的重复元素，包括对象数组
+*  callback(array[], result[])
+* @template T
+* @param {T[]} array
+* @param {(Function | null)} [callback=null]
+* @returns {T[]}
+*/
+export const removeCopy = function <T>(array: T[], callback: Function | null = null): T[] {
+    let result: T[] = []
+    if (callback == null) {
+        result = Array.from(new Set(array))
+    } else {
+        array.forEach(ele => {
+            ; result.find(item => callback(ele, item)) ? '' : result.push(ele)
+        })
     }
     return result
 }

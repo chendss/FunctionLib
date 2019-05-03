@@ -5,7 +5,7 @@
  * @returns {HTMLElement} DOM对象
  */
 export const q = function(selector: string): HTMLElement {
-    return document.querySelector(selector) as HTMLElement
+  return document.querySelector(selector) as HTMLElement
 }
 
 /**
@@ -15,7 +15,7 @@ export const q = function(selector: string): HTMLElement {
  * @returns {NodeListOf<Element>}
  */
 export const qs = function(selector: string): NodeListOf<Element> {
-    return document.querySelectorAll(selector)
+  return document.querySelectorAll(selector)
 }
 
 /**
@@ -25,11 +25,11 @@ export const qs = function(selector: string): NodeListOf<Element> {
  * @param {(e: Event) => void} handle click回调函数
  */
 export const bindClick = function(
-    selector: string,
-    handle: (e: Event) => void
+  selector: string,
+  handle: (e: Event) => void
 ) {
-    const queries = qs(selector)
-    queries.forEach(q => q.addEventListener("click", handle, false))
+  const queries = qs(selector)
+  queries.forEach(q => q.addEventListener('click', handle, false))
 }
 
 /**
@@ -39,11 +39,11 @@ export const bindClick = function(
  * @param {(e: Event) => void} handle click回调函数
  */
 export const bindInput = function(
-    selector: string,
-    handle: (e: Event) => void
+  selector: string,
+  handle: (e: Event) => void
 ) {
-    const queries = qs(selector)
-    queries.forEach(q => q.addEventListener("input", handle, false))
+  const queries = qs(selector)
+  queries.forEach(q => q.addEventListener('input', handle, false))
 }
 
 /**
@@ -52,11 +52,25 @@ export const bindInput = function(
  * @returns
  */
 export const windowScrollTop = function() {
-    let Y1 = document.documentElement.scrollTop
-    let Y2 = document.body.scrollTop
-    if (Y1 === 0) {
-        return Y2
-    } else {
-        return Y1
-    }
+  let Y1 = document.documentElement.scrollTop
+  let Y2 = document.body.scrollTop
+  if (Y1 === 0) {
+    return Y2
+  } else {
+    return Y1
+  }
+}
+
+/**
+ * 获得元素距离文档顶部距离
+ *
+ * @param {HTMLElement} ele
+ * @returns
+ */
+export const docTop = function(ele: HTMLElement) {
+  let top = ele.offsetTop
+  while (ele.offsetParent != null && (ele = ele.offsetParent as HTMLElement)) {
+    top += ele.offsetTop
+  }
+  return top
 }

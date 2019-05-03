@@ -1,7 +1,8 @@
-import { paramsSome, paramsEvery } from "./paramsTools"
-import { typeZh, deepMerge, deepCopy } from "./objectTools"
-import { castArray, flattenDeep, removalRepeat, findAll } from "./arrayTools"
-import { log } from "./debug"
+import { paramsSome, paramsEvery } from './paramsTools'
+import { typeZh, deepMerge, deepCopy } from './objectTools'
+import { castArray, flattenDeep, removalRepeat, findAll } from './arrayTools'
+import { log } from './debug'
+import { docTop } from './dom'
 /**
  * 范围转文字（[0,5] 5x以下）
  *
@@ -10,19 +11,19 @@ import { log } from "./debug"
  * @returns {string}
  */
 export const rangSymbol = function(symbol: string, value: IArrayValue): string {
-    let result = ""
-    let low = value[0]
-    let hight = value[1]
-    if (paramsEvery([0, "0"], low, hight)) {
-        result = "不限"
-    } else if (paramsSome([0, "0"], low)) {
-        result = `${hight}${symbol}以下`
-    } else if (paramsSome([0, "0"], hight)) {
-        result = `${low}${symbol}以上`
-    } else {
-        result = `${low}-${hight}${symbol}`
-    }
-    return result
+  let result = ''
+  let low = value[0]
+  let hight = value[1]
+  if (paramsEvery([0, '0'], low, hight)) {
+    result = '不限'
+  } else if (paramsSome([0, '0'], low)) {
+    result = `${hight}${symbol}以下`
+  } else if (paramsSome([0, '0'], hight)) {
+    result = `${low}${symbol}以上`
+  } else {
+    result = `${low}-${hight}${symbol}`
+  }
+  return result
 }
 
 /**
@@ -32,12 +33,12 @@ export const rangSymbol = function(symbol: string, value: IArrayValue): string {
  * @returns {string}
  */
 export const addZero = function(source: number | string): string {
-    if (typeZh(source) === "数字") {
-        return source <= 9 ? `0${source}` : String(source)
-    } else {
-        let source_ = parseInt(source as string)
-        return source_ <= 9 ? `0${source_}` : String(source_)
-    }
+  if (typeZh(source) === '数字') {
+    return source <= 9 ? `0${source}` : String(source)
+  } else {
+    let source_ = parseInt(source as string)
+    return source_ <= 9 ? `0${source_}` : String(source_)
+  }
 }
 
 /**
@@ -47,11 +48,11 @@ export const addZero = function(source: number | string): string {
  * @returns
  */
 export const toObjArray = function(strList: Array<string>) {
-    let strList_ = castArray(strList) as IArrayObject
-    let result = strList_.map(item => {
-        return { text: item, value: item, checked: false }
-    })
-    return result
+  let strList_ = castArray(strList) as IArrayObject
+  let result = strList_.map(item => {
+    return { text: item, value: item, checked: false }
+  })
+  return result
 }
 
 /**
@@ -61,21 +62,21 @@ export const toObjArray = function(strList: Array<string>) {
  * @returns
  */
 export const formDataStructure = function(
-    dataList: Array<[string, string, any]>
+  dataList: Array<[string, string, any]>
 ): IObject {
-    let form: IObject = {}
-    let config: IArrayObject = []
-    for (let item of dataList) {
-        let name = item[1]
-        let value = item[2]
-        let keyConfig = item[0]
-        let [key, itemType] = keyConfig.includes("-")
-            ? [...keyConfig.split("-")]
-            : [keyConfig, "input"]
-        form[key] = value
-        config.push({ key, text: name, itemType })
-    }
-    return { form, config }
+  let form: IObject = {}
+  let config: IArrayObject = []
+  for (let item of dataList) {
+    let name = item[1]
+    let value = item[2]
+    let keyConfig = item[0]
+    let [key, itemType] = keyConfig.includes('-')
+      ? [...keyConfig.split('-')]
+      : [keyConfig, 'input']
+    form[key] = value
+    config.push({ key, text: name, itemType })
+  }
+  return { form, config }
 }
 
 /**
@@ -85,19 +86,19 @@ export const formDataStructure = function(
  * @returns {IObject}
  */
 const ruleCreate = function(config: IObject): IObject {
-    let itemType = config["itemType"]
-    let trigger = ""
-    if (["input", "toggleInput", "textarea", "map"].includes(itemType)) {
-        trigger = "blur"
-    } else if (["select", "multipleSelect"].includes(itemType)) {
-        trigger = "change"
-    }
-    let result = {
-        required: true,
-        message: `请${trigger === "blur" ? "输入" : "选择"}${config.text}`,
-        trigger
-    }
-    return result
+  let itemType = config['itemType']
+  let trigger = ''
+  if (['input', 'toggleInput', 'textarea', 'map'].includes(itemType)) {
+    trigger = 'blur'
+  } else if (['select', 'multipleSelect'].includes(itemType)) {
+    trigger = 'change'
+  }
+  let result = {
+    required: true,
+    message: `请${trigger === 'blur' ? '输入' : '选择'}${config.text}`,
+    trigger
+  }
+  return result
 }
 
 /**
@@ -108,17 +109,17 @@ const ruleCreate = function(config: IObject): IObject {
  * @returns {IObject}
  */
 export const rulesCreate = function(
-    keyList: Array<string>,
-    configList: IArrayObject
+  keyList: Array<string>,
+  configList: IArrayObject
 ): IObject {
-    let result: IObject = {}
-    for (let key of keyList) {
-        result[key] = []
-        let config = configList.find(item => item.key === key)
-        if (config == null) continue
-        result[key].push(ruleCreate(config))
-    }
-    return result
+  let result: IObject = {}
+  for (let key of keyList) {
+    result[key] = []
+    let config = configList.find(item => item.key === key)
+    if (config == null) continue
+    result[key].push(ruleCreate(config))
+  }
+  return result
 }
 
 /**
@@ -129,16 +130,16 @@ export const rulesCreate = function(
  * @returns IObject
  */
 export const rulesMerge = function(rules: IObject, newRules: IObject): IObject {
-    let keyList = Object.keys(newRules)
-    for (let key of keyList) {
-        let oldRule = rules[key][0]
-        if (typeZh(newRules[key]) === "对象") {
-            rules[key][0] = deepMerge(oldRule, newRules[key])
-        } else if (typeZh(newRules[key]) === "数组") {
-            rules[key] = rules[key].concat(newRules[key])
-        }
+  let keyList = Object.keys(newRules)
+  for (let key of keyList) {
+    let oldRule = rules[key][0]
+    if (typeZh(newRules[key]) === '对象') {
+      rules[key][0] = deepMerge(oldRule, newRules[key])
+    } else if (typeZh(newRules[key]) === '数组') {
+      rules[key] = rules[key].concat(newRules[key])
     }
-    return rules
+  }
+  return rules
 }
 
 /**
@@ -148,56 +149,53 @@ export const rulesMerge = function(rules: IObject, newRules: IObject): IObject {
  * @returns {Boolean}
  */
 export const checkRouts = function(
-    ...routesList: Array<IArrayObject>
+  ...routesList: Array<IArrayObject>
 ): Boolean {
-    let pathList = routesList.map(routes => routes.map(route => route.path))
-    let flattenRoutes = flattenDeep(pathList)
-    let routeName: IArrayValueObject = []
-    let name = ""
-    for (let route of flattenRoutes) {
-        if (flattenRoutes.filter(r => r === route).length !== 1) {
-            name = String(route)
-            pathList.forEach((routes, i) => {
-                if (routes.includes(route)) {
-                    routeName.push(i)
-                }
-            })
+  let pathList = routesList.map(routes => routes.map(route => route.path))
+  let flattenRoutes = flattenDeep(pathList)
+  let routeName: IArrayValueObject = []
+  let name = ''
+  for (let route of flattenRoutes) {
+    if (flattenRoutes.filter(r => r === route).length !== 1) {
+      name = String(route)
+      pathList.forEach((routes, i) => {
+        if (routes.includes(route)) {
+          routeName.push(i)
         }
+      })
     }
-    routeName = removalRepeat(routeName)
-    if (routeName.length !== 0) {
-        throw new Error(
-            `${name} 路由重复，分别在 第 ${routeName.join(",")} 号路由数组`
-        )
-    } else {
-        return true
-    }
+  }
+  routeName = removalRepeat(routeName)
+  if (routeName.length !== 0) {
+    throw new Error(
+      `${name} 路由重复，分别在 第 ${routeName.join(',')} 号路由数组`
+    )
+  } else {
+    return true
+  }
 }
 
 /**
- * 平面结构转树状结构
+ * 平面结构转树状结构(数组转树结构)
  *
  * @param {IArrayObject} temp
  * @param {string} parentId
  * @returns {IArrayObject}
  */
-const toTree = function(
-    temp: IArrayObject,
-    parentId: string
-): IArrayObject {
-    let result: IArrayObject = []
-    let temp_: IArrayObject = []
-    for (let item of temp) {
-        if (item.pid === parentId) {
-            let sub = deepCopy(item)
-            temp_ = toTree(temp, item.id)
-            if (temp_.length > 0) {
-                sub.children = temp_
-            }
-            result.push(sub)
-        }
+const toTree = function(temp: IArrayObject, parentId: string): IArrayObject {
+  let result: IArrayObject = []
+  let temp_: IArrayObject = []
+  for (let item of temp) {
+    if (item.pid === parentId) {
+      let sub = deepCopy(item)
+      temp_ = toTree(temp, item.id)
+      if (temp_.length > 0) {
+        sub.children = temp_
+      }
+      result.push(sub)
     }
-    return result
+  }
+  return result
 }
 
 /**
@@ -207,11 +205,38 @@ const toTree = function(
  * @returns {IArrayObject}
  */
 export const menuCreate = function(serverMenu: IArrayObject): IArrayObject {
-    let parentList = serverMenu.filter(menu => menu.pid == null)
-    let result: IArrayObject = []
-    for (let parent of parentList) {
-        parent.children = toTree(serverMenu, parent.id)
-        result.push(parent)
+  let parentList = serverMenu.filter(menu => menu.pid == null)
+  let result: IArrayObject = []
+  for (let parent of parentList) {
+    parent.children = toTree(serverMenu, parent.id)
+    result.push(parent)
+  }
+  return result
+}
+
+/**
+ * 滚动条动画移动到元素锚点
+ *
+ * @param {HTMLElement} ele 移动到的元素
+ * @param {number} [dy=window.outerHeight / 6] 偏移量
+ * @param {number} [time=5] 动画一帧的时间
+ */
+export const scrolMove = function(
+  ele: HTMLElement,
+  dy: number = window.outerHeight / 6,
+  time: number = 5
+) {
+  let total = docTop(ele) - dy
+  let distance = document.documentElement.scrollTop || document.body.scrollTop
+  // 计算每一小段的距离
+  let step = total / 50
+  let scrolMoveInterval = setInterval(() => {
+    if (distance < total) {
+      distance += step // 移动一小段
+      document.body.scrollTop = distance
+      document.documentElement.scrollTop = distance // 设定每一次跳动的时间间隔为10ms
+    } else {
+      clearInterval(scrolMoveInterval)
     }
-    return result
+  }, time)
 }
