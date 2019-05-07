@@ -1,4 +1,3 @@
-import { isIntersection } from './arrayTools';
 import { typeZh } from './objectTools';
 /**
  * 将对象转化成url查询字符串
@@ -10,7 +9,8 @@ export const param = function (obj) {
     let result = [];
     for (let key in obj) {
         let val = obj[key];
-        if (isIntersection([typeZh(val)], ['字符串', '数字'])) {
+        let type = typeZh(val);
+        if (['字符串', '数字'].includes(type)) {
             result.push(`${key}=${val}`);
         }
         else {
@@ -27,10 +27,9 @@ export const param = function (obj) {
 export const queryParse = function (url) {
     let queryStr = url.split('?')[1];
     let result = {};
-    queryStr
-        .split('&')
-        .map(str => str.split('='))
-        .forEach(queryList => {
+    let queryStrArray = queryStr.split('&');
+    let queryArray = queryStrArray.map(item => item.split('='));
+    queryArray.forEach(queryList => {
         let [key, value] = queryList;
         result[key] = value;
     });

@@ -1,5 +1,5 @@
-import { isSetEquality, castArray } from "./arrayTools"
-import { isNaN } from "./objectTools"
+import { isSetEquality, castArray } from './arrayTools'
+import { isNaN } from './objectTools'
 
 /**
  * 批量判断第一个值是否与其他参数相等
@@ -9,15 +9,15 @@ import { isNaN } from "./objectTools"
  * @returns {boolean}
  */
 export const isEqualAll = function(
-    params: string | number,
-    ...args: Array<string | number>
+  params: string | number,
+  ...args: Array<string | number>
 ): boolean {
-    for (let arg of args) {
-        if (params !== arg) {
-            return false
-        }
+  for (let arg of args) {
+    if (params !== arg) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -27,12 +27,12 @@ export const isEqualAll = function(
  * @returns {boolean}
  */
 export const checkParameter = function(...params: Array<any>): boolean {
-    for (let item of params) {
-        if (item == null || isNaN(item)) {
-            return false
-        }
+  for (let item of params) {
+    if (item == null || isNaN(item)) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -43,17 +43,17 @@ export const checkParameter = function(...params: Array<any>): boolean {
  * @returns
  */
 export const paramsSome = function(
-    sourceArray: IArrayValue | any,
-    ...params: Array<any>
+  sourceArray: IArrayValue | any,
+  ...params: Array<any>
 ) {
-    let sourceList = castArray(sourceArray)
-    let args = [...params]
-    for (let arg of args) {
-        if (sourceList.includes(arg)) {
-            return true
-        }
+  let sourceList = castArray(sourceArray)
+  let args = [...params]
+  for (let arg of args) {
+    if (sourceList.includes(arg)) {
+      return true
     }
-    return false
+  }
+  return false
 }
 
 /**
@@ -64,16 +64,16 @@ export const paramsSome = function(
  * @returns
  */
 export const paramsEvery = function(
-    sourceArray: IArrayValue | any,
-    ...params: Array<any>
+  sourceArray: IArrayValue | any,
+  ...params: Array<any>
 ) {
-    let sourceList = castArray(sourceArray)
-    for (let arg of params) {
-        if (!sourceList.includes(arg)) {
-            return false
-        }
+  let sourceList = castArray(sourceArray)
+  for (let arg of params) {
+    if (!sourceList.includes(arg)) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -83,14 +83,14 @@ export const paramsEvery = function(
  * @returns {boolean}
  */
 export const isFalse = function(item: any): boolean {
-    let valueList = [null, undefined, "", 0, false]
-    if (valueList.includes(item)) {
-        return false
-    } else if (isNaN(item)) {
-        return false
-    } else {
-        return true
-    }
+  let valueList = [null, undefined, '', 0, false]
+  if (valueList.includes(item)) {
+    return true
+  } else if (isNaN(item)) {
+    return true
+  } else {
+    return false
+  }
 }
 
 /**
@@ -102,12 +102,12 @@ export const isFalse = function(item: any): boolean {
  * @returns
  */
 export const three = function(
-    condition: boolean,
-    trueValue: any,
-    falseValue: any
+  condition: boolean,
+  trueValue: any,
+  falseValue: any
 ) {
-    if (condition) {
-        return trueValue
-    }
-    return falseValue
+  if (condition) {
+    return trueValue
+  }
+  return falseValue
 }

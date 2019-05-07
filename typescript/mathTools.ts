@@ -6,16 +6,16 @@
  * @returns {boolean}
  */
 export const isSection = function(
-    source: number,
-    section: Array<number>
+  source: number,
+  section: Array<number>
 ): boolean {
-    let min = section[0]
-    let max = section[1]
-    if (source >= min && source <= max) {
-        return true
-    } else {
-        return false
-    }
+  let min = section[0]
+  let max = section[1]
+  if (source >= min && source <= max) {
+    return true
+  } else {
+    return false
+  }
 }
 
 /**
@@ -25,9 +25,23 @@ export const isSection = function(
  * @returns {number}
  */
 export const sum = function(array: Array<number>): number {
-    let result = 0
-    for (let n of array) {
-        result += n
-    }
-    return result
+  let result = 0
+  for (let n of array) {
+    result += n
+  }
+  return result
+}
+
+/**
+ * 计算数字数组的乘积
+ *
+ * @param {Array<number>} array
+ * @returns {number}
+ */
+export const accumulate = function(array: Array<number>): number {
+  let result = 1
+  array.forEach(n => {
+    result = result * n
+  })
+  return result
 }

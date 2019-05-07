@@ -1,5 +1,5 @@
-import { castArray } from "./arrayTools";
-import { isNaN } from "./objectTools";
+import { castArray } from './arrayTools';
+import { isNaN } from './objectTools';
 /**
  * 批量判断第一个值是否与其他参数相等
  *
@@ -69,15 +69,15 @@ export const paramsEvery = function (sourceArray, ...params) {
  * @returns {boolean}
  */
 export const isFalse = function (item) {
-    let valueList = [null, undefined, "", 0, false];
+    let valueList = [null, undefined, '', 0, false];
     if (valueList.includes(item)) {
-        return false;
+        return true;
     }
     else if (isNaN(item)) {
-        return false;
+        return true;
     }
     else {
-        return true;
+        return false;
     }
 };
 /**

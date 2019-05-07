@@ -44,12 +44,7 @@ export const bindInput = function (selector, handle) {
 export const windowScrollTop = function () {
     let Y1 = document.documentElement.scrollTop;
     let Y2 = document.body.scrollTop;
-    if (Y1 === 0) {
-        return Y2;
-    }
-    else {
-        return Y1;
-    }
+    return Y1 || Y2;
 };
 /**
  * 获得元素距离文档顶部距离

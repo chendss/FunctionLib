@@ -1,5 +1,5 @@
-import { paramsSome, isFalse, three } from "./paramsTools";
-import { typeZh } from "./objectTools";
+import { paramsSome, isFalse, three } from './paramsTools';
+import { typeZh } from './objectTools';
 /**
  * 分割数组
  *
@@ -24,7 +24,7 @@ export const chunk = function (array, n) {
 export const isValueList = function (array) {
     for (let item of array) {
         let itemType = typeZh(item);
-        if (!isIntersection([itemType], ["字符串", "数字"])) {
+        if (!isIntersection([itemType], ['字符串', '数字'])) {
             return false;
         }
     }
@@ -38,17 +38,16 @@ export const isValueList = function (array) {
  * @param {string} [key=""]
  * @returns {T[]}
  */
-export const removalRepeat = function (array, key = "") {
+export const removalRepeat = function (array, key = '') {
     if (isValueList(array)) {
         let result = Array.from(new Set(array));
         return result;
     }
     else {
         let result = [];
-        let array_ = array;
-        for (let source of array_) {
-            let list_ = result.filter(target => target[key] === source[key]);
-            if (list_.length === 0) {
+        for (let source of array) {
+            let item = result.find(target => target[key] === source[key]);
+            if (item == null) {
                 result.push(source);
             }
         }
@@ -74,7 +73,7 @@ export const concatFront = function (source, target) {
  * @returns {Array<any>}
  */
 export const castArray = function (val) {
-    if (typeZh(val) === "数组") {
+    if (typeZh(val) === '数组') {
         return val;
     }
     else {
@@ -169,7 +168,7 @@ export const range = function (n) {
 export const arrayDefault = function (n, item = null) {
     let result = [];
     for (let i = 0; i < n; i++) {
-        if (typeZh(item) === "函数") {
+        if (typeZh(item) === '函数') {
             result.push(item(i));
         }
         else {
@@ -181,17 +180,17 @@ export const arrayDefault = function (n, item = null) {
 /**
  * 返回元素的长度 数组，对象的键个数，字符串长度
  *
- * @param { any)} list_
+ * @param {(Object | Array<any> | String)} source
  * @returns {number}
  */
 export const len = function (source) {
     let type_ = typeZh(source);
     let result = 0;
-    if (paramsSome(type_, "数组", "字符串")) {
+    if (paramsSome(type_, '数组', '字符串')) {
         let source_ = source;
         result = source_.length;
     }
-    else if (type_ === "对象") {
+    else if (type_ === '对象') {
         let source_ = source;
         result = Object.keys(source_).length;
     }
@@ -205,23 +204,23 @@ export const len = function (source) {
  * @returns {T[]}
  */
 export const compact = function (array) {
-    let result = array.filter(arr => isFalse(arr));
+    let result = array.filter(arr => !isFalse(arr));
     return result;
 };
 /**
  * 获取array数组的第n个元素。如果n为负数，则返回从数组结尾开始的第n个元素。
  *
  * @param {Array<any>} array
- * @param {number} [n=0]
+ * @param {number} [index=0]
  */
-export const nth = function (array, n = 0) {
+export const nth = function (array, index = 0) {
     let length = array.length;
-    if (n >= 0) {
-        return array[n];
+    if (index >= 0) {
+        return array[index];
     }
     else {
-        let n_ = length - Math.abs(n);
-        return array[n_];
+        let n = length - Math.abs(index);
+        return array[n];
     }
 };
 /**
@@ -232,7 +231,7 @@ export const nth = function (array, n = 0) {
  * @param {string} [key=""]
  * @returns {boolean}
  */
-export const includesPro = function (array, key = "", value) {
+export const includesPro = function (array, key = '', value) {
     if (isValueList(array)) {
         return array.includes(value);
     }
@@ -275,13 +274,13 @@ export const findAll = function (array, callback) {
     return result;
 };
 /**
-* 去除数组的重复元素，包括对象数组
-*  callback(array[], result[])
-* @template T
-* @param {T[]} array
-* @param {(Function | null)} [callback=null]
-* @returns {T[]}
-*/
+ * 去除数组的重复元素，包括对象数组
+ *  callback(array[], result[])
+ * @template T
+ * @param {T[]} array
+ * @param {(Function | null)} [callback=null]
+ * @returns {T[]}
+ */
 export const removeCopy = function (array, callback = null) {
     let result = [];
     if (callback == null) {
@@ -289,7 +288,6 @@ export const removeCopy = function (array, callback = null) {
     }
     else {
         array.forEach(ele => {
-            ;
             result.find(item => callback(ele, item)) ? '' : result.push(ele);
         });
     }

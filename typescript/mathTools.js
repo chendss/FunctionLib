@@ -28,3 +28,16 @@ export const sum = function (array) {
     }
     return result;
 };
+/**
+ * 计算数字数组的乘积
+ *
+ * @param {Array<number>} array
+ * @returns {number}
+ */
+export const accumulate = function (array) {
+    let result = 1;
+    array.forEach(n => {
+        result = result * n;
+    });
+    return result;
+};

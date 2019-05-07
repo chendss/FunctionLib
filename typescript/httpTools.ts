@@ -1,5 +1,4 @@
 import { log } from './debug'
-import { isIntersection } from './arrayTools'
 import { typeZh } from './objectTools'
 
 /**
@@ -12,7 +11,8 @@ export const param = function(obj: IObjectValue): string {
   let result: Array<string> = []
   for (let key in obj) {
     let val = obj[key]
-    if (isIntersection([typeZh(val)], ['字符串', '数字'])) {
+    let type = typeZh(val)
+    if (['字符串', '数字'].includes(type)) {
       result.push(`${key}=${val}`)
     } else {
       throw new Error('只允许传入字符串和数字')
@@ -29,12 +29,11 @@ export const param = function(obj: IObjectValue): string {
 export const queryParse = function(url: string) {
   let queryStr = url.split('?')[1]
   let result: IObject = {}
-  queryStr
-    .split('&')
-    .map(str => str.split('='))
-    .forEach(queryList => {
-      let [key, value] = queryList
-      result[key] = value
-    })
+  let queryStrArray = queryStr.split('&')
+  let queryArray = queryStrArray.map(item => item.split('='))
+  queryArray.forEach(queryList => {
+    let [key, value] = queryList
+    result[key] = value
+  })
   return result
 }

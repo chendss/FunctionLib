@@ -54,11 +54,7 @@ export const bindInput = function(
 export const windowScrollTop = function() {
   let Y1 = document.documentElement.scrollTop
   let Y2 = document.body.scrollTop
-  if (Y1 === 0) {
-    return Y2
-  } else {
-    return Y1
-  }
+  return Y1 || Y2
 }
 
 /**
