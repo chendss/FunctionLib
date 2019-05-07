@@ -100,6 +100,8 @@
 ### 数学业务库 - mathTools
 
 - `isSection` 判断是否在这个区间内
+- `accumulate` 计算数字数组的乘积
+- `sum` 计算数字数组的和
 
 ### 函数调用相关 - function
 

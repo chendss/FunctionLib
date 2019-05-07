@@ -1,5 +1,5 @@
 import { isSetEquality, castArray } from './arrayTools'
-import { isNaN } from './objectTools'
+import { isNaN, typeZh } from './objectTools'
 
 /**
  * 批量判断第一个值是否与其他参数相等
@@ -106,8 +106,11 @@ export const three = function(
   trueValue: any,
   falseValue: any
 ) {
+  let result = null
   if (condition) {
-    return trueValue
+    result = trueValue
+  } else {
+    result = falseValue
   }
-  return falseValue
+  return typeZh(result) === '函数' ? result() : result
 }

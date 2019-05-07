@@ -1,5 +1,5 @@
 import { castArray } from './arrayTools';
-import { isNaN } from './objectTools';
+import { isNaN, typeZh } from './objectTools';
 /**
  * 批量判断第一个值是否与其他参数相等
  *
@@ -89,8 +89,12 @@ export const isFalse = function (item) {
  * @returns
  */
 export const three = function (condition, trueValue, falseValue) {
+    let result = null;
     if (condition) {
-        return trueValue;
+        result = trueValue;
     }
-    return falseValue;
+    else {
+        result = falseValue;
+    }
+    return typeZh(result) === '函数' ? result() : result;
 };
