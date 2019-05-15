@@ -51,8 +51,17 @@ def main():
     self = Queue()
     # loop(acc, self)
     # list(map(lambda _: log(get(acc, self)), range(10)))
-    [ log(get(acc, self)) for _ in range(10) ]
+    [log(get(acc, self)) for _ in range(10)]
     close(acc)
 
 
-main()
+# main()
+
+def f(n):
+    result = 1
+    for i in range(1, n):
+        result *= i
+    return result
+
+
+print(f(50000))

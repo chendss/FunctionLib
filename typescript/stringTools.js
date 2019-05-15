@@ -46,17 +46,6 @@ export const format = function (source, ...args) {
     return result;
 };
 /**
- * 将关键字插入字符串前面
- *
- * @param {string} source 字符串
- * @param {string} str 关键字
- * @returns {string}
- */
-export const shift = function (source, str) {
-    let result = str + source;
-    return result;
-};
-/**
  * 去除字符串空格
  *
  * @param {string} str

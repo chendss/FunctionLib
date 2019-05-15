@@ -41,3 +41,21 @@ export const accumulate = function (array) {
     });
     return result;
 };
+/**
+ * 阶乘的实现
+ *
+ * @param {number} number
+ * @returns
+ */
+export const factorial = function (number) {
+    let result = [1];
+    for (var i = 2; i <= number; ++i) {
+        let c = 0; //c代表进位
+        for (let j = 0; j < result.length || c !== 0; ++j) {
+            c += (result[j] || 0) * i;
+            result[j] = c % 10; //分别求出个位、十位、百位……的数
+            c = Math.floor(c / 10);
+        }
+    }
+    return result.reverse().join('');
+};

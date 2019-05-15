@@ -54,7 +54,6 @@
 
 - `findCount` 获得字符串里关键字的数量
 - `format` 类似 py 的 format 函数
-- `shift` 将关键字插入字符串前面
 - `replaceAll` 替换所有查询字符串
 
 ### Time - time
